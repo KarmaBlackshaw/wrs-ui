@@ -10,6 +10,8 @@ import type { TReportColumn } from "@/types/report";
 
 definePage({ meta: { title: "Drawer" } });
 
+const toast = useToast();
+
 const latestSession = drawerSessions.at(-1) ?? null;
 const sessionDay = latestSession ? new Date(latestSession.openedAt) : new Date();
 
@@ -80,7 +82,7 @@ function confirmOpen() {
   isOpen.value = true;
   openPad.value = "";
   openSheetOpen.value = false;
-  useToast().show("Saved");
+  toast.show("Saved");
 }
 
 function confirmExpense() {
@@ -92,14 +94,14 @@ function confirmExpense() {
   expensePad.value = "";
   expenseNote.value = "";
   expenseSheetOpen.value = false;
-  useToast().show("Saved");
+  toast.show("Saved");
 }
 
 function confirmClose() {
   isOpen.value = false;
   closeSheetOpen.value = false;
   countPad.value = "";
-  useToast().show("Saved");
+  toast.show("Saved");
 }
 </script>
 

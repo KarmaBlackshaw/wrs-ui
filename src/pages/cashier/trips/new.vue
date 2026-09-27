@@ -6,6 +6,7 @@ import { ROUTES } from "@/types/routes";
 definePage({ meta: { title: "New load-out" } });
 
 const router = useRouter();
+const toast = useToast();
 
 const riders = employees.filter((employee) => employee.active && employee.roles.includes("rider"));
 const roundRefills = products.filter((product) => product.active && product.kind === "refill" && product.containerType === "round");
@@ -28,7 +29,7 @@ function confirm() {
     return;
   }
 
-  useToast().show("Saved");
+  toast.show("Saved");
   router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>

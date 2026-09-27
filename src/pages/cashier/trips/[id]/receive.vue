@@ -7,6 +7,7 @@ const { productName } = useProductLookup();
 
 const route = useRoute<"/cashier/trips/[id]/receive">();
 const router = useRouter();
+const toast = useToast();
 
 const summary = tripSummary(route.params.id);
 
@@ -36,7 +37,7 @@ function setEmpty(productId: string, qty: number) {
 }
 
 function submit() {
-  useToast().show("Saved");
+  toast.show("Saved");
   router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>

@@ -5,6 +5,7 @@ import { ROUTES } from "@/types/routes";
 definePage({ meta: { title: "Daily count" } });
 
 const router = useRouter();
+const toast = useToast();
 
 const stationHoldings = containerHoldings.filter((holding) => holding.location === "station");
 
@@ -35,7 +36,7 @@ function variance(type: string, field: "full" | "empty") {
 }
 
 function submit() {
-  useToast().show("Saved");
+  toast.show("Saved");
   router.push(ROUTES.CASHIER.INDEX);
 }
 </script>

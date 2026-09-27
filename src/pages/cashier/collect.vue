@@ -3,6 +3,8 @@ import type { TCustomer } from "@/types/entities/customer";
 
 definePage({ meta: { title: "Collect payment" } });
 
+const toast = useToast();
+
 const customer = ref<TCustomer | null>(null);
 const customerSheetOpen = ref(true);
 const pad = ref("");
@@ -19,7 +21,7 @@ function confirm() {
     return;
   }
 
-  useToast().show("Saved");
+  toast.show("Saved");
   pad.value = "";
   customerSheetOpen.value = true;
   customer.value = null;

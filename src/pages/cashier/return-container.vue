@@ -5,6 +5,8 @@ import { containerTypes } from "@/mocks/containerTypes";
 
 definePage({ meta: { title: "Return container" } });
 
+const toast = useToast();
+
 const customer = ref<TCustomer | null>(null);
 const customerSheetOpen = ref(true);
 const returned = ref<Record<string, number>>({});
@@ -39,7 +41,7 @@ function confirm() {
     return;
   }
 
-  useToast().show("Saved");
+  toast.show("Saved");
   returned.value = {};
   customerSheetOpen.value = true;
   customer.value = null;

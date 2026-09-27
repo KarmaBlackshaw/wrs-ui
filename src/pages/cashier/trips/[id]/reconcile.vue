@@ -8,6 +8,7 @@ const { productName } = useProductLookup();
 
 const route = useRoute<"/cashier/trips/[id]/reconcile">();
 const router = useRouter();
+const toast = useToast();
 const authStore = useAuthStore();
 
 const summary = tripSummary(route.params.id);
@@ -48,12 +49,12 @@ function openVoid(delivery: (typeof summary.deliveries)[number]) {
 }
 
 function recordShortage() {
-  useToast().show("Saved");
+  toast.show("Saved");
   shortageSheetOpen.value = false;
 }
 
 function reconcile() {
-  useToast().show("Saved");
+  toast.show("Saved");
   router.push(tripsHomeRoute.value);
 }
 </script>

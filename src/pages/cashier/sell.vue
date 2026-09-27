@@ -6,6 +6,8 @@ import { containerTypes } from "@/mocks/containerTypes";
 
 definePage({ meta: { title: "Walk-in sale" } });
 
+const toast = useToast();
+
 const activeProducts = products.filter((product) => product.active);
 
 const cart = ref<Record<string, number>>({});
@@ -70,7 +72,7 @@ function reset() {
 }
 
 function confirmSale() {
-  useToast().show("Saved");
+  toast.show("Saved");
   reset();
 }
 </script>

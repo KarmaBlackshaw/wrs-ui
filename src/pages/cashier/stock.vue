@@ -3,6 +3,8 @@ import { consumables } from "@/mocks/consumables";
 
 definePage({ meta: { title: "Stock" } });
 
+const toast = useToast();
+
 const localConsumables = ref(consumables.map((consumable) => ({ ...consumable })));
 
 const stockColumns: { key: string; label: string; align?: "left" | "right" }[] = [
@@ -76,7 +78,7 @@ function confirmRestock() {
 
   selected.value.onHand += restockAmount.value;
   restockSheetOpen.value = false;
-  useToast().show("Saved");
+  toast.show("Saved");
 }
 
 function confirmStockTake() {
@@ -86,7 +88,7 @@ function confirmStockTake() {
 
   selected.value.onHand = stockTakeAmount.value;
   stockTakeSheetOpen.value = false;
-  useToast().show("Saved");
+  toast.show("Saved");
 }
 </script>
 
