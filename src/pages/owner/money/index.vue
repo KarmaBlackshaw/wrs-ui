@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { IconWallet } from "@/components";
 import { customers } from "@/mocks/customers";
-import { ROUTES } from "@/types";
+import { OWNER_TABS, ROUTES } from "@/types";
 import type { TAgingBucket } from "@/types";
 
 definePage({ meta: { title: "Credit aging" } });
@@ -26,28 +27,28 @@ const grandTotal = computed(() => groups.value.reduce((sum, group) => sum + grou
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <UiStatCard label="Total outstanding credit" tone="danger">
-      <UiMoneyText :centavos="grandTotal" size="xl" tone="danger" />
-    </UiStatCard>
+  <UiPanel title="Money" :icon="IconWallet" :tabs="OWNER_TABS.MONEY">
+    <template #actions>
+      <span class="text-sm text-zinc-500">Total outstanding credit</span>
+      <UiMoneyText :centavos="grandTotal" size="lg" tone="danger" />
+    </template>
 
-    <UiDataTable
-      v-for="group in groups"
-      :key="group.bucket"
-      :title="AGING_LABEL[group.bucket]"
-      :columns="columns"
-      :rows="group.rows"
-      :row-key="(row) => row.id"
-      clickable
-      @row-click="(row) => router.push(ROUTES.OWNER.CUSTOMERS.DETAIL(row.id))"
-    >
+    <UiPanelSection v-for="group in groups" :key="group.bucket" :title="AGING_LABEL[group.bucket]">
       <template #actions>
         <UiMoneyText :centavos="group.total" tone="muted" />
       </template>
-      <template #cell-creditBalance="{ row }"><UiMoneyText :centavos="row.creditBalance" /></template>
-      <template #empty>
-        <UiEmptyState title="No customers in this bucket" />
-      </template>
-    </UiDataTable>
-  </div>
+      <UiTable
+        :columns="columns"
+        :rows="group.rows"
+        :row-key="(row) => row.id"
+        clickable
+        @row-click="(row) => router.push(ROUTES.OWNER.CUSTOMERS.DETAIL(row.id))"
+      >
+        <template #cell-creditBalance="{ row }"><UiMoneyText :centavos="row.creditBalance" /></template>
+        <template #empty>
+          <UiEmptyState title="No customers in this bucket" />
+        </template>
+      </UiTable>
+    </UiPanelSection>
+  </UiPanel>
 </template>

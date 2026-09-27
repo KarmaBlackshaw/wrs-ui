@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { IconClipboardText, IconDropFill } from "@/components";
+import { IconPackage } from "@/components";
 import { labTests as labTestsMock, waterReadings } from "@/mocks/waterQuality";
+import { OWNER_TABS } from "@/types";
 import type { TLabTest } from "@/types";
 
 definePage({ meta: { title: "Water quality" } });
@@ -63,42 +64,50 @@ function submitAddTest() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiCard title="TDS trend">
-      <div class="flex h-32 items-end gap-2">
-        <div v-for="reading in sortedReadings" :key="reading.id" class="flex flex-1 flex-col items-center gap-1">
-          <div
-            class="w-full rounded-t bg-brand-500"
-            :class="isTdsOutOfRange(reading.tds) ? '!bg-red-500' : ''"
-            :style="{ height: `${Math.max((reading.tds / maxTds) * 100, 4)}%` }"
-          ></div>
-          <span class="text-xs text-zinc-500">{{ reading.tds }}</span>
+    <UiPanel title="Inventory" :icon="IconPackage" :tabs="OWNER_TABS.INVENTORY">
+      <UiPanelSection title="TDS trend">
+        <div class="px-5 pb-4">
+          <div class="flex h-32 items-end gap-2">
+            <div v-for="reading in sortedReadings" :key="reading.id" class="flex h-full flex-1 flex-col items-center justify-end gap-1">
+              <div
+                class="w-full rounded-t bg-brand-500"
+                :class="isTdsOutOfRange(reading.tds) ? '!bg-red-500' : ''"
+                :style="{ height: `${Math.max((reading.tds / maxTds) * 100, 4)}%` }"
+              ></div>
+              <span class="text-xs text-zinc-500">{{ reading.tds }}</span>
+            </div>
+          </div>
+          <p class="mt-2 text-sm text-zinc-500">ppm by reading, most recent {{ sortedReadings.length }} entries</p>
         </div>
-      </div>
-      <p class="mt-2 text-sm text-zinc-500">ppm by reading, most recent {{ sortedReadings.length }} entries</p>
-    </UiCard>
+      </UiPanelSection>
 
-    <UiDataTable title="Recent readings" :icon="IconDropFill" :columns="readingColumns" :rows="recentReadings" :row-key="(row) => row.id">
-      <template #cell-at="{ row }">{{ formatDateTime(row.at) }}</template>
-      <template #cell-by="{ row }">{{ employeeName(row.by) }}</template>
-      <template #cell-tds="{ row }">
-        <span :class="isTdsOutOfRange(row.tds) ? 'font-semibold text-red-700' : ''">{{ row.tds }} ppm</span>
-      </template>
-      <template #cell-ph="{ row }">{{ row.ph ?? "-" }}</template>
-      <template #empty>
-        <UiEmptyState title="No readings yet" />
-      </template>
-    </UiDataTable>
+      <UiPanelSection title="Recent readings">
+        <UiTable :columns="readingColumns" :rows="recentReadings" :row-key="(row) => row.id">
+          <template #cell-at="{ row }">{{ formatDateTime(row.at) }}</template>
+          <template #cell-by="{ row }">{{ employeeName(row.by) }}</template>
+          <template #cell-tds="{ row }">
+            <span :class="isTdsOutOfRange(row.tds) ? 'font-semibold text-red-700' : ''">{{ row.tds }} ppm</span>
+          </template>
+          <template #cell-ph="{ row }">{{ row.ph ?? "-" }}</template>
+          <template #empty>
+            <UiEmptyState title="No readings yet" />
+          </template>
+        </UiTable>
+      </UiPanelSection>
 
-    <UiDataTable title="Lab tests" :icon="IconClipboardText" :columns="testColumns" :rows="labTests" :row-key="(row) => row.id">
-      <template #actions>
-        <UiButton @click="addOpen = true">Add lab test</UiButton>
-      </template>
-      <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
-      <template #cell-nextDue="{ row }">{{ formatDate(row.nextDue) }}</template>
-      <template #empty>
-        <UiEmptyState title="No lab tests yet" description="Add the first lab test to start tracking due dates." />
-      </template>
-    </UiDataTable>
+      <UiPanelSection title="Lab tests">
+        <template #actions>
+          <UiButton @click="addOpen = true">Add lab test</UiButton>
+        </template>
+        <UiTable :columns="testColumns" :rows="labTests" :row-key="(row) => row.id">
+          <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
+          <template #cell-nextDue="{ row }">{{ formatDate(row.nextDue) }}</template>
+          <template #empty>
+            <UiEmptyState title="No lab tests yet" description="Add the first lab test to start tracking due dates." />
+          </template>
+        </UiTable>
+      </UiPanelSection>
+    </UiPanel>
 
     <UiBottomSheet v-model:open="addOpen" title="Add lab test">
       <div class="flex flex-col gap-4">

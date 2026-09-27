@@ -21,3 +21,9 @@ export type TRowAction = {
   variant?: TButtonVariant;
   icon?: Component;
 };
+
+export type TTab = {
+  label: string;
+  to: string;
+  count?: number;
+};

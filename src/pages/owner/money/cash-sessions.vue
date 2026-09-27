@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { IconCashRegister } from "@/components";
+import { IconWallet } from "@/components";
 import { drawerSessions } from "@/mocks/drawerSessions";
 import { expenses } from "@/mocks/expenses";
 import { payments } from "@/mocks/payments";
 import { walkInSales } from "@/mocks/walkInSales";
 import type { TDrawerSession } from "@/types";
+import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Cash sessions" } });
 
@@ -47,7 +48,7 @@ const rows = computed(() =>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Cash sessions" :icon="IconCashRegister" :columns="columns" :rows="rows" :row-key="(row) => row.session.id">
+    <UiDataTable title="Money" :icon="IconWallet" :tabs="OWNER_TABS.MONEY" :columns="columns" :rows="rows" :row-key="(row) => row.session.id">
       <template #cell-cashier="{ row }">{{ employeeName(row.session.cashierId) }}</template>
       <template #cell-opened="{ row }">{{ formatDateTime(row.session.openedAt) }}</template>
       <template #cell-opening="{ row }"><UiMoneyText :centavos="row.session.openingCash" /></template>

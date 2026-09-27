@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { IconCube } from "@/components";
 import { containerMovements } from "@/mocks/containers";
+import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Movement log" } });
 
@@ -33,7 +35,7 @@ function submitMovement() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Movement log" :columns="columns" :rows="movements" :row-key="(row) => row.id">
+    <UiDataTable title="Containers" :icon="IconCube" :tabs="OWNER_TABS.CONTAINERS" :columns="columns" :rows="movements" :row-key="(row) => row.id">
       <template #actions>
         <UiButton @click="movementSheetOpen = true">Record movement</UiButton>
       </template>

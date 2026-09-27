@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import startCase from "lodash/startCase";
 
+import { IconWallet } from "@/components";
 import { consumables } from "@/mocks/consumables";
 import { employees } from "@/mocks/employees";
 import { expenseCategories, expenses as expensesMock } from "@/mocks/expenses";
+import { OWNER_TABS } from "@/types";
 import type { TExpense, TExpenseSource } from "@/types";
 
 definePage({ meta: { title: "Expenses" } });
@@ -100,31 +102,31 @@ function submitAddExpense() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex items-center justify-between gap-3">
-      <p class="text-sm text-zinc-500">{{ expenses.length }} expenses</p>
-      <UiButton @click="addOpen = true">Add expense</UiButton>
-    </div>
+    <UiPanel title="Money" :icon="IconWallet" :count="expenses.length" :tabs="OWNER_TABS.MONEY">
+      <template #actions>
+        <UiButton @click="addOpen = true">Add expense</UiButton>
+      </template>
 
-    <div v-for="group in monthGroups" :key="group.key" class="flex flex-col gap-2">
-      <dl class="flex flex-wrap gap-x-6 gap-y-1 text-sm">
-        <div v-for="[category, total] in group.categoryTotals" :key="category" class="flex items-center gap-2">
-          <dt class="text-zinc-500">{{ category }}</dt>
-          <dd><UiMoneyText :centavos="total" size="sm" /></dd>
-        </div>
-      </dl>
-
-      <UiDataTable :title="monthLabel(group.key)" :columns="rowColumns" :rows="group.rows" :row-key="(row) => row.id">
+      <UiPanelSection v-for="group in monthGroups" :key="group.key" :title="monthLabel(group.key)">
         <template #actions>
           <UiMoneyText :centavos="group.total" />
         </template>
-        <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
-        <template #cell-paidBy="{ row }">
-          {{ employeeName(row.paidBy) }} · {{ startCase(row.source) }}
-          <template v-if="row.consumableId">· restocked {{ row.qty }} pc</template>
-        </template>
-        <template #cell-amount="{ row }"><UiMoneyText :centavos="row.amount" /></template>
-      </UiDataTable>
-    </div>
+        <dl class="flex flex-wrap gap-x-6 gap-y-1 px-5 pb-3 text-sm">
+          <div v-for="[category, total] in group.categoryTotals" :key="category" class="flex items-center gap-2">
+            <dt class="text-zinc-500">{{ category }}</dt>
+            <dd><UiMoneyText :centavos="total" size="sm" /></dd>
+          </div>
+        </dl>
+        <UiTable :columns="rowColumns" :rows="group.rows" :row-key="(row) => row.id">
+          <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
+          <template #cell-paidBy="{ row }">
+            {{ employeeName(row.paidBy) }} · {{ startCase(row.source) }}
+            <template v-if="row.consumableId">· restocked {{ row.qty }} pc</template>
+          </template>
+          <template #cell-amount="{ row }"><UiMoneyText :centavos="row.amount" /></template>
+        </UiTable>
+      </UiPanelSection>
+    </UiPanel>
 
     <UiBottomSheet v-model:open="addOpen" title="Add expense">
       <div class="flex flex-col gap-4">

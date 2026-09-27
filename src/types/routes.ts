@@ -71,3 +71,27 @@ export const ROUTES = {
     SETTINGS: "/owner/settings",
   },
 } as const;
+
+export const OWNER_TABS = {
+  CONTAINERS: [
+    { label: "Holdings", to: ROUTES.OWNER.CONTAINERS.INDEX },
+    { label: "Movement log", to: ROUTES.OWNER.CONTAINERS.MOVEMENTS },
+    { label: "Count variances", to: ROUTES.OWNER.CONTAINERS.COUNTS },
+  ],
+  INVENTORY: [
+    { label: "Products & prices", to: ROUTES.OWNER.INVENTORY.INDEX },
+    { label: "Consumables", to: ROUTES.OWNER.INVENTORY.CONSUMABLES },
+    { label: "Maintenance", to: ROUTES.OWNER.INVENTORY.MAINTENANCE },
+    { label: "Water quality", to: ROUTES.OWNER.INVENTORY.WATER_QUALITY },
+  ],
+  MONEY: [
+    { label: "Credit aging", to: ROUTES.OWNER.MONEY.INDEX },
+    { label: "Expenses", to: ROUTES.OWNER.MONEY.EXPENSES },
+    { label: "Cash sessions", to: ROUTES.OWNER.MONEY.CASH_SESSIONS },
+  ],
+  PEOPLE: [
+    { label: "Employees", to: ROUTES.OWNER.PEOPLE.INDEX },
+    { label: "Payroll", to: ROUTES.OWNER.PEOPLE.PAYROLL.INDEX },
+    { label: "Loans", to: ROUTES.OWNER.PEOPLE.LOANS },
+  ],
+};

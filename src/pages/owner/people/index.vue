@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { IconUsers } from "@/components";
+import { IconIdentificationBadge } from "@/components";
 import { employees as employeesMock } from "@/mocks/employees";
-import { ROLE_LABEL, ROUTES } from "@/types";
+import { ROLE_LABEL, ROUTES, OWNER_TABS } from "@/types";
 import type { TEmployee, TRole } from "@/types";
 
 definePage({ meta: { title: "Employees" } });
@@ -58,7 +58,16 @@ function openEmployee(employee: TEmployee) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Employees" :icon="IconUsers" clickable :columns="columns" :rows="employees" :row-key="(row) => row.id" @row-click="openEmployee">
+    <UiDataTable
+      title="People"
+      :icon="IconIdentificationBadge"
+      :tabs="OWNER_TABS.PEOPLE"
+      clickable
+      :columns="columns"
+      :rows="employees"
+      :row-key="(row) => row.id"
+      @row-click="openEmployee"
+    >
       <template #actions>
         <UiButton @click="addOpen = true">Add employee</UiButton>
       </template>

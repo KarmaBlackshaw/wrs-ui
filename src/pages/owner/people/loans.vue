@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { IconWallet } from "@/components";
+import { IconIdentificationBadge } from "@/components";
 import { installments, loans as loansMock } from "@/mocks/loans";
 import type { TLoan, TLoanRow, TRowAction } from "@/types";
+import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Loans" } });
 
@@ -91,7 +92,7 @@ function submitRelease() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Loans" :icon="IconWallet" :columns="columns" :rows="rows" :row-key="(row) => row.id">
+    <UiDataTable title="People" :icon="IconIdentificationBadge" :tabs="OWNER_TABS.PEOPLE" :columns="columns" :rows="rows" :row-key="(row) => row.id">
       <template #cell-type="{ row }">
         <UiStatusPill tone="neutral">{{ row.type }}</UiStatusPill>
       </template>

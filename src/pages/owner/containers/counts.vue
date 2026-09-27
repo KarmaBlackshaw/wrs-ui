@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { IconCube } from "@/components";
 import { containerCounts } from "@/mocks/containers";
+import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Count variances" } });
 
@@ -18,7 +20,7 @@ const counts = computed(() =>
 </script>
 
 <template>
-  <UiDataTable title="Count variances" :columns="columns" :rows="counts" :row-key="(row) => row.id">
+  <UiDataTable title="Containers" :icon="IconCube" :tabs="OWNER_TABS.CONTAINERS" :columns="columns" :rows="counts" :row-key="(row) => row.id">
     <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
     <template #cell-variance="{ row }">
       <UiStatusPill :tone="row.variance === 0 ? 'ok' : 'danger'">{{ row.variance }}</UiStatusPill>

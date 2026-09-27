@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { IconCalculator } from "@/components";
+import { IconIdentificationBadge } from "@/components";
 import { payRuns as payRunsMock } from "@/mocks/payroll";
-import { ROUTES } from "@/types";
+import { ROUTES, OWNER_TABS } from "@/types";
 import type { TPayFrequency, TPayRun } from "@/types";
 
 definePage({ meta: { title: "Payroll" } });
@@ -61,7 +61,16 @@ function openRun(run: TPayRun) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Payroll" :icon="IconCalculator" clickable :columns="columns" :rows="rows" :row-key="(row) => row.id" @row-click="openRun">
+    <UiDataTable
+      title="People"
+      :icon="IconIdentificationBadge"
+      :tabs="OWNER_TABS.PEOPLE"
+      clickable
+      :columns="columns"
+      :rows="rows"
+      :row-key="(row) => row.id"
+      @row-click="openRun"
+    >
       <template #actions>
         <UiButton @click="addOpen = true">New run</UiButton>
       </template>

@@ -2,6 +2,7 @@
 import { IconPackage } from "@/components";
 import { products as productsMock, prices as pricesMock } from "@/mocks/products";
 import type { TContainerTypeCode, TPrice, TProduct, TProductKind } from "@/types";
+import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Products & prices" } });
 
@@ -118,7 +119,7 @@ function submitPriceChange() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Products & prices" :icon="IconPackage" :columns="columns" :rows="products" :row-key="(row) => row.id">
+    <UiDataTable title="Inventory" :icon="IconPackage" :tabs="OWNER_TABS.INVENTORY" :columns="columns" :rows="products" :row-key="(row) => row.id">
       <template #actions>
         <UiButton @click="addOpen = true">Add product</UiButton>
       </template>
