@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconTruck from "@/components/icon/Truck.vue";
 import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types";
 
@@ -19,13 +20,10 @@ const rows = computed(() => trips.map((trip) => ({ ...trip, riderName: employeeN
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Trips">
+    <UiDataTable title="Trips" :icon="IconTruck" :columns="columns" :rows="rows" :row-key="(row) => row.id">
       <template #actions>
         <UiButton :to="ROUTES.CASHIER.TRIPS.NEW">New load-out</UiButton>
       </template>
-    </UiPageHeader>
-
-    <UiDataTable :columns="columns" :rows="rows" :row-key="(row) => row.id">
       <template #cell-status="{ row }">
         <UiStatusPill :tone="TRIP_STATUS_TONE[row.status]">{{ TRIP_STATUS_LABEL[row.status] }}</UiStatusPill>
       </template>

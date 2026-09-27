@@ -20,7 +20,7 @@ const previewRows = computed(() => table.rows.slice(0, limit).map((row, index) =
       <h3 class="truncate text-base font-semibold text-zinc-900">{{ title }}</h3>
       <UiButton :to="to" variant="ghost" size="sm">
         {{ table.rows.length > limit ? `View all ${table.rows.length}` : "Open" }}
-        <UiIcon name="arrow-right" class="size-4" />
+        <IconArrowRight class="size-4" />
       </UiButton>
     </header>
 

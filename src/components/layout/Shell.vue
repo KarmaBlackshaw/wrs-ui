@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { items, home } = defineProps<{
-  items: { label: string; to: string; icon: string }[];
+  items: { label: string; to: string; icon: Component; activeIcon: Component }[];
   home: string;
 }>();
 
@@ -30,7 +30,7 @@ function isActive(to: string) {
         class="flex h-14 shrink-0 items-center gap-3 border-b border-zinc-200 px-5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-600"
       >
         <span class="grid size-9 place-items-center rounded-lg bg-brand-700 text-white">
-          <UiIcon name="drop-fill" class="size-5" />
+          <IconDropFill class="size-5" />
         </span>
         <span class="flex flex-col leading-tight">
           <span class="text-base font-semibold tracking-tight">WRS</span>
@@ -46,7 +46,7 @@ function isActive(to: string) {
           :aria-current="isActive(item.to) ? 'page' : undefined"
           class="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-800"
         >
-          <UiIcon :name="isActive(item.to) ? `${item.icon}-fill` : item.icon" class="size-5 shrink-0" />
+          <component :is="isActive(item.to) ? item.activeIcon : item.icon" class="size-5 shrink-0" />
           {{ item.label }}
         </RouterLink>
       </nav>
@@ -64,11 +64,11 @@ function isActive(to: string) {
           :aria-expanded="drawerOpen"
           @click="drawerOpen = true"
         >
-          <UiIcon name="list" class="size-6" />
+          <IconList class="size-6" />
         </button>
         <RouterLink :to="home" class="flex shrink-0 items-center gap-2 lg:hidden">
           <span class="grid size-8 place-items-center rounded-lg bg-brand-700 text-white">
-            <UiIcon name="drop-fill" class="size-4" />
+            <IconDropFill class="size-4" />
           </span>
           <span class="text-base font-semibold tracking-tight">WRS</span>
         </RouterLink>
@@ -94,7 +94,7 @@ function isActive(to: string) {
         :aria-current="isActive(item.to) ? 'page' : undefined"
         class="flex h-16 flex-col items-center justify-center gap-1 text-xs font-medium text-zinc-500 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-600 aria-[current=page]:text-brand-700"
       >
-        <UiIcon :name="isActive(item.to) ? `${item.icon}-fill` : item.icon" class="size-6" />
+        <component :is="isActive(item.to) ? item.activeIcon : item.icon" class="size-6" />
         {{ item.label }}
       </RouterLink>
     </nav>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconTruck from "@/components/icon/Truck.vue";
 import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types";
 import type { TTripRow } from "@/types";
@@ -39,9 +40,7 @@ function openTrip(row: TTripRow) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Trips" subtitle="All load-outs, returns and reconciliations" />
-
-    <UiDataTable clickable :columns="columns" :rows="rows" :row-key="(row) => row.id" @row-click="openTrip">
+    <UiDataTable clickable title="Trips" :icon="IconTruck" :columns="columns" :rows="rows" :row-key="(row) => row.id" @row-click="openTrip">
       <template #cell-id="{ row }">Trip {{ row.id }} · {{ formatDate(row.loadedAt) }}</template>
       <template #cell-rider="{ row }">{{ row.riderName }}</template>
       <template #cell-status="{ row }">

@@ -46,19 +46,18 @@ const deductionRows = computed(
       </UiCard>
 
       <div class="flex flex-col gap-2">
-        <h2 class="text-sm font-medium text-zinc-500">Deductions</h2>
-        <UiEmptyState v-if="payLine.deductions.length === 0" title="No deductions" />
-        <template v-else>
-          <UiDataTable :columns="deductionColumns" :rows="deductionRows" :row-key="(row) => row.id">
-            <template #cell-amount="{ row }">
-              <UiMoneyText :centavos="row.amount" tone="danger" />
-            </template>
-          </UiDataTable>
-          <div class="flex items-center justify-between px-1">
-            <span class="text-base font-medium text-zinc-700">Total deductions</span>
-            <UiMoneyText :centavos="totalDeductions(payLine)" tone="danger" />
-          </div>
-        </template>
+        <UiDataTable title="Deductions" :columns="deductionColumns" :rows="deductionRows" :row-key="(row) => row.id">
+          <template #cell-amount="{ row }">
+            <UiMoneyText :centavos="row.amount" tone="danger" />
+          </template>
+          <template #empty>
+            <UiEmptyState title="No deductions" />
+          </template>
+        </UiDataTable>
+        <div v-if="payLine.deductions.length > 0" class="flex items-center justify-between px-1">
+          <span class="text-base font-medium text-zinc-700">Total deductions</span>
+          <UiMoneyText :centavos="totalDeductions(payLine)" tone="danger" />
+        </div>
       </div>
 
       <UiCard>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconStamp from "@/components/icon/Stamp.vue";
 import { approvals } from "@/mocks/approvals";
 import { loans } from "@/mocks/loans";
 import { ROUTES } from "@/types";
@@ -83,9 +84,7 @@ function confirmLoanApproval() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Approvals" subtitle="Pending voids, loans, credit and waivers" />
-
-    <UiDataTable :columns="columns" :rows="approvals" :row-key="(row) => row.id">
+    <UiDataTable title="Approvals" :icon="IconStamp" :columns="columns" :rows="approvals" :row-key="(row) => row.id">
       <template #cell-requestedBy="{ row }">{{ employeeName(row.requestedBy) }}</template>
       <template #cell-createdAt="{ row }">{{ formatDateTime(row.createdAt) }}</template>
       <template #cell-details="{ row }">

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconClipboardText from "@/components/icon/ClipboardText.vue";
+import IconDropFill from "@/components/icon/DropFill.vue";
 import { labTests as labTestsMock, waterReadings } from "@/mocks/waterQuality";
 import type { TLabTest } from "@/types";
 
@@ -76,8 +78,7 @@ function submitAddTest() {
       <p class="mt-2 text-sm text-zinc-500">ppm by reading, most recent {{ sortedReadings.length }} entries</p>
     </UiCard>
 
-    <h2 class="text-lg font-semibold text-zinc-900">Recent readings</h2>
-    <UiDataTable :columns="readingColumns" :rows="recentReadings" :row-key="(row) => row.id">
+    <UiDataTable title="Recent readings" :icon="IconDropFill" :columns="readingColumns" :rows="recentReadings" :row-key="(row) => row.id">
       <template #cell-at="{ row }">{{ formatDateTime(row.at) }}</template>
       <template #cell-by="{ row }">{{ employeeName(row.by) }}</template>
       <template #cell-tds="{ row }">
@@ -89,12 +90,10 @@ function submitAddTest() {
       </template>
     </UiDataTable>
 
-    <div class="flex items-center justify-between gap-3">
-      <h2 class="text-lg font-semibold text-zinc-900">Lab tests</h2>
-      <UiButton @click="addOpen = true">Add lab test</UiButton>
-    </div>
-
-    <UiDataTable :columns="testColumns" :rows="labTests" :row-key="(row) => row.id">
+    <UiDataTable title="Lab tests" :icon="IconClipboardText" :columns="testColumns" :rows="labTests" :row-key="(row) => row.id">
+      <template #actions>
+        <UiButton @click="addOpen = true">Add lab test</UiButton>
+      </template>
       <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
       <template #cell-nextDue="{ row }">{{ formatDate(row.nextDue) }}</template>
       <template #empty>

@@ -134,20 +134,25 @@ function saveChanges() {
 
     <p class="text-sm text-zinc-500">Changing settings requires an online connection.</p>
 
-    <UiSection v-for="group in groups" :key="group.name" :title="group.name">
-      <UiDataTable :columns="settingsColumns" :rows="settingsRows(group)" :row-key="(row) => row.key">
-        <template #cell-setting="{ row }">{{ settingLabel[row.key] }}</template>
-        <template #cell-value="{ row }">
-          <span v-if="displayValue(row.setting) !== null" class="text-zinc-700">{{ displayValue(row.setting) }}</span>
-          <UiStatusPill v-else tone="warn">Not set</UiStatusPill>
-        </template>
-        <template #cell-actions="{ row }">
-          <div class="flex justify-end">
-            <UiButton size="sm" variant="secondary" @click="openEdit(row.setting)">Edit</UiButton>
-          </div>
-        </template>
-      </UiDataTable>
-    </UiSection>
+    <UiDataTable
+      v-for="group in groups"
+      :key="group.name"
+      :title="group.name"
+      :columns="settingsColumns"
+      :rows="settingsRows(group)"
+      :row-key="(row) => row.key"
+    >
+      <template #cell-setting="{ row }">{{ settingLabel[row.key] }}</template>
+      <template #cell-value="{ row }">
+        <span v-if="displayValue(row.setting) !== null" class="text-zinc-700">{{ displayValue(row.setting) }}</span>
+        <UiStatusPill v-else tone="warn">Not set</UiStatusPill>
+      </template>
+      <template #cell-actions="{ row }">
+        <div class="flex justify-end">
+          <UiButton size="sm" variant="secondary" @click="openEdit(row.setting)">Edit</UiButton>
+        </div>
+      </template>
+    </UiDataTable>
 
     <p class="text-sm text-zinc-500">
       Stock and maintenance settings (reorder levels, intervals) are configured per item in

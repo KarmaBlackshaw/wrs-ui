@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconUsers from "@/components/icon/Users.vue";
 import { employees as employeesMock } from "@/mocks/employees";
 import { ROLE_LABEL, ROUTES } from "@/types";
 import type { TEmployee, TRole } from "@/types";
@@ -57,11 +58,10 @@ function openEmployee(employee: TEmployee) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex justify-end">
-      <UiButton @click="addOpen = true">Add employee</UiButton>
-    </div>
-
-    <UiDataTable clickable :columns="columns" :rows="employees" :row-key="(row) => row.id" @row-click="openEmployee">
+    <UiDataTable title="Employees" :icon="IconUsers" clickable :columns="columns" :rows="employees" :row-key="(row) => row.id" @row-click="openEmployee">
+      <template #actions>
+        <UiButton @click="addOpen = true">Add employee</UiButton>
+      </template>
       <template #cell-roles="{ row }">
         <div class="flex flex-wrap gap-1">
           <UiStatusPill v-for="role in row.roles" :key="role" tone="info">{{ ROLE_LABEL[role] }}</UiStatusPill>

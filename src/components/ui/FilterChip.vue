@@ -33,7 +33,7 @@ function close() {
       class="flex h-full items-center gap-1 rounded-full px-2.5 focus-visible:outline-2 focus-visible:outline-brand-600"
       @click="open = !open"
     >
-      <UiIcon v-if="!value" name="plus" class="size-3" />
+      <IconPlus v-if="!value" class="size-3" />
       {{ label }}
       <template v-if="value">
         <span class="text-brand-600/40" aria-hidden="true">|</span>
@@ -47,7 +47,7 @@ function close() {
       class="-ml-1 flex size-6 items-center justify-center rounded-full hover:bg-brand-100 focus-visible:outline-2 focus-visible:outline-brand-600"
       @click="emit('clear')"
     >
-      <UiIcon name="x" class="size-3" />
+      <IconX class="size-3" />
     </button>
   </div>
   <div

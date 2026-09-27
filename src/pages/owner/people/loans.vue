@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconWallet from "@/components/icon/Wallet.vue";
 import { installments, loans as loansMock } from "@/mocks/loans";
 import type { TLoan, TLoanRow } from "@/types";
 
@@ -72,7 +73,7 @@ function submitRelease() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable :columns="columns" :rows="rows" :row-key="(row) => row.id">
+    <UiDataTable title="Loans" :icon="IconWallet" :columns="columns" :rows="rows" :row-key="(row) => row.id">
       <template #cell-type="{ row }">
         <UiStatusPill tone="neutral">{{ row.type }}</UiStatusPill>
       </template>

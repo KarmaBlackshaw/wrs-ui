@@ -48,7 +48,7 @@ function onBackdropClick(event: MouseEvent) {
           class="flex size-10 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600"
           @click="open = false"
         >
-          <UiIcon name="x" class="size-5" />
+          <IconX class="size-5" />
         </button>
       </header>
       <div class="flex-1 overflow-y-auto px-5 py-4">

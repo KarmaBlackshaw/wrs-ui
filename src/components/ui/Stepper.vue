@@ -33,7 +33,7 @@ function increment() {
         class="flex size-10 shrink-0 items-center justify-center rounded-lg border border-zinc-300 bg-white text-zinc-700 shadow-xs transition hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-brand-600 active:scale-[0.97] disabled:opacity-40 motion-reduce:active:scale-100"
         @click="decrement"
       >
-        <UiIcon name="minus" class="size-4" />
+        <IconMinus class="size-4" />
       </button>
       <span class="min-w-12 text-center text-xl font-semibold text-zinc-900 tabular-nums">{{ model }}</span>
       <button
@@ -43,7 +43,7 @@ function increment() {
         class="flex size-10 shrink-0 items-center justify-center rounded-lg border border-zinc-300 bg-white text-zinc-700 shadow-xs transition hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-brand-600 active:scale-[0.97] disabled:opacity-40 motion-reduce:active:scale-100"
         @click="increment"
       >
-        <UiIcon name="plus" class="size-4" />
+        <IconPlus class="size-4" />
       </button>
     </div>
   </div>

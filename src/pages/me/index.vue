@@ -72,35 +72,33 @@ function submitRequest() {
       </template>
     </UiPageHeader>
 
-    <div class="flex flex-col gap-2">
-      <h2 class="text-sm font-medium text-zinc-500">Payslips</h2>
-      <UiEmptyState v-if="myPayLines.length === 0" title="No payslips yet" description="Payslips appear here once a payroll run is finalized." />
-      <UiDataTable
-        v-else
-        clickable
-        :columns="payslipColumns"
-        :rows="payslipRows"
-        :row-key="(row) => row.runId"
-        @row-click="(row) => router.push(ROUTES.ME.PAYSLIP(row.runId))"
-      >
-        <template #cell-net="{ row }">
-          <UiMoneyText :centavos="row.net" />
-        </template>
-      </UiDataTable>
-    </div>
+    <UiDataTable
+      clickable
+      title="Payslips"
+      :columns="payslipColumns"
+      :rows="payslipRows"
+      :row-key="(row) => row.runId"
+      @row-click="(row) => router.push(ROUTES.ME.PAYSLIP(row.runId))"
+    >
+      <template #cell-net="{ row }">
+        <UiMoneyText :centavos="row.net" />
+      </template>
+      <template #empty>
+        <UiEmptyState title="No payslips yet" description="Payslips appear here once a payroll run is finalized." />
+      </template>
+    </UiDataTable>
 
-    <div class="flex flex-col gap-2">
-      <h2 class="text-sm font-medium text-zinc-500">Loans and advances</h2>
-      <UiEmptyState v-if="myLoans.length === 0" title="No loans or advances" description="Request an advance or loan to see it here." />
-      <UiDataTable v-else :columns="loanColumns" :rows="loanRows" :row-key="(row) => row.id">
-        <template #cell-principal="{ row }">
-          <UiMoneyText :centavos="row.principal" />
-        </template>
-        <template #cell-status="{ row }">
-          <UiStatusPill :tone="LOAN_STATUS_TONE[row.status]">{{ LOAN_STATUS_LABEL[row.status] }}</UiStatusPill>
-        </template>
-      </UiDataTable>
-    </div>
+    <UiDataTable title="Loans and advances" :columns="loanColumns" :rows="loanRows" :row-key="(row) => row.id">
+      <template #cell-principal="{ row }">
+        <UiMoneyText :centavos="row.principal" />
+      </template>
+      <template #cell-status="{ row }">
+        <UiStatusPill :tone="LOAN_STATUS_TONE[row.status]">{{ LOAN_STATUS_LABEL[row.status] }}</UiStatusPill>
+      </template>
+      <template #empty>
+        <UiEmptyState title="No loans or advances" description="Request an advance or loan to see it here." />
+      </template>
+    </UiDataTable>
 
     <UiBottomSheet v-model:open="sheetOpen" title="Request advance or loan">
       <div class="flex flex-col gap-4">

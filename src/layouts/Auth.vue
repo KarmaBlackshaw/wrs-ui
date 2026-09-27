@@ -5,7 +5,7 @@
     <aside class="hidden flex-col justify-between bg-brand-800 p-12 text-white lg:flex">
       <div class="flex items-center gap-3">
         <span class="grid size-10 place-items-center rounded-lg bg-white/10 ring-1 ring-white/20 ring-inset">
-          <UiIcon name="drop-fill" class="size-6" />
+          <IconDropFill class="size-6" />
         </span>
         <span class="text-lg font-semibold tracking-tight">WRS</span>
       </div>

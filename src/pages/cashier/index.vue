@@ -128,17 +128,14 @@ function confirmClose() {
         <UiStatCard label="Expected cash"><UiMoneyText :centavos="expectedCash" size="lg" /></UiStatCard>
       </div>
 
-      <div class="flex flex-col gap-2">
-        <h2 class="text-sm font-medium text-zinc-500">Drawer expenses this session</h2>
-        <UiDataTable :columns="expenseColumns" :rows="localExpenses" :row-key="(row) => row.id">
-          <template #cell-amount="{ row }">
-            <UiMoneyText :centavos="row.amount" />
-          </template>
-          <template #empty>
-            <p class="p-4 text-base text-zinc-500">None recorded yet.</p>
-          </template>
-        </UiDataTable>
-      </div>
+      <UiDataTable title="Drawer expenses this session" :columns="expenseColumns" :rows="localExpenses" :row-key="(row) => row.id">
+        <template #cell-amount="{ row }">
+          <UiMoneyText :centavos="row.amount" />
+        </template>
+        <template #empty>
+          <p class="p-4 text-base text-zinc-500">None recorded yet.</p>
+        </template>
+      </UiDataTable>
     </template>
 
     <UiEmptyState v-else title="Drawer is closed" description="Open the drawer with a starting cash count to begin the day.">

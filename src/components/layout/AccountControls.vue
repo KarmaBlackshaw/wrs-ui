@@ -32,7 +32,7 @@ function logout() {
       :options="authStore.user.roles.map((role) => ({ value: role, label: ROLE_LABEL[role] }))"
     />
     <UiButton variant="ghost" block @click="logout">
-      <UiIcon name="sign-out" class="size-5" />
+      <IconSignOut class="size-5" />
       Log out
     </UiButton>
   </div>

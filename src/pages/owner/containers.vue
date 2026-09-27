@@ -59,23 +59,20 @@ function submitMovement() {
       </template>
     </UiPageHeader>
 
-    <h2 class="text-lg font-semibold text-zinc-900">Holdings by location</h2>
-    <UiDataTable :columns="holdingColumns" :rows="containerHoldings" :row-key="(row) => `${row.location}-${row.type}`">
+    <UiDataTable title="Holdings by location" :columns="holdingColumns" :rows="containerHoldings" :row-key="(row) => `${row.location}-${row.type}`">
       <template #empty>
         <UiEmptyState title="No holdings recorded" />
       </template>
     </UiDataTable>
 
-    <h2 class="text-lg font-semibold text-zinc-900">Movement log</h2>
-    <UiDataTable :columns="movementColumns" :rows="movements" :row-key="(row) => row.id">
+    <UiDataTable title="Movement log" :columns="movementColumns" :rows="movements" :row-key="(row) => row.id">
       <template #cell-createdAt="{ row }">{{ formatDateTime(row.createdAt) }}</template>
       <template #empty>
         <UiEmptyState title="No movements yet" />
       </template>
     </UiDataTable>
 
-    <h2 class="text-lg font-semibold text-zinc-900">Count variances</h2>
-    <UiDataTable :columns="countColumns" :rows="counts" :row-key="(row) => row.id">
+    <UiDataTable title="Count variances" :columns="countColumns" :rows="counts" :row-key="(row) => row.id">
       <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
       <template #cell-variance="{ row }">
         <UiStatusPill :tone="row.variance === 0 ? 'ok' : 'danger'">{{ row.variance }}</UiStatusPill>

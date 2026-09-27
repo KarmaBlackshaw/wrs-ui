@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconReceipt from "@/components/icon/Receipt.vue";
 import { walkInSales } from "@/mocks/walkInSales";
 import { deliveries } from "@/mocks/trips";
 import { voids } from "@/mocks/voids";
@@ -86,28 +87,25 @@ function openVoid(row: TSaleRow) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Sales" subtitle="All walk-in sales and deliveries" />
-
-    <div class="flex flex-wrap gap-2">
-      <UiFilterChip label="Date" :value="dateFilter && formatDate(dateFilter)" @clear="dateFilter = ''">
-        <UiField v-model="dateFilter" label="Date" type="date" />
-      </UiFilterChip>
-      <UiFilterChip label="Payment" :value="paymentFilter === 'all' ? undefined : PAYMENT_LABEL[paymentFilter]" @clear="paymentFilter = 'all'">
-        <UiSegmentedControl v-model="paymentFilter" :options="paymentOptions" />
-      </UiFilterChip>
-      <UiFilterChip label="Source" :value="sourceFilter === 'all' ? undefined : SALE_SOURCE_LABEL[sourceFilter]" @clear="sourceFilter = 'all'">
-        <UiSegmentedControl
-          v-model="sourceFilter"
-          :options="[
-            { value: 'all', label: 'All' },
-            { value: 'walk-in', label: SALE_SOURCE_LABEL['walk-in'] },
-            { value: 'delivery', label: SALE_SOURCE_LABEL.delivery },
-          ]"
-        />
-      </UiFilterChip>
-    </div>
-
-    <UiDataTable :columns="columns" :rows="filteredRows" :row-key="(row) => row.id">
+    <UiDataTable title="Sales" :icon="IconReceipt" :columns="columns" :rows="filteredRows" :row-key="(row) => row.id">
+      <template #filters>
+        <UiFilterChip label="Date" :value="dateFilter && formatDate(dateFilter)" @clear="dateFilter = ''">
+          <UiField v-model="dateFilter" label="Date" type="date" />
+        </UiFilterChip>
+        <UiFilterChip label="Payment" :value="paymentFilter === 'all' ? undefined : PAYMENT_LABEL[paymentFilter]" @clear="paymentFilter = 'all'">
+          <UiSegmentedControl v-model="paymentFilter" :options="paymentOptions" />
+        </UiFilterChip>
+        <UiFilterChip label="Source" :value="sourceFilter === 'all' ? undefined : SALE_SOURCE_LABEL[sourceFilter]" @clear="sourceFilter = 'all'">
+          <UiSegmentedControl
+            v-model="sourceFilter"
+            :options="[
+              { value: 'all', label: 'All' },
+              { value: 'walk-in', label: SALE_SOURCE_LABEL['walk-in'] },
+              { value: 'delivery', label: SALE_SOURCE_LABEL.delivery },
+            ]"
+          />
+        </UiFilterChip>
+      </template>
       <template #cell-createdAt="{ row }">{{ formatDateTime(row.createdAt) }}</template>
       <template #cell-source="{ row }">{{ SALE_SOURCE_LABEL[row.source] }}</template>
       <template #cell-amount="{ row }">

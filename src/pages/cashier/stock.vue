@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconPackage from "@/components/icon/Package.vue";
 import { consumables } from "@/mocks/consumables";
 
 definePage({ meta: { title: "Stock" } });
@@ -94,9 +95,7 @@ function confirmStockTake() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Stock" subtitle="Consumables on hand" />
-
-    <UiDataTable :columns="stockColumns" :rows="localConsumables" :row-key="(row) => row.id">
+    <UiDataTable title="Stock" :icon="IconPackage" :columns="stockColumns" :rows="localConsumables" :row-key="(row) => row.id">
       <template #cell-onHand="{ row }">{{ row.onHand }} {{ row.unit }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill v-if="reorderText(row)" :tone="reorderTone(row) ?? 'neutral'">{{ reorderText(row) }}</UiStatusPill>

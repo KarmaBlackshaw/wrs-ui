@@ -98,20 +98,17 @@ function reconcile() {
       </div>
     </UiCard>
 
-    <div class="flex flex-col gap-2">
-      <h2 class="text-sm font-medium text-zinc-500">Deliveries</h2>
-      <UiDataTable :columns="deliveryColumns" :rows="deliveryRows" :row-key="(row) => row.id">
-        <template #cell-amount="{ row }">
-          <UiMoneyText :centavos="row.amount" />
-        </template>
-        <template #cell-actions="{ row }">
-          <UiButton variant="ghost" size="sm" @click="openVoid(row)">Request void</UiButton>
-        </template>
-        <template #empty>
-          <p class="p-4 text-base text-zinc-500">No deliveries logged.</p>
-        </template>
-      </UiDataTable>
-    </div>
+    <UiDataTable title="Deliveries" :columns="deliveryColumns" :rows="deliveryRows" :row-key="(row) => row.id">
+      <template #cell-amount="{ row }">
+        <UiMoneyText :centavos="row.amount" />
+      </template>
+      <template #cell-actions="{ row }">
+        <UiButton variant="ghost" size="sm" @click="openVoid(row)">Request void</UiButton>
+      </template>
+      <template #empty>
+        <p class="p-4 text-base text-zinc-500">No deliveries logged.</p>
+      </template>
+    </UiDataTable>
 
     <UiButton v-if="hasVariance" variant="secondary" @click="shortageSheetOpen = true">Record shortage</UiButton>
 

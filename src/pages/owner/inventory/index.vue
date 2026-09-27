@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconPackage from "@/components/icon/Package.vue";
 import { products as productsMock, prices as pricesMock } from "@/mocks/products";
 import type { TContainerTypeCode, TPrice, TProduct, TProductKind } from "@/types";
 
@@ -117,12 +118,10 @@ function submitPriceChange() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex items-center justify-between gap-3">
-      <p class="text-sm text-zinc-500">{{ products.length }} products</p>
-      <UiButton @click="addOpen = true">Add product</UiButton>
-    </div>
-
-    <UiDataTable :columns="columns" :rows="products" :row-key="(row) => row.id">
+    <UiDataTable title="Products & prices" :icon="IconPackage" :columns="columns" :rows="products" :row-key="(row) => row.id">
+      <template #actions>
+        <UiButton @click="addOpen = true">Add product</UiButton>
+      </template>
       <template #cell-kind="{ row }">
         <div class="flex items-center gap-2">
           <UiStatusPill tone="neutral">{{ row.kind }}</UiStatusPill>

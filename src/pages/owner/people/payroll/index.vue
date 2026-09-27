@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconCalculator from "@/components/icon/Calculator.vue";
 import { payRuns as payRunsMock } from "@/mocks/payroll";
 import { ROUTES } from "@/types";
 import type { TPayFrequency, TPayRun } from "@/types";
@@ -60,11 +61,10 @@ function openRun(run: TPayRun) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="flex justify-end">
-      <UiButton @click="addOpen = true">New run</UiButton>
-    </div>
-
-    <UiDataTable clickable :columns="columns" :rows="rows" :row-key="(row) => row.id" @row-click="openRun">
+    <UiDataTable title="Payroll" :icon="IconCalculator" clickable :columns="columns" :rows="rows" :row-key="(row) => row.id" @row-click="openRun">
+      <template #actions>
+        <UiButton @click="addOpen = true">New run</UiButton>
+      </template>
       <template #cell-period="{ row }">{{ formatPeriod(row.periodStart, row.periodEnd) }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill :tone="statusTone[row.status]">{{ row.status === "finalized" ? "Finalized" : "Draft" }}</UiStatusPill>

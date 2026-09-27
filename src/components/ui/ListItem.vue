@@ -21,7 +21,7 @@ defineProps<{
     </div>
     <div class="flex shrink-0 items-center gap-2">
       <slot name="trailing"></slot>
-      <UiIcon name="caret-right" v-if="to" class="size-4 text-zinc-400" />
+      <IconCaretRight v-if="to" class="size-4 text-zinc-400" />
     </div>
   </component>
 </template>

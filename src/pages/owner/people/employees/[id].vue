@@ -107,17 +107,15 @@ function submitEdit() {
       <UiEmptyState v-else title="No pay plan set" />
     </UiCard>
 
-    <UiSection title="History">
-      <UiDataTable :columns="historyColumns" :rows="history" :row-key="(row) => row.effectiveFrom">
-        <template #cell-effectiveFrom="{ row }">From {{ formatDate(row.effectiveFrom) }}</template>
-        <template #cell-baseRate="{ row }">
-          <UiMoneyText :centavos="row.baseRate" tone="muted" />
-        </template>
-        <template #empty>
-          <UiEmptyState title="No pay plan history yet" />
-        </template>
-      </UiDataTable>
-    </UiSection>
+    <UiDataTable title="History" :columns="historyColumns" :rows="history" :row-key="(row) => row.effectiveFrom">
+      <template #cell-effectiveFrom="{ row }">From {{ formatDate(row.effectiveFrom) }}</template>
+      <template #cell-baseRate="{ row }">
+        <UiMoneyText :centavos="row.baseRate" tone="muted" />
+      </template>
+      <template #empty>
+        <UiEmptyState title="No pay plan history yet" />
+      </template>
+    </UiDataTable>
 
     <UiBottomSheet v-model:open="editOpen" title="Edit pay plan">
       <div class="flex flex-col gap-4">

@@ -56,7 +56,7 @@ function onLinkClick(event: MouseEvent) {
     :class="[baseClasses, variantClasses[variant], sizeClasses[size], block ? 'w-full' : '', isDisabled ? 'pointer-events-none opacity-50' : '']"
     @click="onLinkClick"
   >
-    <UiIcon v-if="loading" name="circle-notch" class="size-4 animate-spin" />
+    <IconCircleNotch v-if="loading" class="size-4 animate-spin" />
     <slot></slot>
   </RouterLink>
   <button
@@ -67,7 +67,7 @@ function onLinkClick(event: MouseEvent) {
     class="disabled:pointer-events-none disabled:opacity-50"
     :class="[baseClasses, variantClasses[variant], sizeClasses[size], block ? 'w-full' : '']"
   >
-    <UiIcon v-if="loading" name="circle-notch" class="size-4 animate-spin" />
+    <IconCircleNotch v-if="loading" class="size-4 animate-spin" />
     <slot></slot>
   </button>
 </template>

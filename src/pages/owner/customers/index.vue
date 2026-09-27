@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconUsers from "@/components/icon/Users.vue";
 import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Customers" } });
@@ -41,14 +42,21 @@ function submitAdd() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Customers" subtitle="Holdings, deposit and credit balances" />
-
-    <div class="flex items-center gap-3">
-      <UiSearchInput v-model="query" label="Search customers" />
-      <UiButton @click="addSheetOpen = true">Add customer</UiButton>
-    </div>
-
-    <UiDataTable clickable :columns="columns" :rows="filteredCustomers" :row-key="(row) => row.id" @row-click="openCustomer">
+    <UiDataTable
+      clickable
+      title="Customers"
+      :icon="IconUsers"
+      :columns="columns"
+      :rows="filteredCustomers"
+      :row-key="(row) => row.id"
+      @row-click="openCustomer"
+    >
+      <template #actions>
+        <UiButton @click="addSheetOpen = true">Add customer</UiButton>
+      </template>
+      <template #filters>
+        <UiSearchInput v-model="query" label="Search customers" />
+      </template>
       <template #cell-depositOnFile="{ row }">
         <UiMoneyText :centavos="row.depositOnFile" />
       </template>

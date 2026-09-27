@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconCashRegister from "@/components/icon/CashRegister.vue";
 import { drawerSessions } from "@/mocks/drawerSessions";
 import { expenses } from "@/mocks/expenses";
 import { payments } from "@/mocks/payments";
@@ -46,7 +47,7 @@ const rows = computed(() =>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable :columns="columns" :rows="rows" :row-key="(row) => row.session.id">
+    <UiDataTable title="Cash sessions" :icon="IconCashRegister" :columns="columns" :rows="rows" :row-key="(row) => row.session.id">
       <template #cell-cashier="{ row }">{{ employeeName(row.session.cashierId) }}</template>
       <template #cell-opened="{ row }">{{ formatDateTime(row.session.openedAt) }}</template>
       <template #cell-opening="{ row }"><UiMoneyText :centavos="row.session.openingCash" /></template>

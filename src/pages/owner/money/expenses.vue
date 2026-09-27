@@ -105,11 +105,7 @@ function submitAddExpense() {
       <UiButton @click="addOpen = true">Add expense</UiButton>
     </div>
 
-    <UiSection v-for="group in monthGroups" :key="group.key" :title="monthLabel(group.key)">
-      <template #actions>
-        <UiMoneyText :centavos="group.total" />
-      </template>
-
+    <div v-for="group in monthGroups" :key="group.key" class="flex flex-col gap-2">
       <dl class="flex flex-wrap gap-x-6 gap-y-1 text-sm">
         <div v-for="[category, total] in group.categoryTotals" :key="category" class="flex items-center gap-2">
           <dt class="text-zinc-500">{{ category }}</dt>
@@ -117,7 +113,10 @@ function submitAddExpense() {
         </div>
       </dl>
 
-      <UiDataTable :columns="rowColumns" :rows="group.rows" :row-key="(row) => row.id">
+      <UiDataTable :title="monthLabel(group.key)" :columns="rowColumns" :rows="group.rows" :row-key="(row) => row.id">
+        <template #actions>
+          <UiMoneyText :centavos="group.total" />
+        </template>
         <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
         <template #cell-paidBy="{ row }">
           {{ employeeName(row.paidBy) }} · {{ startCase(row.source) }}
@@ -125,7 +124,7 @@ function submitAddExpense() {
         </template>
         <template #cell-amount="{ row }"><UiMoneyText :centavos="row.amount" /></template>
       </UiDataTable>
-    </UiSection>
+    </div>
 
     <UiBottomSheet v-model:open="addOpen" title="Add expense">
       <div class="flex flex-col gap-4">

@@ -53,17 +53,18 @@ function exportCsv() {
   <div v-if="report && table" class="flex flex-col gap-4">
     <UiPageHeader :title="report.title" :subtitle="report.description" :back="ROUTES.OWNER.INDEX" />
 
-    <div class="flex flex-wrap items-center justify-between gap-3">
-      <UiFilterChip label="Date" :value="dateLabel" @clear="clearDates">
-        <div class="grid grid-cols-2 gap-3">
-          <UiField v-model="dateFrom" label="From" type="date" :max="dateTo || undefined" />
-          <UiField v-model="dateTo" label="To" type="date" :min="dateFrom || undefined" />
-        </div>
-      </UiFilterChip>
-      <UiButton variant="secondary" @click="exportCsv">Export CSV</UiButton>
-    </div>
-
     <UiDataTable :columns="table.columns" :rows="filteredRows" :row-key="(row) => row._rowId">
+      <template #actions>
+        <UiButton variant="secondary" @click="exportCsv">Export CSV</UiButton>
+      </template>
+      <template #filters>
+        <UiFilterChip label="Date" :value="dateLabel" @clear="clearDates">
+          <div class="grid grid-cols-2 gap-3">
+            <UiField v-model="dateFrom" label="From" type="date" :max="dateTo || undefined" />
+            <UiField v-model="dateTo" label="To" type="date" :min="dateFrom || undefined" />
+          </div>
+        </UiFilterChip>
+      </template>
       <template #empty>
         <UiEmptyState title="No rows in this range" description="Widen the date range to see more results." />
       </template>

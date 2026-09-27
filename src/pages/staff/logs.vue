@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconClipboardText from "@/components/icon/ClipboardText.vue";
 import { meterReadings } from "@/mocks/meterReadings";
 import { waterReadings } from "@/mocks/waterQuality";
 
@@ -63,13 +64,10 @@ function submitReading() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Readings" subtitle="TDS, pH and production meter">
+    <UiDataTable title="Readings" :icon="IconClipboardText" :columns="logColumns" :rows="rows" :row-key="(row) => row.id">
       <template #actions>
         <UiButton @click="openSheet">Log reading</UiButton>
       </template>
-    </UiPageHeader>
-
-    <UiDataTable :columns="logColumns" :rows="rows" :row-key="(row) => row.id">
       <template #cell-detail="{ row }">
         <div class="flex flex-col gap-0.5">
           <span>{{ row.detail }}</span>

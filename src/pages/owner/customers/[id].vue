@@ -122,18 +122,16 @@ function submitEdit() {
       </div>
     </UiCard>
 
-    <UiSection title="Delivery history">
-      <UiDataTable :columns="historyColumns" :rows="history" :row-key="(row) => row.id">
-        <template #cell-date="{ row }">{{ formatDateTime(row.date) }}</template>
-        <template #cell-amount="{ row }">
-          <UiMoneyText :centavos="row.amount" />
-        </template>
-        <template #cell-paymentType="{ row }">{{ PAYMENT_LABEL[row.paymentType] }}</template>
-        <template #empty>
-          <UiEmptyState title="No deliveries yet" />
-        </template>
-      </UiDataTable>
-    </UiSection>
+    <UiDataTable title="Delivery history" :columns="historyColumns" :rows="history" :row-key="(row) => row.id">
+      <template #cell-date="{ row }">{{ formatDateTime(row.date) }}</template>
+      <template #cell-amount="{ row }">
+        <UiMoneyText :centavos="row.amount" />
+      </template>
+      <template #cell-paymentType="{ row }">{{ PAYMENT_LABEL[row.paymentType] }}</template>
+      <template #empty>
+        <UiEmptyState title="No deliveries yet" />
+      </template>
+    </UiDataTable>
 
     <UiBottomSheet v-model:open="creditSheetOpen" title="Credit settings">
       <div class="flex flex-col gap-4">

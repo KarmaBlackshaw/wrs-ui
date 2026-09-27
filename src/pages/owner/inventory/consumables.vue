@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconCube from "@/components/icon/Cube.vue";
 import { consumables as consumablesMock, productUsages as productUsagesMock, stockEntries as stockEntriesMock } from "@/mocks/consumables";
 import type { TConsumable, TProductUsage, TStockEntry } from "@/types";
 
@@ -79,7 +80,7 @@ function submitStockTake() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable :columns="columns" :rows="consumables" :row-key="(row) => row.id">
+    <UiDataTable title="Consumables" :icon="IconCube" :columns="columns" :rows="consumables" :row-key="(row) => row.id">
       <template #cell-onHand="{ row }">{{ row.onHand }} {{ row.unit }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill :tone="row.onHand <= row.reorderLevel ? 'warn' : 'ok'">

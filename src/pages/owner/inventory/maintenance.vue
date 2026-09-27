@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconGear from "@/components/icon/Gear.vue";
 import { consumables } from "@/mocks/consumables";
 import { maintenanceLogs as maintenanceLogsMock } from "@/mocks/maintenance";
 import { meterReadings } from "@/mocks/meterReadings";
@@ -64,7 +65,7 @@ function submitReplacement() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable :columns="columns" :rows="rows" :row-key="(row) => row.item.id">
+    <UiDataTable title="Maintenance" :icon="IconGear" :columns="columns" :rows="rows" :row-key="(row) => row.item.id">
       <template #cell-name="{ row }">{{ row.item.name }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill :tone="statusTone[row.state.status]">{{ statusLabel[row.state.status] }}</UiStatusPill>
