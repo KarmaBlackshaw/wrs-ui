@@ -22,6 +22,17 @@ const movements = computed(() => [...containerMovements].sort((a, b) => b.create
 const movementSheetOpen = ref(false);
 const movementAction = ref("damaged");
 const movementType = ref("round");
+
+const movementActionOptions = [
+  { value: "damaged", label: "Damaged" },
+  { value: "lost", label: "Lost" },
+  { value: "purchased", label: "Purchased" },
+];
+
+const containerTypeOptions = [
+  { value: "round", label: "Round" },
+  { value: "slim", label: "Slim" },
+];
 const movementQty = ref(1);
 const movementReason = ref("");
 
@@ -47,22 +58,8 @@ function submitMovement() {
 
     <UiBottomSheet v-model:open="movementSheetOpen" title="Record container movement">
       <div class="flex flex-col gap-4">
-        <UiSegmentedControl
-          v-model="movementAction"
-          :options="[
-            { value: 'damaged', label: 'Damaged' },
-            { value: 'lost', label: 'Lost' },
-            { value: 'purchased', label: 'Purchased' },
-          ]"
-        />
-        <UiSelect
-          v-model="movementType"
-          label="Container type"
-          :options="[
-            { value: 'round', label: 'Round' },
-            { value: 'slim', label: 'Slim' },
-          ]"
-        />
+        <UiSegmentedControl v-model="movementAction" :options="movementActionOptions" />
+        <UiSelect v-model="movementType" label="Container type" :options="containerTypeOptions" />
         <UiStepper v-model="movementQty" label="Quantity" :min="1" />
         <UiField v-model="movementReason" label="Reason" :hint="movementAction === 'purchased' ? 'Optional' : 'Required'" />
       </div>

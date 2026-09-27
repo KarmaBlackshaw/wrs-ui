@@ -6,7 +6,7 @@ import { consumables } from "@/mocks/consumables";
 import { employees } from "@/mocks/employees";
 import { expenseCategories, expenses as expensesMock } from "@/mocks/expenses";
 import { OWNER_TABS } from "@/types";
-import type { TExpense, TExpenseSource } from "@/types";
+import type { TExpense, TExpenseSource, TOption } from "@/types";
 
 definePage({ meta: { title: "Expenses" } });
 
@@ -62,7 +62,7 @@ const newReceipt = ref<File>();
 const categoryOptions = computed(() => expenseCategories.map((category) => ({ value: category, label: category })));
 const employeeOptions = computed(() => employees.map((employee) => ({ value: employee.id, label: employee.name })));
 
-const sourceOptions: { value: TExpenseSource; label: string }[] = [
+const sourceOptions: TOption<TExpenseSource>[] = [
   { value: "owner", label: "Owner" },
   { value: "drawer", label: "Drawer" },
 ];

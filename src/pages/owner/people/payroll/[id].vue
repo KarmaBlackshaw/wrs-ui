@@ -2,7 +2,7 @@
 import { payPlans } from "@/mocks/employees";
 import { payLines as payLinesMock, payRuns as payRunsMock } from "@/mocks/payroll";
 import { ROUTES } from "@/types";
-import type { TPayLine, TPayRun } from "@/types";
+import type { TPayLine, TPayRun, TRowAction } from "@/types";
 
 definePage({ meta: { title: "Payroll run" } });
 
@@ -86,6 +86,10 @@ async function finalizeRun() {
   run.value.status = "finalized";
   toast.show("Payroll run finalized");
 }
+
+function lineActions(line: TPayLine): TRowAction[] {
+  return run.value?.status === "draft" ? [{ label: "Adjust", onSelect: () => openAdjust(line) }] : [];
+}
 </script>
 
 <template>
@@ -102,12 +106,7 @@ async function finalizeRun() {
       This run is finalized and read-only. Corrections go in the next run as adjustments.
     </p>
 
-    <UiDataTable
-      :row-actions="(row) => (run?.status === 'draft' ? [{ label: 'Adjust', onSelect: () => openAdjust(row) }] : [])"
-      :columns="columns"
-      :rows="lines"
-      :row-key="(row) => row.employeeId"
-    >
+    <UiDataTable :row-actions="lineActions" :columns="columns" :rows="lines" :row-key="(row) => row.employeeId">
       <template #cell-employee="{ row }">{{ employeeName(row.employeeId) }}</template>
       <template #cell-days="{ row }">
         Days worked: {{ row.daysWorked }}<template v-if="row.delivered"> · Delivered: {{ row.delivered }}</template>

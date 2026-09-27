@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TCustomer, TPaymentType } from "@/types";
+import type { TCustomer, TOption, TPaymentType } from "@/types";
 import { products } from "@/mocks/products";
 import { containerTypes } from "@/mocks/containerTypes";
 
@@ -11,6 +11,11 @@ const activeProducts = products.filter((product) => product.active);
 
 const cart = ref<Record<string, number>>({});
 const ownership = ref<"own" | "borrowed">("own");
+
+const ownershipOptions: TOption<typeof ownership.value>[] = [
+  { value: "own", label: "Own container" },
+  { value: "borrowed", label: "Borrowed" },
+];
 const paymentType = ref<TPaymentType>("cash");
 const customer = ref<TCustomer>();
 const customerSheetOpen = ref(false);
@@ -89,13 +94,7 @@ function confirmSale() {
     </div>
 
     <UiCard v-if="showContainerChoice" title="Container">
-      <UiSegmentedControl
-        v-model="ownership"
-        :options="[
-          { value: 'own', label: 'Own container' },
-          { value: 'borrowed', label: 'Borrowed' },
-        ]"
-      />
+      <UiSegmentedControl v-model="ownership" :options="ownershipOptions" />
       <p v-if="ownership === 'borrowed'" class="mt-3 text-sm text-zinc-500">Deposit due: <UiMoneyText :centavos="depositAmount" size="sm" /></p>
     </UiCard>
 

@@ -2,7 +2,7 @@
 import { IconTruck } from "@/components";
 import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types";
-import type { TRowAction, TTripStatus } from "@/types";
+import type { TRowAction, TTrip } from "@/types";
 
 definePage({ meta: { title: "Trips" } });
 
@@ -17,29 +17,22 @@ const columns: { key: string; label: string; align?: "left" | "right" }[] = [
 
 const rows = computed(() => trips.map((trip) => ({ ...trip, riderName: employeeName(trip.riderId) })));
 
-function tripAction(id: string, status: TTripStatus): TRowAction {
+function tripActions({ id, status }: TTrip): TRowAction[] {
   if (status === "open") {
-    return { label: "Receive", to: ROUTES.CASHIER.TRIPS.RECEIVE(id) };
+    return [{ label: "Receive", to: ROUTES.CASHIER.TRIPS.RECEIVE(id) }];
   }
 
   if (status === "returned") {
-    return { label: "Reconcile", to: ROUTES.CASHIER.TRIPS.RECONCILE(id) };
+    return [{ label: "Reconcile", to: ROUTES.CASHIER.TRIPS.RECONCILE(id) }];
   }
 
-  return { label: "View", variant: "ghost", to: ROUTES.CASHIER.TRIPS.RECONCILE(id) };
+  return [{ label: "View", variant: "ghost", to: ROUTES.CASHIER.TRIPS.RECONCILE(id) }];
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable
-      :row-actions="(row) => [tripAction(row.id, row.status)]"
-      title="Trips"
-      :icon="IconTruck"
-      :columns="columns"
-      :rows="rows"
-      :row-key="(row) => row.id"
-    >
+    <UiDataTable :row-actions="tripActions" title="Trips" :icon="IconTruck" :columns="columns" :rows="rows" :row-key="(row) => row.id">
       <template #actions>
         <UiButton :to="ROUTES.CASHIER.TRIPS.NEW">New load-out</UiButton>
       </template>

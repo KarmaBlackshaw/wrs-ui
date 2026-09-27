@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconPackage } from "@/components";
 import { consumables as consumablesMock, productUsages as productUsagesMock, stockEntries as stockEntriesMock } from "@/mocks/consumables";
-import type { TConsumable, TProductUsage, TStockEntry } from "@/types";
+import type { TConsumable, TProductUsage, TRowAction, TStockEntry } from "@/types";
 import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Consumables" } });
@@ -76,17 +76,19 @@ function submitStockTake() {
   stockTakeConsumable.value = undefined;
   toast.show("Saved");
 }
+
+function consumableActions(consumable: TConsumable): TRowAction[] {
+  return [
+    { label: "Usage", onSelect: () => openUsageSheet(consumable) },
+    { label: "Stock-take", onSelect: () => openStockTake(consumable) },
+  ];
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <UiDataTable
-      :row-actions="
-        (row) => [
-          { label: 'Usage', onSelect: () => openUsageSheet(row) },
-          { label: 'Stock-take', onSelect: () => openStockTake(row) },
-        ]
-      "
+      :row-actions="consumableActions"
       title="Inventory"
       :icon="IconPackage"
       :tabs="OWNER_TABS.INVENTORY"

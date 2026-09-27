@@ -30,6 +30,7 @@ const openPad = ref("");
 
 const expenseSheetOpen = ref(false);
 const expenseCategory = ref(expenseCategories[0] ?? "");
+const expenseCategoryOptions = expenseCategories.map((category) => ({ value: category, label: category }));
 const expensePad = ref("");
 const expenseNote = ref("");
 
@@ -162,7 +163,7 @@ function confirmClose() {
 
     <UiBottomSheet v-model:open="expenseSheetOpen" title="Drawer expense">
       <div class="flex flex-col gap-4">
-        <UiSelect v-model="expenseCategory" label="Category" :options="expenseCategories.map((category) => ({ value: category, label: category }))" />
+        <UiSelect v-model="expenseCategory" label="Category" :options="expenseCategoryOptions" />
         <p class="text-center"><UiMoneyText :centavos="expenseAmount" size="xl" /></p>
         <UiNumberPad v-model="expensePad" />
         <UiField v-model="expenseNote" label="Note" hint="Optional" />

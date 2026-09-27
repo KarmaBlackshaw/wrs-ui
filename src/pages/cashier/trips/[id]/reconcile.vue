@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types";
+import type { TRowAction } from "@/types";
 
 definePage({ meta: { title: "Reconcile trip", roles: ["cashier", "owner"] } });
 
@@ -56,6 +57,10 @@ function reconcile() {
   toast.show("Saved");
   router.push(tripsHomeRoute.value);
 }
+
+function deliveryActions(delivery: (typeof deliveryRows)[number]): TRowAction[] {
+  return [{ label: "Request void", variant: "ghost", onSelect: () => openVoid(delivery) }];
+}
 </script>
 
 <template>
@@ -97,13 +102,7 @@ function reconcile() {
       </div>
     </UiCard>
 
-    <UiDataTable
-      :row-actions="(row) => [{ label: 'Request void', variant: 'ghost', onSelect: () => openVoid(row) }]"
-      title="Deliveries"
-      :columns="deliveryColumns"
-      :rows="deliveryRows"
-      :row-key="(row) => row.id"
-    >
+    <UiDataTable :row-actions="deliveryActions" title="Deliveries" :columns="deliveryColumns" :rows="deliveryRows" :row-key="(row) => row.id">
       <template #cell-amount="{ row }">
         <UiMoneyText :centavos="row.amount" />
       </template>

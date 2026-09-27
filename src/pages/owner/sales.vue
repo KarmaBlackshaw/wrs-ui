@@ -3,7 +3,7 @@ import { IconReceipt } from "@/components";
 import { walkInSales } from "@/mocks/walkInSales";
 import { deliveries } from "@/mocks/trips";
 import { voids } from "@/mocks/voids";
-import type { TPaymentType, TSaleRow } from "@/types";
+import type { TOption, TPaymentType, TRowAction, TSaleRow } from "@/types";
 
 definePage({ meta: { title: "Sales" } });
 
@@ -24,6 +24,12 @@ const dateFilter = ref("");
 const paymentFilter = ref<"all" | TPaymentType>("all");
 const sourceFilter = ref<"all" | "walk-in" | "delivery">("all");
 const paymentOptions = [{ value: "all", label: "All" }, ...PAYMENT_OPTIONS];
+
+const sourceOptions: TOption<typeof sourceFilter.value>[] = [
+  { value: "all", label: "All" },
+  { value: "walk-in", label: SALE_SOURCE_LABEL["walk-in"] },
+  { value: "delivery", label: SALE_SOURCE_LABEL.delivery },
+];
 
 function saleCustomerName(customerId?: string) {
   return customerId ? customerName(customerId) : "Walk-in";
@@ -82,18 +88,17 @@ function openVoid(row: TSaleRow) {
   voidSummary.value = `${row.source === "walk-in" ? "Walk-in sale" : "Delivery"}, ${row.customerName}, ${formatMoney(row.amount)}`;
   voidSheetOpen.value = true;
 }
+
+function saleActions(row: TSaleRow): TRowAction[] {
+  const status = voidStatus(row.id);
+
+  return status === "approved" || status === "pending" ? [] : [{ label: "Void", onSelect: () => openVoid(row) }];
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable
-      :row-actions="(row) => (voidStatus(row.id) === 'approved' || voidStatus(row.id) === 'pending' ? [] : [{ label: 'Void', onSelect: () => openVoid(row) }])"
-      title="Sales"
-      :icon="IconReceipt"
-      :columns="columns"
-      :rows="filteredRows"
-      :row-key="(row) => row.id"
-    >
+    <UiDataTable :row-actions="saleActions" title="Sales" :icon="IconReceipt" :columns="columns" :rows="filteredRows" :row-key="(row) => row.id">
       <template #filters>
         <UiFilterChip label="Date" :value="dateFilter && formatDate(dateFilter)" @clear="dateFilter = ''">
           <UiField v-model="dateFilter" label="Date" type="date" />
@@ -102,14 +107,7 @@ function openVoid(row: TSaleRow) {
           <UiSegmentedControl v-model="paymentFilter" :options="paymentOptions" />
         </UiFilterChip>
         <UiFilterChip label="Source" :value="sourceFilter === 'all' ? undefined : SALE_SOURCE_LABEL[sourceFilter]" @clear="sourceFilter = 'all'">
-          <UiSegmentedControl
-            v-model="sourceFilter"
-            :options="[
-              { value: 'all', label: 'All' },
-              { value: 'walk-in', label: SALE_SOURCE_LABEL['walk-in'] },
-              { value: 'delivery', label: SALE_SOURCE_LABEL.delivery },
-            ]"
-          />
+          <UiSegmentedControl v-model="sourceFilter" :options="sourceOptions" />
         </UiFilterChip>
       </template>
       <template #cell-createdAt="{ row }">{{ formatDateTime(row.createdAt) }}</template>

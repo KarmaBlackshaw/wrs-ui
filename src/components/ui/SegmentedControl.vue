@@ -1,8 +1,9 @@
 <script setup lang="ts" generic="T extends string">
+import type { TOption } from "@/types";
 const model = defineModel<T>({ required: true });
 
 const { options } = defineProps<{
-  options: { value: T; label: string }[];
+  options: TOption<T>[];
 }>();
 
 const buttons = useTemplateRef<HTMLButtonElement[]>("buttons");

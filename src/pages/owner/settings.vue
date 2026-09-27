@@ -3,7 +3,7 @@ import startCase from "lodash/startCase";
 
 import { settings as settingsMock } from "@/mocks/settings";
 import { ROUTES } from "@/types";
-import type { TSetting } from "@/types";
+import type { TRowAction, TSetting } from "@/types";
 
 definePage({ meta: { title: "Settings" } });
 
@@ -121,6 +121,10 @@ function submitEdit() {
 function saveChanges() {
   toast.show("Saved");
 }
+
+function settingActions({ setting }: { setting: TSetting }): TRowAction[] {
+  return [{ label: "Edit", onSelect: () => openEdit(setting) }];
+}
 </script>
 
 <template>
@@ -134,7 +138,7 @@ function saveChanges() {
     <p class="text-sm text-zinc-500">Changing settings requires an online connection.</p>
 
     <UiDataTable
-      :row-actions="(row) => [{ label: 'Edit', onSelect: () => openEdit(row.setting) }]"
+      :row-actions="settingActions"
       v-for="group in groups"
       :key="group.name"
       :title="group.name"

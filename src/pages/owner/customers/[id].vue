@@ -45,6 +45,11 @@ const history = computed(() =>
 
 const creditSheetOpen = ref(false);
 const creditEnabledDraft = ref("enabled");
+
+const creditOptions = [
+  { value: "enabled", label: "Enabled" },
+  { value: "disabled", label: "Disabled" },
+];
 const limitDraft = ref(0);
 
 function openCreditSheet() {
@@ -140,13 +145,7 @@ function submitEdit() {
 
     <UiBottomSheet v-model:open="creditSheetOpen" title="Credit settings">
       <div class="flex flex-col gap-4">
-        <UiSegmentedControl
-          v-model="creditEnabledDraft"
-          :options="[
-            { value: 'enabled', label: 'Enabled' },
-            { value: 'disabled', label: 'Disabled' },
-          ]"
-        />
+        <UiSegmentedControl v-model="creditEnabledDraft" :options="creditOptions" />
         <UiStepper v-if="creditEnabledDraft === 'enabled'" v-model="limitDraft" label="Credit limit (pesos)" :min="0" :step="500" />
       </div>
 

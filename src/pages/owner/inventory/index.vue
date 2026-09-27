@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconPackage } from "@/components";
 import { products as productsMock, prices as pricesMock } from "@/mocks/products";
-import type { TContainerTypeCode, TPrice, TProduct, TProductKind } from "@/types";
+import type { TContainerTypeCode, TOption, TPrice, TProduct, TProductKind, TRowAction } from "@/types";
 import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Products & prices" } });
@@ -44,14 +44,14 @@ function openHistorySheet(product: TProduct) {
   historyProduct.value = product;
 }
 
-const kindOptions: { value: TProductKind; label: string }[] = [
+const kindOptions: TOption<TProductKind>[] = [
   { value: "refill", label: "Refill" },
   { value: "container", label: "Container" },
   { value: "bottled", label: "Bottled" },
   { value: "other", label: "Other" },
 ];
 
-const containerTypeOptions: { value: TContainerTypeCode; label: string }[] = [
+const containerTypeOptions: TOption<TContainerTypeCode>[] = [
   { value: "round", label: "Round" },
   { value: "slim", label: "Slim" },
 ];
@@ -114,17 +114,19 @@ function submitPriceChange() {
   priceSheetProduct.value = undefined;
   toast.show("Saved");
 }
+
+function productActions(product: TProduct): TRowAction[] {
+  return [
+    { label: "History", onSelect: () => openHistorySheet(product) },
+    { label: "Change price", onSelect: () => openPriceSheet(product) },
+  ];
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <UiDataTable
-      :row-actions="
-        (row) => [
-          { label: 'History', onSelect: () => openHistorySheet(row) },
-          { label: 'Change price', onSelect: () => openPriceSheet(row) },
-        ]
-      "
+      :row-actions="productActions"
       title="Inventory"
       :icon="IconPackage"
       :tabs="OWNER_TABS.INVENTORY"

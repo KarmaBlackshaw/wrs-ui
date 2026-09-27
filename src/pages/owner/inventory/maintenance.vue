@@ -3,7 +3,7 @@ import { IconPackage } from "@/components";
 import { consumables } from "@/mocks/consumables";
 import { maintenanceLogs as maintenanceLogsMock } from "@/mocks/maintenance";
 import { meterReadings } from "@/mocks/meterReadings";
-import type { TConsumable, TMaintenanceLog } from "@/types";
+import type { TConsumable, TMaintenanceLog, TRowAction } from "@/types";
 import { OWNER_TABS } from "@/types";
 
 definePage({ meta: { title: "Maintenance" } });
@@ -61,12 +61,16 @@ function submitReplacement() {
   logSheetItem.value = undefined;
   toast.show("Saved");
 }
+
+function maintenanceActions({ item }: { item: TConsumable }): TRowAction[] {
+  return [{ label: "Log replacement", onSelect: () => openLogSheet(item) }];
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <UiDataTable
-      :row-actions="(row) => [{ label: 'Log replacement', onSelect: () => openLogSheet(row.item) }]"
+      :row-actions="maintenanceActions"
       title="Inventory"
       :icon="IconPackage"
       :tabs="OWNER_TABS.INVENTORY"

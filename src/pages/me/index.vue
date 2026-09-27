@@ -42,6 +42,11 @@ const loanRows = computed(() =>
 
 const sheetOpen = ref(false);
 const requestType = ref("advance");
+
+const requestTypeOptions = [
+  { value: "advance", label: "Advance" },
+  { value: "loan", label: "Loan" },
+];
 const amountInput = ref("");
 const termMonths = ref(3);
 
@@ -102,13 +107,7 @@ function submitRequest() {
 
     <UiBottomSheet v-model:open="sheetOpen" title="Request advance or loan">
       <div class="flex flex-col gap-4">
-        <UiSegmentedControl
-          v-model="requestType"
-          :options="[
-            { value: 'advance', label: 'Advance' },
-            { value: 'loan', label: 'Loan' },
-          ]"
-        />
+        <UiSegmentedControl v-model="requestType" :options="requestTypeOptions" />
         <div>
           <p class="mb-1.5 text-sm font-medium text-zinc-700">Amount</p>
           <UiMoneyText :centavos="padToCentavos(amountInput)" size="lg" />

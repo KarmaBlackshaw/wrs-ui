@@ -9,6 +9,7 @@ const router = useRouter();
 const toast = useToast();
 
 const riders = employees.filter((employee) => employee.active && employee.roles.includes("rider"));
+const riderOptions = riders.map((rider) => ({ value: rider.id, label: rider.name }));
 const roundRefills = products.filter((product) => product.active && product.kind === "refill" && product.containerType === "round");
 
 const riderId = ref(riders[0]?.id ?? "");
@@ -42,7 +43,7 @@ function confirm() {
       </template>
     </UiPageHeader>
 
-    <UiSelect v-model="riderId" label="Rider" :options="riders.map((rider) => ({ value: rider.id, label: rider.name }))" />
+    <UiSelect v-model="riderId" label="Rider" :options="riderOptions" />
 
     <p class="text-sm text-zinc-500">Slim containers aren't offered on trips, round only (BR-01).</p>
 

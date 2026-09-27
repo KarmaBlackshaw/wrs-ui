@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IconPackage } from "@/components";
 import { consumables } from "@/mocks/consumables";
+import type { TRowAction } from "@/types";
 
 definePage({ meta: { title: "Stock" } });
 
@@ -90,23 +91,18 @@ function confirmStockTake() {
   stockTakeSheetOpen.value = false;
   toast.show("Saved");
 }
+
+function stockActions(consumable: (typeof localConsumables.value)[number]): TRowAction[] {
+  return [
+    { label: "Restock", onSelect: () => openRestock(consumable.id) },
+    { label: "Stock-take", variant: "ghost", onSelect: () => openStockTake(consumable.id) },
+  ];
+}
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable
-      :row-actions="
-        (row) => [
-          { label: 'Restock', onSelect: () => openRestock(row.id) },
-          { label: 'Stock-take', variant: 'ghost', onSelect: () => openStockTake(row.id) },
-        ]
-      "
-      title="Stock"
-      :icon="IconPackage"
-      :columns="stockColumns"
-      :rows="localConsumables"
-      :row-key="(row) => row.id"
-    >
+    <UiDataTable :row-actions="stockActions" title="Stock" :icon="IconPackage" :columns="stockColumns" :rows="localConsumables" :row-key="(row) => row.id">
       <template #cell-onHand="{ row }">{{ row.onHand }} {{ row.unit }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill v-if="reorderText(row)" :tone="reorderTone(row) ?? 'neutral'">{{ reorderText(row) }}</UiStatusPill>

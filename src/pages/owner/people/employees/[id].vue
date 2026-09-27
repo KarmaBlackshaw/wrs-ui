@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { employees, payPlans as payPlansMock } from "@/mocks/employees";
 import { ROLE_LABEL, ROUTES } from "@/types";
-import type { TPayFrequency, TPayPlan, TRateBasis } from "@/types";
+import type { TOption, TPayFrequency, TPayPlan, TRateBasis } from "@/types";
 
 definePage({ meta: { title: "Employee" } });
 
@@ -23,14 +23,14 @@ const historyColumns = [
   { key: "baseRate", label: "Base rate", align: "right" as const },
 ];
 
-const frequencyOptions: { value: TPayFrequency; label: string }[] = [
+const frequencyOptions: TOption<TPayFrequency>[] = [
   { value: "daily", label: "Daily" },
   { value: "weekly", label: "Weekly" },
   { value: "semi-monthly", label: "Semi-monthly" },
   { value: "monthly", label: "Monthly" },
 ];
 
-const rateBasisOptions: { value: TRateBasis; label: string }[] = [
+const rateBasisOptions: TOption<TRateBasis>[] = [
   { value: "per-day", label: "Per day" },
   { value: "per-period", label: "Per period" },
 ];

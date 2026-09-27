@@ -2,7 +2,7 @@
 import { IconIdentificationBadge } from "@/components";
 import { payRuns as payRunsMock } from "@/mocks/payroll";
 import { ROUTES, OWNER_TABS } from "@/types";
-import type { TPayFrequency, TPayRun } from "@/types";
+import type { TOption, TPayFrequency, TPayRun } from "@/types";
 
 definePage({ meta: { title: "Payroll" } });
 
@@ -23,7 +23,7 @@ const statusTone = {
   finalized: "ok",
 } as const;
 
-const frequencyOptions: { value: TPayFrequency; label: string }[] = [
+const frequencyOptions: TOption<TPayFrequency>[] = [
   { value: "daily", label: "Daily" },
   { value: "weekly", label: "Weekly" },
   { value: "semi-monthly", label: "Semi-monthly" },

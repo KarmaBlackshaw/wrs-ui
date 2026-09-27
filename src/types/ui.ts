@@ -22,6 +22,11 @@ export type TRowAction = {
   icon?: Component;
 };
 
+export type TOption<T extends string = string> = {
+  value: T;
+  label: string;
+};
+
 export type TTab = {
   label: string;
   to: string;
