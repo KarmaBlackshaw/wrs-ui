@@ -76,9 +76,7 @@ function isActive(to: string) {
       </header>
 
       <main class="min-w-0 flex-1 px-4 pt-5 pb-[calc(var(--tabbar-h,0px)+1.5rem)] lg:px-6">
-        <div class="mx-auto w-full max-w-screen-2xl">
-          <RouterView />
-        </div>
+        <RouterView />
       </main>
     </div>
 

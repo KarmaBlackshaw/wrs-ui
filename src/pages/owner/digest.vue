@@ -29,7 +29,7 @@ function selectDay(day: { date: string }) {
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Daily digest" subtitle="End-of-day summary, past days" :back="ROUTES.OWNER.INDEX" />
 
-    <div class="grid gap-4 lg:grid-cols-[360px_1fr]">
+    <div class="grid gap-4 lg:grid-cols-[auto_1fr] lg:items-start">
       <UiDataTable clickable :columns="columns" :rows="pastDays" :row-key="(row) => row.date" :active-key="selectedDate" @row-click="selectDay">
         <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
         <template #cell-salesCash="{ row }">
