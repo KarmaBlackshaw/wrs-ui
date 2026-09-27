@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import IconTruck from "@/components/icon/Truck.vue";
-import IconTruckFill from "@/components/icon/TruckFill.vue";
-import IconUserCircle from "@/components/icon/UserCircle.vue";
-import IconUserCircleFill from "@/components/icon/UserCircleFill.vue";
-import IconUsers from "@/components/icon/Users.vue";
-import IconUsersFill from "@/components/icon/UsersFill.vue";
+import { IconTruck, IconTruckFill, IconUserCircle, IconUserCircleFill, IconUsers, IconUsersFill } from "@/components";
 import { ROUTES } from "@/types";
 
 const items = [

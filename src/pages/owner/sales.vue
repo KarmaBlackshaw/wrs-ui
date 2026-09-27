@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconReceipt from "@/components/icon/Receipt.vue";
+import { IconReceipt } from "@/components";
 import { walkInSales } from "@/mocks/walkInSales";
 import { deliveries } from "@/mocks/trips";
 import { voids } from "@/mocks/voids";

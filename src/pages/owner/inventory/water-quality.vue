@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import IconClipboardText from "@/components/icon/ClipboardText.vue";
-import IconDropFill from "@/components/icon/DropFill.vue";
+import { IconClipboardText, IconDropFill } from "@/components";
 import { labTests as labTestsMock, waterReadings } from "@/mocks/waterQuality";
 import type { TLabTest } from "@/types";
 

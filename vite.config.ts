@@ -12,7 +12,7 @@ import { barrels } from "./plugins/barrels";
 
 export default defineConfig({
   plugins: [
-    barrels(["src/types", "src/services", "src/utils"]),
+    barrels(["src/types", "src/services", "src/utils", "src/components"]),
     tailwindcss(),
     VueRouter({
       routesFolder: "src/pages",

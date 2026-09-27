@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconPackage from "@/components/icon/Package.vue";
+import { IconPackage } from "@/components";
 import { consumables } from "@/mocks/consumables";
 
 definePage({ meta: { title: "Stock" } });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconTruck from "@/components/icon/Truck.vue";
+import { IconTruck } from "@/components";
 import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types";
 import type { TTripRow } from "@/types";

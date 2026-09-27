@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import IconCheck from "@/components/icon/Check.vue";
-import IconStamp from "@/components/icon/Stamp.vue";
-import IconUserCircle from "@/components/icon/UserCircle.vue";
-import IconX from "@/components/icon/X.vue";
+import { IconCheck, IconStamp, IconUserCircle, IconX } from "@/components";
 import { approvals } from "@/mocks/approvals";
 import { loans } from "@/mocks/loans";
 import { ROUTES } from "@/types";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconCube from "@/components/icon/Cube.vue";
+import { IconCube } from "@/components";
 import { consumables as consumablesMock, productUsages as productUsagesMock, stockEntries as stockEntriesMock } from "@/mocks/consumables";
 import type { TConsumable, TProductUsage, TStockEntry } from "@/types";
 

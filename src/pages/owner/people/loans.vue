@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconWallet from "@/components/icon/Wallet.vue";
+import { IconWallet } from "@/components";
 import { installments, loans as loansMock } from "@/mocks/loans";
 import type { TLoan, TLoanRow, TRowAction } from "@/types";
 

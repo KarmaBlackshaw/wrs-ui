@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconUsers from "@/components/icon/Users.vue";
+import { IconUsers } from "@/components";
 import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Customers" } });

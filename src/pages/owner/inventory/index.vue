@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconPackage from "@/components/icon/Package.vue";
+import { IconPackage } from "@/components";
 import { products as productsMock, prices as pricesMock } from "@/mocks/products";
 import type { TContainerTypeCode, TPrice, TProduct, TProductKind } from "@/types";
 

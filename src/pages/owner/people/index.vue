@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconUsers from "@/components/icon/Users.vue";
+import { IconUsers } from "@/components";
 import { employees as employeesMock } from "@/mocks/employees";
 import { ROLE_LABEL, ROUTES } from "@/types";
 import type { TEmployee, TRole } from "@/types";

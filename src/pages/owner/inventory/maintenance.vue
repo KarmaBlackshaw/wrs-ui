@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconGear from "@/components/icon/Gear.vue";
+import { IconGear } from "@/components";
 import { consumables } from "@/mocks/consumables";
 import { maintenanceLogs as maintenanceLogsMock } from "@/mocks/maintenance";
 import { meterReadings } from "@/mocks/meterReadings";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconCalculator from "@/components/icon/Calculator.vue";
+import { IconCalculator } from "@/components";
 import { payRuns as payRunsMock } from "@/mocks/payroll";
 import { ROUTES } from "@/types";
 import type { TPayFrequency, TPayRun } from "@/types";

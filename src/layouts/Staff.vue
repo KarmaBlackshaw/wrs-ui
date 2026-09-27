@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import IconClipboardText from "@/components/icon/ClipboardText.vue";
-import IconClipboardTextFill from "@/components/icon/ClipboardTextFill.vue";
-import IconUserCircle from "@/components/icon/UserCircle.vue";
-import IconUserCircleFill from "@/components/icon/UserCircleFill.vue";
+import { IconClipboardText, IconClipboardTextFill, IconUserCircle, IconUserCircleFill } from "@/components";
 import { ROUTES } from "@/types";
 
 const items = [

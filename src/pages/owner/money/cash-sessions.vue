@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconCashRegister from "@/components/icon/CashRegister.vue";
+import { IconCashRegister } from "@/components";
 import { drawerSessions } from "@/mocks/drawerSessions";
 import { expenses } from "@/mocks/expenses";
 import { payments } from "@/mocks/payments";

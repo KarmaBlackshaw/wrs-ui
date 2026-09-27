@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconClipboardText from "@/components/icon/ClipboardText.vue";
+import { IconClipboardText } from "@/components";
 import { meterReadings } from "@/mocks/meterReadings";
 import { waterReadings } from "@/mocks/waterQuality";
 
