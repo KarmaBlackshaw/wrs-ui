@@ -205,7 +205,7 @@ Recommended stack: Vue 3 + TypeScript, local-first. Swap any row before building
 | Styling              | Tailwind CSS only; all components built in-house, no UI library |
 | State                | Pinia                                                           |
 | Routing              | Vue Router with role guards                                     |
-| Offline storage      | Dexie (IndexedDB)                                               |
+| Offline storage      | idb (IndexedDB)                                                 |
 | PWA                  | vite-plugin-pwa (Workbox)                                       |
 | Forms and validation | VeeValidate + Zod                                               |
 | Dates                | date-fns, fixed to Asia/Manila                                  |
@@ -220,7 +220,7 @@ flowchart TD
   SW[Service worker<br/>caches app shell] --> V
   V[Views and components<br/>role layouts, screens, forms] --> S[Pinia stores<br/>UI state, totals, rule checks]
   S --> R[Repositories<br/>read and write local first]
-  R --> D[(Dexie / IndexedDB<br/>local copy + outbox)]
+  R --> D[(IndexedDB via idb<br/>local copy + outbox)]
   R --> Y[Sync engine<br/>push, pull, retry]
   Y <-->|push / pull| B[Backend API<br/>separate spec, source of truth]
 ```
@@ -239,7 +239,7 @@ src/
     router/            # routes, role guards
     layouts/           # OwnerLayout, CashierLayout, RiderLayout, StaffLayout, AuthLayout
   core/
-    db/                # Dexie schema, versions, outbox table
+    db/                # idb schema, versions, outbox table
     sync/              # sync engine, status store, conflict handling
     api/               # HTTP client (used only by sync)
     auth/              # session, current user, roles
@@ -451,7 +451,7 @@ All roles work offline; riders depend on it. Records are append-only (BR-02), so
 
 **Local data**
 
-- Dexie holds the records each role needs: rider gets own trips, customers, products, prices, credit balances; cashier and owner get everything for the store.
+- IndexedDB holds the records each role needs: rider gets own trips, customers, products, prices, credit balances; cashier and owner get everything for the store.
 - Every record gets a client-generated UUID and `createdAt` at write time, so offline entries are valid before sync.
 - `outbox` table: one row per write (entity, payload, attempts, last error).
 
@@ -612,7 +612,7 @@ The skeleton is done when every route renders its shell for the right role, runn
 
 **Data layer stubs**
 
-- [ ] Dexie schema for section 12 entities + outbox table
+- [ ] idb schema for section 12 entities + outbox table
 - [ ] Seed script with mock employees, customers, products, prices, containers
 - [ ] One repository per feature with typed read/write stubs
 - [ ] Sync engine stub: status store and SyncBadge wired, push/pull as no-ops
