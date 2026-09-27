@@ -80,7 +80,7 @@ function select(action: TRowAction) {
         ref="panel"
         role="menu"
         :aria-label="label"
-        class="inset-auto m-0 flex min-w-44 flex-col overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
+        class="inset-auto m-0 min-w-44 flex-col overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg open:flex"
         :style="floatingStyles"
         @keydown.down.prevent="move(1)"
         @keydown.up.prevent="move(-1)"
@@ -96,7 +96,9 @@ function select(action: TRowAction) {
           role="menuitem"
           tabindex="-1"
           class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-sm focus-visible:outline-none"
-          :class="action.variant === 'danger' ? 'text-red-600 hover:bg-red-50 focus:bg-red-50' : 'text-zinc-700 hover:bg-zinc-100 focus:bg-zinc-100'"
+          :class="
+            action.variant === 'danger' ? 'text-red-600 hover:bg-red-50 focus-visible:bg-red-50' : 'text-zinc-700 hover:bg-zinc-100 focus-visible:bg-zinc-100'
+          "
           @click="select(action)"
         >
           <component :is="action.icon" v-if="action.icon" class="size-4" />

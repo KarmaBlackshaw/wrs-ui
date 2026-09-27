@@ -2,6 +2,8 @@ import { autoUpdate, flip, offset, shift, size, useFloating } from "@floating-ui
 import type { Placement } from "@floating-ui/vue";
 import type { Ref } from "vue";
 
+let closeOpenPanel: (() => void) | undefined;
+
 export function useFloatingPanel(
   reference: Readonly<Ref<HTMLElement | null>>,
   floating: Readonly<Ref<HTMLElement | null>>,
@@ -41,7 +43,27 @@ export function useFloatingPanel(
     { flush: "post" }
   );
 
-  onClickOutside(floating, () => (open.value = false), { ignore: [reference] });
+  const close = () => (open.value = false);
+
+  watch(open, (isOpen) => {
+    if (isOpen) {
+      if (closeOpenPanel !== close) {
+        closeOpenPanel?.();
+      }
+
+      closeOpenPanel = close;
+    } else if (closeOpenPanel === close) {
+      closeOpenPanel = undefined;
+    }
+  });
+
+  onScopeDispose(() => {
+    if (closeOpenPanel === close) {
+      closeOpenPanel = undefined;
+    }
+  });
+
+  onClickOutside(floating, close, { ignore: [reference] });
 
   return { open, floatingStyles };
 }
