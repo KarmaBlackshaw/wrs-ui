@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PhCircleNotch } from "@phosphor-icons/vue";
 import type { RouteLocationRaw } from "vue-router";
 
 const {
@@ -36,7 +35,7 @@ const sizeClasses = {
 } as const;
 
 const baseClasses =
-  "inline-flex shrink-0 items-center justify-center rounded-lg font-semibold whitespace-nowrap transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100 [&>svg]:size-4";
+  "inline-flex shrink-0 items-center justify-center rounded-lg font-semibold whitespace-nowrap transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100";
 
 function onLinkClick(event: MouseEvent) {
   if (!isDisabled.value) {
@@ -57,7 +56,7 @@ function onLinkClick(event: MouseEvent) {
     :class="[baseClasses, variantClasses[variant], sizeClasses[size], block ? 'w-full' : '', isDisabled ? 'pointer-events-none opacity-50' : '']"
     @click="onLinkClick"
   >
-    <PhCircleNotch v-if="loading" class="animate-spin" />
+    <UiIcon v-if="loading" name="circle-notch" class="size-4 animate-spin" />
     <slot></slot>
   </RouterLink>
   <button
@@ -68,7 +67,7 @@ function onLinkClick(event: MouseEvent) {
     class="disabled:pointer-events-none disabled:opacity-50"
     :class="[baseClasses, variantClasses[variant], sizeClasses[size], block ? 'w-full' : '']"
   >
-    <PhCircleNotch v-if="loading" class="animate-spin" />
+    <UiIcon v-if="loading" name="circle-notch" class="size-4 animate-spin" />
     <slot></slot>
   </button>
 </template>

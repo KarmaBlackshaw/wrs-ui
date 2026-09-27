@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhCaretDown } from "@phosphor-icons/vue";
-
 import { ROLE_LABEL } from "@/types/roles";
 
 const authStore = useAuthStore();
@@ -25,7 +23,7 @@ const menuOpen = ref(false);
         <span class="truncate text-sm font-medium text-zinc-900">{{ authStore.user.name }}</span>
         <span v-if="authStore.activeRole" class="text-xs text-zinc-500">{{ ROLE_LABEL[authStore.activeRole] }}</span>
       </span>
-      <PhCaretDown class="size-4 shrink-0 text-zinc-500" />
+      <UiIcon name="caret-down" class="size-4 shrink-0 text-zinc-500" />
       <span class="sr-only">Account menu</span>
     </button>
     <UiBottomSheet v-model:open="menuOpen" title="Account">

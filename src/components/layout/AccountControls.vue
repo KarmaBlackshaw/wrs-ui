@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhSignOut } from "@phosphor-icons/vue";
-
 import { ROUTES } from "@/types/routes";
 import { ROLE_HOME, ROLE_LABEL } from "@/types/roles";
 import type { TRole } from "@/types/roles";
@@ -35,7 +33,7 @@ function logout() {
       :options="authStore.user.roles.map((role) => ({ value: role, label: ROLE_LABEL[role] }))"
     />
     <UiButton variant="ghost" block @click="logout">
-      <PhSignOut class="size-5" />
+      <UiIcon name="sign-out" class="size-5" />
       Log out
     </UiButton>
   </div>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PhCaretRight } from "@phosphor-icons/vue";
 import type { RouteLocationRaw } from "vue-router";
 
 defineProps<{
@@ -22,7 +21,7 @@ defineProps<{
     </div>
     <div class="flex shrink-0 items-center gap-2">
       <slot name="trailing"></slot>
-      <PhCaretRight v-if="to" class="size-4 text-zinc-400" />
+      <UiIcon name="caret-right" v-if="to" class="size-4 text-zinc-400" />
     </div>
   </component>
 </template>

@@ -1,13 +1,11 @@
-<script setup lang="ts">
-import { PhDrop } from "@phosphor-icons/vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="grid min-h-dvh bg-white text-zinc-900 lg:grid-cols-2">
     <aside class="hidden flex-col justify-between bg-brand-800 p-12 text-white lg:flex">
       <div class="flex items-center gap-3">
         <span class="grid size-10 place-items-center rounded-lg bg-white/10 ring-1 ring-white/20 ring-inset">
-          <PhDrop class="size-6" weight="fill" />
+          <UiIcon name="drop-fill" class="size-6" />
         </span>
         <span class="text-lg font-semibold tracking-tight">WRS</span>
       </div>

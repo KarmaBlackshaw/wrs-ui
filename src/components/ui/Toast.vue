@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { PhCheckCircle, PhInfo, PhWarning, PhX, PhXCircle } from "@phosphor-icons/vue";
-
 const toastStore = useToastStore();
 
 const toneIcons = {
-  success: { icon: PhCheckCircle, class: "text-emerald-600" },
-  info: { icon: PhInfo, class: "text-brand-700" },
-  warning: { icon: PhWarning, class: "text-amber-600" },
-  error: { icon: PhXCircle, class: "text-red-600" },
+  success: { icon: "check-circle-fill", class: "text-emerald-600" },
+  info: { icon: "info-fill", class: "text-brand-700" },
+  warning: { icon: "warning-fill", class: "text-amber-600" },
+  error: { icon: "x-circle-fill", class: "text-red-600" },
 };
 </script>
 
@@ -28,7 +26,7 @@ const toneIcons = {
         :key="toast.id"
         class="pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-xl border border-zinc-200 bg-white py-3 pr-2 pl-4 text-sm font-medium text-zinc-900 shadow-lg"
       >
-        <component :is="toneIcons[toast.tone].icon" class="size-5 shrink-0" :class="toneIcons[toast.tone].class" weight="fill" />
+        <UiIcon :name="toneIcons[toast.tone].icon" class="size-5 shrink-0" :class="toneIcons[toast.tone].class" />
         <span class="flex-1">{{ toast.message }}</span>
         <button
           type="button"
@@ -36,7 +34,7 @@ const toneIcons = {
           class="grid size-8 shrink-0 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600"
           @click="toastStore.dismiss(toast.id)"
         >
-          <PhX class="size-4" />
+          <UiIcon name="x" class="size-4" />
         </button>
       </div>
     </TransitionGroup>

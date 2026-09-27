@@ -1,6 +1,4 @@
 <script setup lang="ts" generic="T extends string">
-import { PhCaretUpDown, PhCheck } from "@phosphor-icons/vue";
-
 const model = defineModel<T | null>();
 
 const {
@@ -114,7 +112,7 @@ watch(activeIndex, (index) => panel.value?.querySelector(`#${CSS.escape(optionId
       @keydown.tab="open = false"
     >
       <span class="truncate" :class="selected ? '' : 'text-zinc-500'">{{ selected?.label ?? placeholder }}</span>
-      <PhCaretUpDown class="size-4 shrink-0 text-zinc-500" />
+      <UiIcon name="caret-up-down" class="size-4 shrink-0 text-zinc-500" />
     </button>
     <ul
       v-show="open"
@@ -138,7 +136,7 @@ watch(activeIndex, (index) => panel.value?.querySelector(`#${CSS.escape(optionId
         @click="choose(index)"
       >
         <span class="truncate" :class="option.value === model ? 'font-medium text-zinc-900' : ''">{{ option.label }}</span>
-        <PhCheck v-if="option.value === model" class="size-4 shrink-0 text-brand-700" />
+        <UiIcon name="check" v-if="option.value === model" class="size-4 shrink-0 text-brand-700" />
       </li>
     </ul>
     <p v-if="error" :id="errorId" class="text-sm text-red-700">{{ error }}</p>

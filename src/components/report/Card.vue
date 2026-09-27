@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PhArrowRight } from "@phosphor-icons/vue";
 import type { RouteLocationRaw } from "vue-router";
 
 import type { TReportTable } from "@/types/report";
@@ -21,7 +20,7 @@ const previewRows = computed(() => table.rows.slice(0, limit).map((row, index) =
       <h3 class="truncate text-base font-semibold text-zinc-900">{{ title }}</h3>
       <UiButton :to="to" variant="ghost" size="sm">
         {{ table.rows.length > limit ? `View all ${table.rows.length}` : "Open" }}
-        <PhArrowRight />
+        <UiIcon name="arrow-right" class="size-4" />
       </UiButton>
     </header>
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhBackspace } from "@phosphor-icons/vue";
-
 const model = defineModel<string>({ default: "" });
 
 const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "clear", "0", "backspace"] as const;
@@ -32,7 +30,7 @@ function press(key: (typeof keys)[number]) {
       :aria-label="key === 'clear' ? 'Clear' : key === 'backspace' ? 'Backspace' : key"
       @click="press(key)"
     >
-      <PhBackspace v-if="key === 'backspace'" class="size-6" />
+      <UiIcon name="backspace" v-if="key === 'backspace'" class="size-6" />
       <span v-else-if="key === 'clear'" class="text-sm font-medium text-zinc-600">Clear</span>
       <span v-else>{{ key }}</span>
     </button>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhArrowLeft, PhCaretRight, PhDrop } from "@phosphor-icons/vue";
-
 import { employees } from "@/mocks/employees";
 import { ROLE_HOME, ROLE_LABEL } from "@/types/roles";
 import type { TRole } from "@/types/roles";
@@ -45,7 +43,7 @@ function completeLogin(employeeId: string, role: TRole) {
     <div class="flex items-center">
       <span class="flex items-center gap-2 lg:invisible">
         <span class="grid size-9 place-items-center rounded-lg bg-brand-700 text-white">
-          <PhDrop class="size-5" weight="fill" />
+          <UiIcon name="drop-fill" class="size-5" />
         </span>
         <span class="text-lg font-semibold tracking-tight">WRS</span>
       </span>
@@ -70,7 +68,7 @@ function completeLogin(employeeId: string, role: TRole) {
             <span class="truncate text-sm font-medium text-zinc-900">{{ employee.name }}</span>
             <span class="truncate text-sm text-zinc-500">{{ employee.roles.map((role) => ROLE_LABEL[role]).join(", ") }}</span>
           </span>
-          <PhCaretRight class="size-4 shrink-0 text-zinc-400" />
+          <UiIcon name="caret-right" class="size-4 shrink-0 text-zinc-400" />
         </button>
       </li>
     </ul>
@@ -80,7 +78,7 @@ function completeLogin(employeeId: string, role: TRole) {
         {{ ROLE_LABEL[role] }}
       </UiButton>
       <UiButton variant="ghost" block @click="selectedEmployeeId = null">
-        <PhArrowLeft class="size-5" />
+        <UiIcon name="arrow-left" class="size-5" />
         Back
       </UiButton>
     </div>

@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { PhCalculator, PhCashRegister, PhPackage, PhTruck, PhUserCircle } from "@phosphor-icons/vue";
-
 import { ROUTES } from "@/types/routes";
 
 const items = [
-  { label: "Sell", to: ROUTES.CASHIER.SELL, icon: PhCashRegister },
-  { label: "Trips", to: ROUTES.CASHIER.TRIPS.INDEX, icon: PhTruck },
-  { label: "Count", to: ROUTES.CASHIER.COUNT, icon: PhCalculator },
-  { label: "Stock", to: ROUTES.CASHIER.STOCK, icon: PhPackage },
-  { label: "Me", to: ROUTES.ME.INDEX, icon: PhUserCircle },
+  { label: "Sell", to: ROUTES.CASHIER.SELL, icon: "cash-register" },
+  { label: "Trips", to: ROUTES.CASHIER.TRIPS.INDEX, icon: "truck" },
+  { label: "Count", to: ROUTES.CASHIER.COUNT, icon: "calculator" },
+  { label: "Stock", to: ROUTES.CASHIER.STOCK, icon: "package" },
+  { label: "Me", to: ROUTES.ME.INDEX, icon: "user-circle" },
 ];
 </script>
 

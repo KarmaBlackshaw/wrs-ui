@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhMagnifyingGlass } from "@phosphor-icons/vue";
-
 const model = defineModel<string>({ default: "" });
 
 const { label = "Search" } = defineProps<{
@@ -16,7 +14,7 @@ const id = useId();
   <div class="flex min-w-0 flex-1 flex-col gap-1.5">
     <label :for="id" class="sr-only">{{ label }}</label>
     <div class="relative flex items-center">
-      <PhMagnifyingGlass class="pointer-events-none absolute left-3 size-4 text-zinc-500" />
+      <UiIcon name="magnifying-glass" class="pointer-events-none absolute left-3 size-4 text-zinc-500" />
       <input
         :id="id"
         v-model="model"

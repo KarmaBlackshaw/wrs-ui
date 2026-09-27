@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PhArrowLeft } from "@phosphor-icons/vue";
 import type { RouteLocationRaw } from "vue-router";
 
 defineProps<{
@@ -16,7 +15,7 @@ defineProps<{
       :to="back"
       class="-ml-1 inline-flex w-fit items-center gap-1 rounded-md px-1 py-0.5 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600"
     >
-      <PhArrowLeft class="size-4" />
+      <UiIcon name="arrow-left" class="size-4" />
       Back
     </RouterLink>
     <div class="flex flex-wrap items-end justify-between gap-3">

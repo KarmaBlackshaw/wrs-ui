@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { PhTruck, PhUserCircle, PhUsers } from "@phosphor-icons/vue";
-
 import { ROUTES } from "@/types/routes";
 
 const items = [
-  { label: "Trips", to: ROUTES.RIDER.INDEX, icon: PhTruck },
-  { label: "Customers", to: ROUTES.RIDER.CUSTOMERS, icon: PhUsers },
-  { label: "Me", to: ROUTES.ME.INDEX, icon: PhUserCircle },
+  { label: "Trips", to: ROUTES.RIDER.INDEX, icon: "truck" },
+  { label: "Customers", to: ROUTES.RIDER.CUSTOMERS, icon: "users" },
+  { label: "Me", to: ROUTES.ME.INDEX, icon: "user-circle" },
 ];
 </script>
 
