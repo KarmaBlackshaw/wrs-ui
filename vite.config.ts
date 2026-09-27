@@ -8,8 +8,11 @@ import tailwindcss from "@tailwindcss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 
+import { barrels } from "./plugins/barrels";
+
 export default defineConfig({
   plugins: [
+    barrels(["src/types", "src/services", "src/utils"]),
     tailwindcss(),
     VueRouter({
       routesFolder: "src/pages",
