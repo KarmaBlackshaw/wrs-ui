@@ -1,0 +1,61 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - generic [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - generic [ref=f1e6]:
+          - paragraph [ref=f1e7]: WRS
+          - heading "Who's working today?" [level=1] [ref=f1e8]
+          - paragraph [ref=f1e9]: Tap your name to log in.
+        - button "Language" [ref=f1e10] [cursor=pointer]: FIL
+      - list [ref=f1e11]:
+        - listitem [ref=f1e12]:
+          - button "Demo Owner Owner Cashier Rider Washer Helper" [ref=f1e13] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e14]: DO
+            - generic [ref=f1e15]:
+              - generic [ref=f1e16]: Demo Owner
+              - generic [ref=f1e17]:
+                - generic [ref=f1e18]: Owner
+                - generic [ref=f1e19]: Cashier
+                - generic [ref=f1e20]: Rider
+                - generic [ref=f1e21]: Washer
+                - generic [ref=f1e22]: Helper
+        - listitem [ref=f1e25]:
+          - button "Ligaya Santos Cashier" [ref=f1e26] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e27]: LS
+            - generic [ref=f1e28]:
+              - generic [ref=f1e29]: Ligaya Santos
+              - generic [ref=f1e30]: Cashier
+        - listitem [ref=f1e34]:
+          - button "Mario Cruz Rider" [ref=f1e35] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e36]: MC
+            - generic [ref=f1e37]:
+              - generic [ref=f1e38]: Mario Cruz
+              - generic [ref=f1e39]: Rider
+        - listitem [ref=f1e43]:
+          - button "Ramil Bautista Rider" [ref=f1e44] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e45]: RB
+            - generic [ref=f1e46]:
+              - generic [ref=f1e47]: Ramil Bautista
+              - generic [ref=f1e48]: Rider
+        - listitem [ref=f1e52]:
+          - button "Boyet Reyes Washer" [ref=f1e53] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e54]: BR
+            - generic [ref=f1e55]:
+              - generic [ref=f1e56]: Boyet Reyes
+              - generic [ref=f1e57]: Washer
+        - listitem [ref=f1e61]:
+          - button "Fernando Dela Cruz Helper" [ref=f1e62] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e63]: FD
+            - generic [ref=f1e64]:
+              - generic [ref=f1e65]: Fernando Dela Cruz
+              - generic [ref=f1e66]: Helper
+        - listitem [ref=f1e70]:
+          - button "Corazon Villanueva Cashier Rider" [ref=f1e71] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f1e72]: CV
+            - generic [ref=f1e73]:
+              - generic [ref=f1e74]: Corazon Villanueva
+              - generic [ref=f1e75]:
+                - generic [ref=f1e76]: Cashier
+                - generic [ref=f1e77]: Rider
+    - status
+  - generic "Toggle devtools panel" [ref=f1e81] [cursor=pointer]

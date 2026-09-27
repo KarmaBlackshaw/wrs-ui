@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "approvals": "Approvals",
+    "sales": "Sales",
+    "trips": "Trips",
+    "customers": "Customers",
+    "containers": "Containers",
+    "inventory": "Inventory",
+    "money": "Money",
+    "people": "People",
+    "reports": "Reports",
+    "settings": "Settings",
+    "sell": "Sell",
+    "count": "Count",
+    "stock": "Stock",
+    "logs": "Logs",
+    "me": "Me"
+  },
+  "common": {
+    "logout": "Log out",
+    "switchRole": "Switch role",
+    "language": "Language"
+  }
+}

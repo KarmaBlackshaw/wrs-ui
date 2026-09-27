@@ -1,0 +1,18 @@
+- generic [ref=e4]:
+  - img "Axiom" [ref=e6]
+  - generic [ref=e8]:
+    - heading "Welcome Back!" [level=2] [ref=e9]
+    - paragraph [ref=e10]: Sign in to your account or use single sign on
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e13]: Email address
+        - textbox "Email" [ref=e18]
+      - generic [ref=e19]:
+        - generic [ref=e20]: Password
+        - textbox "Password" [ref=e25]
+      - button "Sign in" [ref=e28] [cursor=pointer]
+      - generic [ref=e30]: OR
+      - link "Continue with SSO" [ref=e35] [cursor=pointer]:
+        - /url: /auth/login/sso
+      - link "Forgot your password?" [ref=e37] [cursor=pointer]:
+        - /url: /auth/forgot-password

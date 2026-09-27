@@ -1,15 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";
 
-import type { LayoutName } from "@/types/layout";
 import type { Middleware } from "@/types/middleware";
-
-declare module "vue-router" {
-  interface RouteMeta {
-    layout?: LayoutName;
-    title?: string;
-  }
-}
 
 const DEFAULT_TITLE = "WRS";
 

@@ -7,6 +7,7 @@ import VueDevTools from "vite-plugin-vue-devtools";
 import tailwindcss from "@tailwindcss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
@@ -19,8 +20,8 @@ export default defineConfig({
     Vue(),
     VueDevTools(),
     AutoImport({
-      dirs: ["./src/composables", "./src/utils", "./src/stores", "./src/services"],
-      imports: ["pinia", "vue", "vue-router", "@vueuse/core"],
+      dirs: ["./src/composables", "./src/utils", "./src/types/labels", "./src/stores", "./src/services"],
+      imports: ["pinia", "vue", "vue-router", "vue-i18n", "@vueuse/core"],
       vueTemplate: true,
       dts: true,
       eslintrc: {
@@ -34,6 +35,14 @@ export default defineConfig({
       deep: true,
       directoryAsNamespace: true,
       collapseSamePrefixes: true,
+    }),
+    VitePWA({
+      registerType: "autoUpdate",
+      manifest: {
+        name: "WRS",
+        short_name: "WRS",
+        theme_color: "#0f766e",
+      },
     }),
   ],
   resolve: {

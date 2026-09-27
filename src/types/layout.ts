@@ -1,1 +1,1 @@
-export type LayoutName = "Default" | "Auth";
+export type LayoutName = "Auth" | "Owner" | "Cashier" | "Rider" | "Staff";

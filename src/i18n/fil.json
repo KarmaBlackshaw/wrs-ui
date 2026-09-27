@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "approvals": "Mga Aprubasyon",
+    "sales": "Benta",
+    "trips": "Mga Biyahe",
+    "customers": "Mga Kustomer",
+    "containers": "Mga Container",
+    "inventory": "Imbentaryo",
+    "money": "Pera",
+    "people": "Mga Tauhan",
+    "reports": "Mga Ulat",
+    "settings": "Mga Setting",
+    "sell": "Magbenta",
+    "count": "Bilangin",
+    "stock": "Stock",
+    "logs": "Mga Log",
+    "me": "Ako"
+  },
+  "common": {
+    "logout": "Mag-log out",
+    "switchRole": "Palitan ang tungkulin",
+    "language": "Wika"
+  }
+}

@@ -1,0 +1,52 @@
+<script setup lang="ts">
+import { employees } from "@/mocks/employees";
+import { products } from "@/mocks/products";
+import { ROUTES } from "@/types/routes";
+
+definePage({ meta: { title: "New load-out", roles: ["cashier"] } });
+
+const router = useRouter();
+
+const riders = employees.filter((employee) => employee.active && employee.roles.includes("rider"));
+const roundRefills = products.filter((product) => product.active && product.kind === "refill" && product.containerType === "round");
+
+const riderId = ref(riders[0]?.id ?? "");
+const load = ref<Record<string, number>>({});
+
+function qtyFor(productId: string) {
+  return load.value[productId] ?? 0;
+}
+
+function setQty(productId: string, qty: number) {
+  load.value[productId] = qty;
+}
+
+const canConfirm = computed(() => riderId.value !== "" && roundRefills.some((product) => qtyFor(product.id) > 0));
+
+function confirm() {
+  if (!canConfirm.value) {
+    return;
+  }
+
+  useToastStore().show("Saved on this phone");
+  router.push(ROUTES.CASHIER_TRIPS);
+}
+</script>
+
+<template>
+  <div class="flex flex-col gap-4">
+    <UiPageHeader title="New load-out" :back="ROUTES.CASHIER_TRIPS">
+      <template #actions>
+        <UiButton :disabled="!canConfirm" @click="confirm">Confirm load-out</UiButton>
+      </template>
+    </UiPageHeader>
+
+    <UiSelect v-model="riderId" label="Rider" :options="riders.map((rider) => ({ value: rider.id, label: rider.name }))" />
+
+    <p class="text-sm text-zinc-500">Slim containers aren't offered on trips, round only (BR-01).</p>
+
+    <UiCard v-for="product in roundRefills" :key="product.id" :title="product.name">
+      <UiStepper :model-value="qtyFor(product.id)" :min="0" :max="200" @update:model-value="(value) => setQty(product.id, value)" />
+    </UiCard>
+  </div>
+</template>

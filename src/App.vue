@@ -4,4 +4,5 @@ const { layout } = useLayout();
 
 <template>
   <component :is="layout" />
+  <UiToast />
 </template>

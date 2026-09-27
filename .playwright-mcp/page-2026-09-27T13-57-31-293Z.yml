@@ -1,0 +1,31 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - heading "WRS" [level=1] [ref=e6]
+        - button "Language" [ref=e7] [cursor=pointer]: FIL
+      - paragraph [ref=e8]: Select your name
+      - generic [ref=e9]:
+        - button "Demo Owner Owner · Cashier · Rider · Washer · Helper" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: Demo Owner
+          - generic [ref=e12]: Owner · Cashier · Rider · Washer · Helper
+        - button "Ligaya Santos Cashier" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: Ligaya Santos
+          - generic [ref=e15]: Cashier
+        - button "Mario Cruz Rider" [ref=e16] [cursor=pointer]:
+          - generic [ref=e17]: Mario Cruz
+          - generic [ref=e18]: Rider
+        - button "Ramil Bautista Rider" [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: Ramil Bautista
+          - generic [ref=e21]: Rider
+        - button "Boyet Reyes Washer" [ref=e22] [cursor=pointer]:
+          - generic [ref=e23]: Boyet Reyes
+          - generic [ref=e24]: Washer
+        - button "Fernando Dela Cruz Helper" [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: Fernando Dela Cruz
+          - generic [ref=e27]: Helper
+        - button "Corazon Villanueva Cashier · Rider" [ref=e28] [cursor=pointer]:
+          - generic [ref=e29]: Corazon Villanueva
+          - generic [ref=e30]: Cashier · Rider
+    - status
+  - generic "Toggle devtools panel" [ref=e32] [cursor=pointer]

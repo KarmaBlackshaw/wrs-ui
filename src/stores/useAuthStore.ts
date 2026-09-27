@@ -1,23 +1,40 @@
-import type { TLoginPayload } from "@/types/auth";
+import type { TEmployee } from "@/types/entities/employee";
+import type { TRole } from "@/types/roles";
+import { employees } from "@/mocks/employees";
 
 export const useAuthStore = defineStore(
   "auth",
   () => {
-    const token = ref<string | null>(null);
+    const user = ref<TEmployee | null>(null);
+    const activeRole = ref<TRole | null>(null);
 
-    const isAuthenticated = computed(() => token.value != null);
+    const isAuthenticated = computed(() => user.value != null);
 
-    async function login(payload: TLoginPayload) {
-      const { token: accessToken } = await loginUser(payload);
+    function login(employeeId: string, role: TRole) {
+      const employee = employees.find((candidate) => candidate.id === employeeId);
 
-      token.value = accessToken;
+      if (!employee || !employee.roles.includes(role)) {
+        throw new Error("Employee does not hold that role.");
+      }
+
+      user.value = employee;
+      activeRole.value = role;
+    }
+
+    function switchRole(role: TRole) {
+      if (!user.value?.roles.includes(role)) {
+        throw new Error("Employee does not hold that role.");
+      }
+
+      activeRole.value = role;
     }
 
     function logout() {
-      token.value = null;
+      user.value = null;
+      activeRole.value = null;
     }
 
-    return { token, isAuthenticated, login, logout };
+    return { user, activeRole, isAuthenticated, login, switchRole, logout };
   },
-  { persist: { pick: ["token"] } }
+  { persist: { pick: ["user", "activeRole"] } }
 );
