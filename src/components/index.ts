@@ -57,6 +57,7 @@ export { default as RiderCustomerSearchList } from "./rider/CustomerSearchList.v
 export { default as UiBottomSheet } from "./ui/BottomSheet.vue";
 export { default as UiButton } from "./ui/Button.vue";
 export { default as UiCard } from "./ui/Card.vue";
+export { default as UiConfirmDialog } from "./ui/ConfirmDialog.vue";
 export { default as UiDataTable } from "./ui/DataTable/index.vue";
 export { default as UiDataTableRowActions } from "./ui/DataTable/RowActions.vue";
 export { default as UiDialog } from "./ui/Dialog.vue";

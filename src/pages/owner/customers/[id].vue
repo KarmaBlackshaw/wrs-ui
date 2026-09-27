@@ -9,6 +9,7 @@ const { findCustomer } = useCustomerLookup();
 
 const route = useRoute("/owner/customers/[id]");
 const toast = useToast();
+const confirmDialog = useConfirm();
 
 const customer = computed(() => findCustomer(route.params.id));
 
@@ -61,11 +62,15 @@ function submitCredit() {
   creditSheetOpen.value = false;
 }
 
-const waiveDialogOpen = ref(false);
+async function toggleWaive() {
+  const isConfirmed = await confirmDialog.confirm({
+    title: "Deposit waiver",
+    message: customer.value?.depositWaived ? "Stop waiving deposits for this customer?" : "Waive deposits for this customer going forward?",
+  });
 
-function submitWaive() {
-  toast.show("Deposit waiver saved");
-  waiveDialogOpen.value = false;
+  if (isConfirmed) {
+    toast.show("Deposit waiver saved");
+  }
 }
 
 const editSheetOpen = ref(false);
@@ -114,7 +119,7 @@ function submitEdit() {
     <UiCard title="Credit and deposit">
       <template #actions>
         <UiButton variant="secondary" size="md" @click="openCreditSheet">{{ customer.creditEnabled ? "Change credit limit" : "Enable credit" }}</UiButton>
-        <UiButton variant="secondary" size="md" @click="waiveDialogOpen = true">{{ customer.depositWaived ? "Un-waive deposit" : "Waive deposit" }}</UiButton>
+        <UiButton variant="secondary" size="md" @click="toggleWaive">{{ customer.depositWaived ? "Un-waive deposit" : "Waive deposit" }}</UiButton>
       </template>
       <div class="flex flex-col gap-1 text-base text-zinc-700">
         <p>Credit: {{ customer.creditEnabled ? `Enabled, limit ${formatMoney(customer.creditLimit ?? 0)}` : "Not enabled" }}</p>
@@ -151,15 +156,6 @@ function submitEdit() {
         </div>
       </template>
     </UiBottomSheet>
-
-    <UiDialog v-model:open="waiveDialogOpen" title="Deposit waiver">
-      <p>{{ customer.depositWaived ? "Stop waiving deposits for this customer?" : "Waive deposits for this customer going forward?" }}</p>
-
-      <template #footer>
-        <UiButton variant="secondary" @click="waiveDialogOpen = false">Cancel</UiButton>
-        <UiButton @click="submitWaive">Confirm</UiButton>
-      </template>
-    </UiDialog>
 
     <UiBottomSheet v-model:open="editSheetOpen" title="Edit customer">
       <div class="flex flex-col gap-4">

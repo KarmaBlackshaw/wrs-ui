@@ -11,12 +11,9 @@ const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
 
 const toast = useToast();
+const confirmDialog = useConfirm();
 
 const handled = ref<Record<string, "approved" | "rejected">>({});
-
-const confirmDialogOpen = ref(false);
-const confirmAction = ref<"approve" | "reject">();
-const confirmApproval = ref<TApproval>();
 
 const loanSheetOpen = ref(false);
 const loanApproval = ref<TApproval>();
@@ -65,7 +62,7 @@ function loanPreview(loan: TLoan) {
   return { totalInterest, installment };
 }
 
-function openConfirm(approval: TApproval, action: "approve" | "reject") {
+async function openConfirm(approval: TApproval, action: "approve" | "reject") {
   if (action === "approve" && approval.kind === "loan") {
     loanApproval.value = approval;
     authFile.value = undefined;
@@ -74,19 +71,18 @@ function openConfirm(approval: TApproval, action: "approve" | "reject") {
     return;
   }
 
-  confirmApproval.value = approval;
-  confirmAction.value = action;
-  confirmDialogOpen.value = true;
-}
+  const isConfirmed = await confirmDialog.confirm({
+    title: action === "approve" ? "Approve request" : "Reject request",
+    message: `Are you sure you want to ${action} this request?`,
+    variant: action === "reject" ? "danger" : "primary",
+  });
 
-function confirmDecision() {
-  if (!confirmApproval.value || !confirmAction.value) {
+  if (!isConfirmed) {
     return;
   }
 
-  handled.value[confirmApproval.value.id] = confirmAction.value === "approve" ? "approved" : "rejected";
-  toast.show(confirmAction.value === "approve" ? "Approved" : "Rejected");
-  confirmDialogOpen.value = false;
+  handled.value[approval.id] = action === "approve" ? "approved" : "rejected";
+  toast.show(action === "approve" ? "Approved" : "Rejected");
 }
 
 function confirmLoanApproval() {
@@ -124,15 +120,6 @@ function confirmLoanApproval() {
         <UiEmptyState title="No pending approvals" />
       </template>
     </UiDataTable>
-
-    <UiDialog v-model:open="confirmDialogOpen" :title="confirmAction === 'approve' ? 'Approve request' : 'Reject request'">
-      <p>Are you sure you want to {{ confirmAction }} this request?</p>
-
-      <template #footer>
-        <UiButton variant="secondary" @click="confirmDialogOpen = false">Cancel</UiButton>
-        <UiButton :variant="confirmAction === 'reject' ? 'danger' : 'primary'" @click="confirmDecision">Confirm</UiButton>
-      </template>
-    </UiDialog>
 
     <UiBottomSheet v-model:open="loanSheetOpen" title="Approve loan">
       <div class="flex flex-col gap-4">

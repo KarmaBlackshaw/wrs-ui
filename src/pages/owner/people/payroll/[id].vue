@@ -10,6 +10,7 @@ const { employeeName } = useEmployeeLookup();
 
 const route = useRoute("/owner/people/payroll/[id]");
 const toast = useToast();
+const confirmDialog = useConfirm();
 
 const payRuns = ref<TPayRun[]>([...payRunsMock]);
 const run = computed(() => payRuns.value.find((candidate) => candidate.id === route.params.id));
@@ -71,14 +72,19 @@ function submitAdjust() {
   toast.show("Saved");
 }
 
-const finalizeOpen = ref(false);
+async function finalizeRun() {
+  const isConfirmed = await confirmDialog.confirm({
+    title: "Finalize payroll run?",
+    message: "This locks the run. Any further corrections must go in the next run as adjustments.",
+    confirmLabel: "Finalize",
+    variant: "danger",
+  });
 
-function confirmFinalize() {
-  if (run.value) {
-    run.value.status = "finalized";
+  if (!isConfirmed || !run.value) {
+    return;
   }
 
-  finalizeOpen.value = false;
+  run.value.status = "finalized";
   toast.show("Payroll run finalized");
 }
 </script>
@@ -87,7 +93,7 @@ function confirmFinalize() {
   <div v-if="run" class="flex flex-col gap-4">
     <UiPageHeader :title="formatPeriod(run.periodStart, run.periodEnd)" :subtitle="run.frequency" :back="ROUTES.OWNER.PEOPLE.PAYROLL.INDEX">
       <template v-if="run.status === 'draft'" #actions>
-        <UiButton variant="danger" @click="finalizeOpen = true">Finalize run</UiButton>
+        <UiButton variant="danger" @click="finalizeRun">Finalize run</UiButton>
       </template>
     </UiPageHeader>
 
@@ -144,15 +150,6 @@ function confirmFinalize() {
         </div>
       </template>
     </UiBottomSheet>
-
-    <UiDialog v-model:open="finalizeOpen" title="Finalize payroll run?">
-      <p>This locks the run. Any further corrections must go in the next run as adjustments.</p>
-
-      <template #footer>
-        <UiButton variant="secondary" @click="finalizeOpen = false">Cancel</UiButton>
-        <UiButton variant="danger" @click="confirmFinalize">Finalize</UiButton>
-      </template>
-    </UiDialog>
   </div>
 
   <UiEmptyState v-else title="Payroll run not found">
