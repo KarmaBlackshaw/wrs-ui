@@ -91,7 +91,7 @@ function displayValue(setting: TSetting) {
   return typeof setting.value === "string" ? startCase(setting.value) : String(setting.value);
 }
 
-const editSetting = ref<TSetting | null>(null);
+const editSetting = ref<TSetting>();
 const editValue = ref("");
 const editEffectiveFrom = ref(todayIso());
 
@@ -116,7 +116,7 @@ function submitEdit() {
   const value = moneyKeys.has(key) ? Math.round(numeric * 100) : Number.isNaN(numeric) ? raw : numeric;
 
   settingsHistory.value.push({ key, value, effectiveFrom: editEffectiveFrom.value });
-  editSetting.value = null;
+  editSetting.value = undefined;
 }
 
 function saveChanges() {
@@ -155,7 +155,7 @@ function saveChanges() {
       <RouterLink :to="ROUTES.OWNER.INVENTORY.MAINTENANCE" class="underline">Maintenance</RouterLink>.
     </p>
 
-    <UiBottomSheet :open="editSetting !== null" title="Edit setting" @update:open="editSetting = null">
+    <UiBottomSheet :open="editSetting != null" title="Edit setting" @update:open="editSetting = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ editSetting ? settingLabel[editSetting.key] : "" }}</p>
         <UiField

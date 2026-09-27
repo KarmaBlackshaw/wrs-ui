@@ -38,7 +38,7 @@ function currentAmount(productId: string) {
   return latestEffective(pricesByProduct.value.get(productId) ?? [])?.amount ?? 0;
 }
 
-const historyProduct = ref<TProduct | null>(null);
+const historyProduct = ref<TProduct>();
 
 function openHistorySheet(product: TProduct) {
   historyProduct.value = product;
@@ -88,7 +88,7 @@ function submitAddProduct() {
   toast.show("Saved");
 }
 
-const priceSheetProduct = ref<TProduct | null>(null);
+const priceSheetProduct = ref<TProduct>();
 const priceAmount = ref("");
 const priceEffectiveFrom = ref(todayIso());
 
@@ -111,7 +111,7 @@ function submitPriceChange() {
     effectiveFrom: priceEffectiveFrom.value,
   });
 
-  priceSheetProduct.value = null;
+  priceSheetProduct.value = undefined;
   toast.show("Saved");
 }
 </script>
@@ -161,7 +161,7 @@ function submitPriceChange() {
       </template>
     </UiBottomSheet>
 
-    <UiBottomSheet :open="priceSheetProduct !== null" title="Change price" @update:open="priceSheetProduct = null">
+    <UiBottomSheet :open="priceSheetProduct != null" title="Change price" @update:open="priceSheetProduct = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ priceSheetProduct?.name }}</p>
         <UiField v-model="priceAmount" label="New price (₱)" type="number" inputmode="decimal" />
@@ -175,7 +175,7 @@ function submitPriceChange() {
       </template>
     </UiBottomSheet>
 
-    <UiBottomSheet :open="historyProduct !== null" title="Price history" @update:open="historyProduct = null">
+    <UiBottomSheet :open="historyProduct != null" title="Price history" @update:open="historyProduct = undefined">
       <p class="text-sm text-zinc-500">{{ historyProduct?.name }}</p>
       <ul class="mt-2 flex flex-col gap-1 text-sm text-zinc-600">
         <li v-for="price in pricesByProduct.get(historyProduct?.id ?? '')" :key="price.effectiveFrom" class="flex justify-between">

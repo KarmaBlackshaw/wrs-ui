@@ -38,7 +38,7 @@ const statusLabel = {
   overdue: "Overdue",
 } as const;
 
-const logSheetItem = ref<TConsumable | null>(null);
+const logSheetItem = ref<TConsumable>();
 const meterReading = ref(latestMeterLiters.value);
 
 function openLogSheet(item: TConsumable) {
@@ -58,7 +58,7 @@ function submitReplacement() {
     meterLiters: meterReading.value,
   });
 
-  logSheetItem.value = null;
+  logSheetItem.value = undefined;
   toast.show("Saved");
 }
 </script>
@@ -86,7 +86,7 @@ function submitReplacement() {
       </template>
     </UiDataTable>
 
-    <UiBottomSheet :open="logSheetItem !== null" title="Log replacement" @update:open="logSheetItem = null">
+    <UiBottomSheet :open="logSheetItem != null" title="Log replacement" @update:open="logSheetItem = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ logSheetItem?.name }}</p>
         <UiStepper v-model="meterReading" label="Meter reading (liters)" :min="0" :max="999999" :step="10" />

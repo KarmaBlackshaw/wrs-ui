@@ -13,7 +13,7 @@ const activeProducts = products.filter((product) => product.active);
 const cart = ref<Record<string, number>>({});
 const ownership = ref<"own" | "borrowed">("own");
 const paymentType = ref<TPaymentType>("cash");
-const customer = ref<TCustomer | null>(null);
+const customer = ref<TCustomer>();
 const customerSheetOpen = ref(false);
 const confirmOpen = ref(false);
 
@@ -67,7 +67,7 @@ function reset() {
   cart.value = {};
   ownership.value = "own";
   paymentType.value = "cash";
-  customer.value = null;
+  customer.value = undefined;
   confirmOpen.value = false;
 }
 

@@ -5,7 +5,7 @@ definePage({ meta: { title: "Collect payment" } });
 
 const toast = useToast();
 
-const customer = ref<TCustomer | null>(null);
+const customer = ref<TCustomer>();
 const customerSheetOpen = ref(true);
 const pad = ref("");
 
@@ -24,7 +24,7 @@ function confirm() {
   toast.show("Saved");
   pad.value = "";
   customerSheetOpen.value = true;
-  customer.value = null;
+  customer.value = undefined;
 }
 </script>
 

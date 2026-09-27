@@ -39,7 +39,7 @@ function balance(loan: TLoan) {
   return loan.status === "released" || loan.status === "paid" ? Math.max(0, loan.principal - paid) : loan.principal;
 }
 
-const scheduleLoan = ref<TLoan | null>(null);
+const scheduleLoan = ref<TLoan>();
 
 function openSchedule(loan: TLoan) {
   scheduleLoan.value = loan;
@@ -50,12 +50,12 @@ function approve(loan: TLoan) {
   toast.show("Saved");
 }
 
-const releaseLoan = ref<TLoan | null>(null);
-const releaseFile = ref<File | null>(null);
+const releaseLoan = ref<TLoan>();
+const releaseFile = ref<File>();
 
 function openRelease(loan: TLoan) {
   releaseLoan.value = loan;
-  releaseFile.value = null;
+  releaseFile.value = undefined;
 }
 
 function submitRelease() {
@@ -65,7 +65,7 @@ function submitRelease() {
 
   releaseLoan.value.status = "released";
   releaseLoan.value.authorizationUrl = URL.createObjectURL(releaseFile.value);
-  releaseLoan.value = null;
+  releaseLoan.value = undefined;
   toast.show("Released, posted as expense");
 }
 </script>
@@ -97,7 +97,7 @@ function submitRelease() {
       </template>
     </UiDataTable>
 
-    <UiBottomSheet :open="scheduleLoan !== null" title="Installment schedule" @update:open="scheduleLoan = null">
+    <UiBottomSheet :open="scheduleLoan != null" title="Installment schedule" @update:open="scheduleLoan = undefined">
       <div v-if="scheduleLoan" class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">
           {{ employeeName(scheduleLoan.employeeId) }}
@@ -115,7 +115,7 @@ function submitRelease() {
       </div>
     </UiBottomSheet>
 
-    <UiBottomSheet :open="releaseLoan !== null" title="Release with authorization" @update:open="releaseLoan = null">
+    <UiBottomSheet :open="releaseLoan != null" title="Release with authorization" @update:open="releaseLoan = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ releaseLoan ? employeeName(releaseLoan.employeeId) : "" }}</p>
         <UiFileInput v-model="releaseFile" label="Signed authorization photo" accept="image/*" capture="environment" />

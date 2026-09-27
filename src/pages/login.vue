@@ -9,7 +9,7 @@ const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 
-const selectedEmployeeId = ref<string | null>(null);
+const selectedEmployeeId = ref<string>();
 
 const selectedEmployee = computed(() => employees.find((employee) => employee.id === selectedEmployeeId.value) ?? null);
 
@@ -77,7 +77,7 @@ function completeLogin(employeeId: string, role: TRole) {
       <UiButton v-for="role in selectedEmployee.roles" :key="role" block @click="completeLogin(selectedEmployee.id, role)">
         {{ ROLE_LABEL[role] }}
       </UiButton>
-      <UiButton variant="ghost" block @click="selectedEmployeeId = null">
+      <UiButton variant="ghost" block @click="selectedEmployeeId = undefined">
         <UiIcon name="arrow-left" class="size-5" />
         Back
       </UiButton>

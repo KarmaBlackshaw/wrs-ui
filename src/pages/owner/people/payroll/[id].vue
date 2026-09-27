@@ -50,7 +50,7 @@ function carriedOver(line: TPayLine) {
   return cap === null ? 0 : Math.max(0, totalDeductions(line) - cap);
 }
 
-const adjustLine = ref<TPayLine | null>(null);
+const adjustLine = ref<TPayLine>();
 const adjustAmount = ref("");
 
 function openAdjust(line: TPayLine) {
@@ -67,7 +67,7 @@ function submitAdjust() {
 
   adjustLine.value.adjustments += delta;
   adjustLine.value.net += delta;
-  adjustLine.value = null;
+  adjustLine.value = undefined;
   toast.show("Saved");
 }
 
@@ -134,7 +134,7 @@ function confirmFinalize() {
       </template>
     </UiDataTable>
 
-    <UiBottomSheet :open="adjustLine !== null" title="Adjust pay line" @update:open="adjustLine = null">
+    <UiBottomSheet :open="adjustLine != null" title="Adjust pay line" @update:open="adjustLine = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ adjustLine ? employeeName(adjustLine.employeeId) : "" }}</p>
         <UiField v-model="adjustAmount" label="Adjustment amount (₱, use negative to deduct)" type="number" inputmode="decimal" />

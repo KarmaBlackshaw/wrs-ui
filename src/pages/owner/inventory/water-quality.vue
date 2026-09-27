@@ -33,7 +33,7 @@ const newType = ref("");
 const newDate = ref(todayIso());
 const newResult = ref("");
 const newNextDue = ref("");
-const newFile = ref<File | null>(null);
+const newFile = ref<File>();
 
 const canAddTest = computed(() => newType.value.trim().length > 0 && newResult.value.trim().length > 0 && newNextDue.value.length > 0);
 
@@ -54,7 +54,7 @@ function submitAddTest() {
   newType.value = "";
   newResult.value = "";
   newNextDue.value = "";
-  newFile.value = null;
+  newFile.value = undefined;
   addOpen.value = false;
   toast.show("Saved");
 }

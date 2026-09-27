@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const model = defineModel<File | null>({ default: null });
+const model = defineModel<File>();
 
 defineProps<{
   label: string;
@@ -19,7 +19,7 @@ watch(model, (file) => {
 function onChange(event: Event) {
   const target = event.target;
 
-  model.value = target instanceof HTMLInputElement ? (target.files?.[0] ?? null) : null;
+  model.value = target instanceof HTMLInputElement ? target.files?.[0] : undefined;
 }
 </script>
 

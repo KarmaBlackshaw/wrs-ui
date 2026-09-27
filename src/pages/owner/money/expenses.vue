@@ -55,7 +55,7 @@ const newPaidBy = ref(employees[0]?.id ?? "");
 const newSource = ref<TExpenseSource>("owner");
 const newConsumableId = ref("");
 const newQty = ref(0);
-const newReceipt = ref<File | null>(null);
+const newReceipt = ref<File>();
 
 const categoryOptions = computed(() => expenseCategories.map((category) => ({ value: category, label: category })));
 const employeeOptions = computed(() => employees.map((employee) => ({ value: employee.id, label: employee.name })));
@@ -92,7 +92,7 @@ function submitAddExpense() {
   newAmount.value = "";
   newConsumableId.value = "";
   newQty.value = 0;
-  newReceipt.value = null;
+  newReceipt.value = undefined;
   addOpen.value = false;
   toast.show(newConsumableId.value ? "Saved, consumable restocked" : "Saved");
 }

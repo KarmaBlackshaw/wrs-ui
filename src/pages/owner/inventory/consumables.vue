@@ -24,7 +24,7 @@ function usagesFor(consumableId: string) {
   return productUsages.value.filter((usage) => usage.consumableId === consumableId);
 }
 
-const usageSheetConsumable = ref<TConsumable | null>(null);
+const usageSheetConsumable = ref<TConsumable>();
 const usageDrafts = ref<{ productId: string; qtyPerUnit: number }[]>([]);
 
 function openUsageSheet(consumable: TConsumable) {
@@ -42,11 +42,11 @@ function submitUsage() {
   productUsages.value = productUsages.value.filter((usage) => usage.consumableId !== consumableId);
   productUsages.value.push(...usageDrafts.value.map((draft) => ({ consumableId, productId: draft.productId, qtyPerUnit: draft.qtyPerUnit })));
 
-  usageSheetConsumable.value = null;
+  usageSheetConsumable.value = undefined;
   toast.show("Saved");
 }
 
-const stockTakeConsumable = ref<TConsumable | null>(null);
+const stockTakeConsumable = ref<TConsumable>();
 const countedQty = ref(0);
 
 function openStockTake(consumable: TConsumable) {
@@ -72,7 +72,7 @@ function submitStockTake() {
     createdAt: new Date().toISOString(),
   });
 
-  stockTakeConsumable.value = null;
+  stockTakeConsumable.value = undefined;
   toast.show("Saved");
 }
 </script>
@@ -97,7 +97,7 @@ function submitStockTake() {
       </template>
     </UiDataTable>
 
-    <UiBottomSheet :open="usageSheetConsumable !== null" title="Edit usage list" @update:open="usageSheetConsumable = null">
+    <UiBottomSheet :open="usageSheetConsumable != null" title="Edit usage list" @update:open="usageSheetConsumable = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ usageSheetConsumable?.name }}, quantity used per unit sold</p>
         <div v-for="draft in usageDrafts" :key="draft.productId" class="flex items-center justify-between gap-3">
@@ -114,7 +114,7 @@ function submitStockTake() {
       </template>
     </UiBottomSheet>
 
-    <UiBottomSheet :open="stockTakeConsumable !== null" title="Stock-take" @update:open="stockTakeConsumable = null">
+    <UiBottomSheet :open="stockTakeConsumable != null" title="Stock-take" @update:open="stockTakeConsumable = undefined">
       <div class="flex flex-col gap-4">
         <p class="text-sm text-zinc-500">{{ stockTakeConsumable?.name }}, on hand: {{ stockTakeConsumable?.onHand }}</p>
         <UiStepper v-model="countedQty" label="Counted quantity" :min="0" :max="99999" />

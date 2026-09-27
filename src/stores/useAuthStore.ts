@@ -5,8 +5,8 @@ import { employees } from "@/mocks/employees";
 export const useAuthStore = defineStore(
   "auth",
   () => {
-    const user = ref<TEmployee | null>(null);
-    const activeRole = ref<TRole | null>(null);
+    const user = ref<TEmployee>();
+    const activeRole = ref<TRole>();
 
     const isAuthenticated = computed(() => user.value != null);
 
@@ -30,8 +30,8 @@ export const useAuthStore = defineStore(
     }
 
     function logout() {
-      user.value = null;
-      activeRole.value = null;
+      user.value = undefined;
+      activeRole.value = undefined;
     }
 
     return { user, activeRole, isAuthenticated, login, switchRole, logout };

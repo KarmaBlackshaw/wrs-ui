@@ -16,7 +16,7 @@ const stockColumns: { key: string; label: string; align?: "left" | "right" }[] =
 
 const restockSheetOpen = ref(false);
 const stockTakeSheetOpen = ref(false);
-const selectedId = ref<string | null>(null);
+const selectedId = ref<string>();
 
 const restockPad = ref("");
 const stockTakePad = ref("");

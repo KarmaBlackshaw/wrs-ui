@@ -15,12 +15,12 @@ const toast = useToast();
 const handled = ref<Record<string, "approved" | "rejected">>({});
 
 const confirmDialogOpen = ref(false);
-const confirmAction = ref<"approve" | "reject" | null>(null);
-const confirmApproval = ref<TApproval | null>(null);
+const confirmAction = ref<"approve" | "reject">();
+const confirmApproval = ref<TApproval>();
 
 const loanSheetOpen = ref(false);
-const loanApproval = ref<TApproval | null>(null);
-const authFile = ref<File | null>(null);
+const loanApproval = ref<TApproval>();
+const authFile = ref<File>();
 
 const columns = [
   { key: "summary", label: "Request" },
@@ -49,7 +49,7 @@ function loanPreview(loan: TLoan) {
 function openConfirm(approval: TApproval, action: "approve" | "reject") {
   if (action === "approve" && approval.kind === "loan") {
     loanApproval.value = approval;
-    authFile.value = null;
+    authFile.value = undefined;
     loanSheetOpen.value = true;
 
     return;
