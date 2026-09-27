@@ -20,6 +20,7 @@ export * from "./labels/aging";
 export * from "./labels/loan";
 export * from "./labels/payment";
 export * from "./labels/payroll";
+export * from "./labels/sale";
 export * from "./labels/trip";
 export * from "./layout";
 export * from "./middleware";

@@ -26,7 +26,8 @@ const columns = [
   { key: "requestedBy", label: "Requested by" },
   { key: "createdAt", label: "Date" },
   { key: "details", label: "Details" },
-  { key: "actions", label: "" },
+  { key: "status", label: "Status" },
+  { key: "actions", label: "", align: "right" as const },
 ];
 
 function customerLink(refId: string) {
@@ -100,15 +101,16 @@ function confirmLoanApproval() {
           View customer
         </RouterLink>
       </template>
+      <template #cell-status="{ row }">
+        <UiStatusPill v-if="handled[row.id]" :tone="handled[row.id] === 'approved' ? 'ok' : 'danger'">
+          {{ handled[row.id] === "approved" ? "Approved" : "Rejected" }}
+        </UiStatusPill>
+        <UiStatusPill v-else tone="warn">Pending</UiStatusPill>
+      </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end gap-2">
-          <UiStatusPill v-if="handled[row.id]" :tone="handled[row.id] === 'approved' ? 'ok' : 'danger'">
-            {{ handled[row.id] === "approved" ? "Approved" : "Rejected" }}
-          </UiStatusPill>
-          <template v-else>
-            <UiButton size="sm" @click="openConfirm(row, 'approve')">Approve</UiButton>
-            <UiButton size="sm" variant="danger" @click="openConfirm(row, 'reject')">Reject</UiButton>
-          </template>
+        <div v-if="!handled[row.id]" class="flex justify-end gap-2">
+          <UiButton size="sm" @click="openConfirm(row, 'approve')">Approve</UiButton>
+          <UiButton size="sm" variant="danger" @click="openConfirm(row, 'reject')">Reject</UiButton>
         </div>
       </template>
       <template #empty>

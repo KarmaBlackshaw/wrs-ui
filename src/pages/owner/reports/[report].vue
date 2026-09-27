@@ -19,9 +19,30 @@ const filteredRows = computed(() => {
   }
 
   return table.value.rows
-    .filter((row) => !row._date || (row._date.slice(0, 10) >= dateFrom.value && row._date.slice(0, 10) <= dateTo.value))
+    .filter((row) => {
+      const date = row._date?.slice(0, 10);
+
+      return !date || ((!dateFrom.value || date >= dateFrom.value) && (!dateTo.value || date <= dateTo.value));
+    })
     .map((row, index) => ({ ...row, _rowId: index }));
 });
+
+const dateLabel = computed(() => {
+  if (dateFrom.value && dateTo.value) {
+    return formatPeriod(dateFrom.value, dateTo.value);
+  }
+
+  if (dateFrom.value) {
+    return `From ${formatDate(dateFrom.value)}`;
+  }
+
+  return dateTo.value && `Until ${formatDate(dateTo.value)}`;
+});
+
+function clearDates() {
+  dateFrom.value = "";
+  dateTo.value = "";
+}
 
 function exportCsv() {
   toast.show("Export ready (demo)");
@@ -32,9 +53,13 @@ function exportCsv() {
   <div v-if="report && table" class="flex flex-col gap-4">
     <UiPageHeader :title="report.title" :subtitle="report.description" :back="ROUTES.OWNER.INDEX" />
 
-    <div class="flex flex-wrap items-end gap-3">
-      <UiField v-model="dateFrom" label="From" type="date" />
-      <UiField v-model="dateTo" label="To" type="date" />
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <UiFilterChip label="Date" :value="dateLabel" @clear="clearDates">
+        <div class="grid grid-cols-2 gap-3">
+          <UiField v-model="dateFrom" label="From" type="date" :max="dateTo || undefined" />
+          <UiField v-model="dateTo" label="To" type="date" :min="dateFrom || undefined" />
+        </div>
+      </UiFilterChip>
       <UiButton variant="secondary" @click="exportCsv">Export CSV</UiButton>
     </div>
 
