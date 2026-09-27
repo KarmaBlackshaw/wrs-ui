@@ -2,7 +2,7 @@
 import { labTests as labTestsMock, waterReadings } from "@/mocks/waterQuality";
 import type { TLabTest } from "@/types/entities/water";
 
-definePage({ meta: { title: "Water quality", roles: ["owner"] } });
+definePage({ meta: { title: "Water quality" } });
 
 const { employeeName } = useEmployeeLookup();
 

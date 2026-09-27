@@ -3,7 +3,7 @@ import type { TCustomer } from "@/types/entities/customer";
 import { containerHoldings } from "@/mocks/containers";
 import { containerTypes } from "@/mocks/containerTypes";
 
-definePage({ meta: { title: "Return container", roles: ["cashier"] } });
+definePage({ meta: { title: "Return container" } });
 
 const customer = ref<TCustomer | null>(null);
 const customerSheetOpen = ref(true);

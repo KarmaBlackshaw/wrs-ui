@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Receive return", roles: ["cashier"] } });
+definePage({ meta: { title: "Receive return" } });
 
 const { productName } = useProductLookup();
 
@@ -37,19 +37,19 @@ function setEmpty(productId: string, qty: number) {
 
 function submit() {
   useToastStore().show("Saved on this phone");
-  router.push(ROUTES.CASHIER_TRIPS);
+  router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>
 
 <template>
   <UiEmptyState v-if="!summary.trip" title="Trip not found" description="It may have been reconciled or removed.">
     <template #action>
-      <UiButton :to="ROUTES.CASHIER_TRIPS">Back to trips</UiButton>
+      <UiButton :to="ROUTES.CASHIER.TRIPS.INDEX">Back to trips</UiButton>
     </template>
   </UiEmptyState>
 
   <div v-else class="flex flex-col gap-4">
-    <UiPageHeader title="Receive return" :subtitle="`Loaded ${formatDateTime(summary.trip.loadedAt)}`" :back="ROUTES.CASHIER_TRIPS">
+    <UiPageHeader title="Receive return" :subtitle="`Loaded ${formatDateTime(summary.trip.loadedAt)}`" :back="ROUTES.CASHIER.TRIPS.INDEX">
       <template #actions>
         <UiButton @click="submit">Submit return</UiButton>
       </template>

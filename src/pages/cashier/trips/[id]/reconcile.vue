@@ -13,7 +13,7 @@ const authStore = useAuthStore();
 
 const summary = tripSummary(route.params.id);
 
-const tripsHomeRoute = computed(() => (authStore.activeRole === "owner" ? ROUTES.OWNER_TRIPS : ROUTES.CASHIER_TRIPS));
+const tripsHomeRoute = computed(() => (authStore.activeRole === "owner" ? ROUTES.OWNER.TRIPS : ROUTES.CASHIER.TRIPS.INDEX));
 
 const hasVariance = computed(() => summary.fullVariance !== 0 || summary.emptyVariance !== 0 || summary.cashVariance !== 0);
 

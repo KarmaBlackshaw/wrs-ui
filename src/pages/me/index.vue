@@ -3,7 +3,7 @@ import { loans } from "@/mocks/loans";
 import { payLines, payRuns } from "@/mocks/payroll";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Me", roles: ["owner", "cashier", "rider", "washer", "helper"] } });
+definePage({ meta: { title: "Me" } });
 
 const authStore = useAuthStore();
 const toastStore = useToastStore();
@@ -81,7 +81,7 @@ function submitRequest() {
         :columns="payslipColumns"
         :rows="payslipRows"
         :row-key="(row) => row.runId"
-        @row-click="(row) => router.push(ROUTES.ME_PAYSLIP(row.runId))"
+        @row-click="(row) => router.push(ROUTES.ME.PAYSLIP(row.runId))"
       >
         <template #cell-net="{ row }">
           <UiMoneyText :centavos="row.net" />

@@ -3,7 +3,7 @@ import { payRuns as payRunsMock } from "@/mocks/payroll";
 import type { TPayFrequency, TPayRun } from "@/types/entities/payroll";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Payroll", roles: ["owner"] } });
+definePage({ meta: { title: "Payroll" } });
 
 const toastStore = useToastStore();
 const router = useRouter();
@@ -54,7 +54,7 @@ function submitNewRun() {
 }
 
 function openRun(run: TPayRun) {
-  router.push(ROUTES.OWNER_PEOPLE_PAYROLL_RUN(run.id));
+  router.push(ROUTES.OWNER.PEOPLE.PAYROLL.RUN(run.id));
 }
 </script>
 

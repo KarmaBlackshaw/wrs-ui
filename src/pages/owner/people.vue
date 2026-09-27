@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "People", roles: ["owner"] } });
+definePage({ meta: { title: "People" } });
 
 const tabs = [
-  { label: "Employees", to: ROUTES.OWNER_PEOPLE },
-  { label: "Payroll", to: ROUTES.OWNER_PEOPLE_PAYROLL },
-  { label: "Loans", to: ROUTES.OWNER_PEOPLE_LOANS },
+  { label: "Employees", to: ROUTES.OWNER.PEOPLE.INDEX },
+  { label: "Payroll", to: ROUTES.OWNER.PEOPLE.PAYROLL.INDEX },
+  { label: "Loans", to: ROUTES.OWNER.PEOPLE.LOANS },
 ];
 </script>
 

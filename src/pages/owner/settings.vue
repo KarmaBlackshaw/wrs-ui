@@ -5,7 +5,7 @@ import { settings as settingsMock } from "@/mocks/settings";
 import type { TSetting } from "@/types/entities/settings";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Settings", roles: ["owner"] } });
+definePage({ meta: { title: "Settings" } });
 
 const toastStore = useToastStore();
 
@@ -151,8 +151,8 @@ function saveChanges() {
 
     <p class="text-sm text-zinc-500">
       Stock and maintenance settings (reorder levels, intervals) are configured per item in
-      <RouterLink :to="ROUTES.OWNER_INVENTORY_CONSUMABLES" class="underline">Consumables</RouterLink> and
-      <RouterLink :to="ROUTES.OWNER_INVENTORY_MAINTENANCE" class="underline">Maintenance</RouterLink>.
+      <RouterLink :to="ROUTES.OWNER.INVENTORY.CONSUMABLES" class="underline">Consumables</RouterLink> and
+      <RouterLink :to="ROUTES.OWNER.INVENTORY.MAINTENANCE" class="underline">Maintenance</RouterLink>.
     </p>
 
     <UiBottomSheet :open="editSetting !== null" title="Edit setting" @update:open="editSetting = null">

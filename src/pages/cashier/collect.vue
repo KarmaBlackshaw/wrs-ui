@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TCustomer } from "@/types/entities/customer";
 
-definePage({ meta: { title: "Collect payment", roles: ["cashier"] } });
+definePage({ meta: { title: "Collect payment" } });
 
 const customer = ref<TCustomer | null>(null);
 const customerSheetOpen = ref(true);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PhArrowLeft, PhCaretRight, PhDrop, PhTranslate } from "@phosphor-icons/vue";
+import { PhArrowLeft, PhCaretRight, PhDrop } from "@phosphor-icons/vue";
 
 import { employees } from "@/mocks/employees";
 import { ROLE_HOME, ROLE_LABEL } from "@/types/roles";
@@ -7,7 +7,6 @@ import type { TRole } from "@/types/roles";
 
 definePage({ meta: { layout: "Auth", title: "Log in" } });
 
-const { t, locale } = useI18n();
 const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
@@ -39,25 +38,17 @@ function completeLogin(employeeId: string, role: TRole) {
 
   router.push(typeof redirect === "string" && redirect.startsWith("/") ? redirect : ROLE_HOME[role]);
 }
-
-function toggleLanguage() {
-  locale.value = locale.value === "en" ? "fil" : "en";
-}
 </script>
 
 <template>
   <div class="flex w-full max-w-sm flex-col gap-8">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center">
       <span class="flex items-center gap-2 lg:invisible">
         <span class="grid size-9 place-items-center rounded-lg bg-brand-700 text-white">
           <PhDrop class="size-5" weight="fill" />
         </span>
         <span class="text-lg font-semibold tracking-tight">WRS</span>
       </span>
-      <UiButton variant="ghost" :aria-label="t('common.language')" @click="toggleLanguage">
-        <PhTranslate class="size-5" />
-        {{ locale === "en" ? "FIL" : "EN" }}
-      </UiButton>
     </div>
 
     <div class="flex flex-col gap-1">

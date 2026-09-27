@@ -21,7 +21,7 @@ export default defineConfig({
     VueDevTools(),
     AutoImport({
       dirs: ["./src/composables", "./src/utils", "./src/types/labels", "./src/stores", "./src/services"],
-      imports: ["pinia", "vue", "vue-router", "vue-i18n", "@vueuse/core"],
+      imports: ["pinia", "vue", "vue-router", "@vueuse/core"],
       vueTemplate: true,
       dts: true,
       eslintrc: {

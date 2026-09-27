@@ -7,7 +7,7 @@ import { products } from "@/mocks/products";
 import { deliveries, trips } from "@/mocks/trips";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Log delivery", roles: ["rider"] } });
+definePage({ meta: { title: "Log delivery" } });
 
 const route = useRoute();
 const router = useRouter();
@@ -134,17 +134,17 @@ function openConfirmDialog() {
 function confirmDelivery() {
   confirmOpen.value = false;
   toastStore.show("Saved on this phone");
-  router.push(ROUTES.RIDER_HOME);
+  router.push(ROUTES.RIDER.INDEX);
 }
 
 function pickCustomer(candidate: TCustomer) {
-  return ROUTES.RIDER_DELIVER(tripId.value, candidate.id);
+  return ROUTES.RIDER.DELIVER(tripId.value, candidate.id);
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Log delivery" :subtitle="customer?.name" :back="ROUTES.RIDER_HOME" />
+    <UiPageHeader title="Log delivery" :subtitle="customer?.name" :back="ROUTES.RIDER.INDEX" />
 
     <UiEmptyState v-if="!trip" title="Trip not found" description="This trip may not exist on this phone yet." />
 

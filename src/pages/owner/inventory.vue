@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Inventory", roles: ["owner"] } });
+definePage({ meta: { title: "Inventory" } });
 
 const tabs = [
-  { label: "Products & prices", to: ROUTES.OWNER_INVENTORY },
-  { label: "Consumables", to: ROUTES.OWNER_INVENTORY_CONSUMABLES },
-  { label: "Maintenance", to: ROUTES.OWNER_INVENTORY_MAINTENANCE },
-  { label: "Water quality", to: ROUTES.OWNER_INVENTORY_WATER_QUALITY },
+  { label: "Products & prices", to: ROUTES.OWNER.INVENTORY.INDEX },
+  { label: "Consumables", to: ROUTES.OWNER.INVENTORY.CONSUMABLES },
+  { label: "Maintenance", to: ROUTES.OWNER.INVENTORY.MAINTENANCE },
+  { label: "Water quality", to: ROUTES.OWNER.INVENTORY.WATER_QUALITY },
 ];
 </script>
 

@@ -2,7 +2,7 @@
 import { digestDays } from "@/mocks/digest";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Daily digest", roles: ["owner"] } });
+definePage({ meta: { title: "Daily digest" } });
 
 const selectedDate = ref(digestDays.at(-1)?.date ?? "");
 
@@ -27,7 +27,7 @@ function selectDay(day: { date: string }) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Daily digest" subtitle="End-of-day summary, past days" :back="ROUTES.OWNER_HOME" />
+    <UiPageHeader title="Daily digest" subtitle="End-of-day summary, past days" :back="ROUTES.OWNER.INDEX" />
 
     <div class="grid gap-4 lg:grid-cols-[360px_1fr]">
       <UiDataTable clickable :columns="columns" :rows="pastDays" :row-key="(row) => row.date" :active-key="selectedDate" @row-click="selectDay">

@@ -6,7 +6,7 @@ import { ROUTES } from "@/types/routes";
 import type { TReportTable } from "@/types/report";
 import type { TAlert, TAlertTone } from "@/types/ui";
 
-definePage({ meta: { title: "Dashboard", roles: ["owner"] } });
+definePage({ meta: { title: "Dashboard" } });
 
 const toneLabel: Record<TAlertTone, string> = {
   warn: "Attention",
@@ -22,34 +22,34 @@ const alerts = computed(() => {
   const day = today.value;
 
   if (day && day.lowStockCount > 0) {
-    list.push({ id: "low-stock", title: `${day.lowStockCount} consumable(s) low on stock`, to: ROUTES.OWNER_INVENTORY_CONSUMABLES, tone: "warn" });
+    list.push({ id: "low-stock", title: `${day.lowStockCount} consumable(s) low on stock`, to: ROUTES.OWNER.INVENTORY.CONSUMABLES, tone: "warn" });
   }
 
   if (day && day.maintenanceDueCount > 0) {
     list.push({
       id: "maintenance",
       title: `${day.maintenanceDueCount} maintenance item(s) due or overdue`,
-      to: ROUTES.OWNER_INVENTORY_MAINTENANCE,
+      to: ROUTES.OWNER.INVENTORY.MAINTENANCE,
       tone: "warn",
     });
   }
 
   if (day && day.testsDueCount > 0) {
-    list.push({ id: "lab-test", title: `${day.testsDueCount} lab test(s) due`, to: ROUTES.OWNER_INVENTORY_WATER_QUALITY, tone: "warn" });
+    list.push({ id: "lab-test", title: `${day.testsDueCount} lab test(s) due`, to: ROUTES.OWNER.INVENTORY.WATER_QUALITY, tone: "warn" });
   }
 
   const openShortages = shortages.filter((shortage) => !shortage.approvedForDeduction);
 
   if (openShortages.length > 0) {
-    list.push({ id: "shortages", title: `${openShortages.length} rider shortage(s) pending review`, to: ROUTES.OWNER_REPORT("shortages"), tone: "warn" });
+    list.push({ id: "shortages", title: `${openShortages.length} rider shortage(s) pending review`, to: ROUTES.OWNER.REPORT("shortages"), tone: "warn" });
   }
 
   if (syncStore.rejected.length > 0) {
-    list.push({ id: "rejected", title: `${syncStore.rejected.length} rejected sync record(s)`, to: ROUTES.OWNER_APPROVALS, tone: "danger" });
+    list.push({ id: "rejected", title: `${syncStore.rejected.length} rejected sync record(s)`, to: ROUTES.OWNER.APPROVALS, tone: "danger" });
   }
 
   if (approvals.length > 0) {
-    list.push({ id: "approvals", title: `${approvals.length} pending approval(s)`, to: ROUTES.OWNER_APPROVALS, tone: "info" });
+    list.push({ id: "approvals", title: `${approvals.length} pending approval(s)`, to: ROUTES.OWNER.APPROVALS, tone: "info" });
   }
 
   return list;
@@ -117,8 +117,8 @@ const reportCards = computed(() =>
 
     <UiSection title="Reports">
       <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-        <ReportCard title="Daily digest" :to="ROUTES.OWNER_DIGEST" :table="digestTable" />
-        <ReportCard v-for="report in reportCards" :key="report.slug" :title="report.title" :to="ROUTES.OWNER_REPORT(report.slug)" :table="report.table" />
+        <ReportCard title="Daily digest" :to="ROUTES.OWNER.DIGEST" :table="digestTable" />
+        <ReportCard v-for="report in reportCards" :key="report.slug" :title="report.title" :to="ROUTES.OWNER.REPORT(report.slug)" :table="report.table" />
       </div>
     </UiSection>
   </div>

@@ -2,7 +2,7 @@
 import { customers } from "@/mocks/customers";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Today's trip", roles: ["rider"] } });
+definePage({ meta: { title: "Today's trip" } });
 
 const openTrip = useOpenTrip();
 const summary = computed(() => (openTrip.value ? tripSummary(openTrip.value.id) : null));
@@ -16,7 +16,7 @@ function deliveryFor(customerId: string) {
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Today's trip" :subtitle="openTrip ? `Trip ${openTrip.id}` : undefined">
       <template #actions>
-        <UiButton v-if="openTrip" :to="ROUTES.RIDER_TRIP_RETURN(openTrip.id)">End trip</UiButton>
+        <UiButton v-if="openTrip" :to="ROUTES.RIDER.TRIP_RETURN(openTrip.id)">End trip</UiButton>
       </template>
     </UiPageHeader>
 
@@ -36,7 +36,7 @@ function deliveryFor(customerId: string) {
             :key="customer.id"
             :title="customer.name"
             :subtitle="customer.address"
-            :to="deliveryFor(customer.id) ? undefined : ROUTES.RIDER_DELIVER(openTrip.id, customer.id)"
+            :to="deliveryFor(customer.id) ? undefined : ROUTES.RIDER.DELIVER(openTrip.id, customer.id)"
           >
             <template #trailing>
               <UiStatusPill v-if="deliveryFor(customer.id)" tone="ok">Delivered</UiStatusPill>

@@ -4,7 +4,7 @@ import { payLines as payLinesMock, payRuns as payRunsMock } from "@/mocks/payrol
 import type { TPayLine, TPayRun } from "@/types/entities/payroll";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Payroll run", roles: ["owner"] } });
+definePage({ meta: { title: "Payroll run" } });
 
 const { employeeName } = useEmployeeLookup();
 
@@ -85,7 +85,7 @@ function confirmFinalize() {
 
 <template>
   <div v-if="run" class="flex flex-col gap-4">
-    <UiPageHeader :title="formatPeriod(run.periodStart, run.periodEnd)" :subtitle="run.frequency" :back="ROUTES.OWNER_PEOPLE_PAYROLL">
+    <UiPageHeader :title="formatPeriod(run.periodStart, run.periodEnd)" :subtitle="run.frequency" :back="ROUTES.OWNER.PEOPLE.PAYROLL.INDEX">
       <template v-if="run.status === 'draft'" #actions>
         <UiButton variant="danger" @click="finalizeOpen = true">Finalize run</UiButton>
       </template>
@@ -159,7 +159,7 @@ function confirmFinalize() {
 
   <UiEmptyState v-else title="Payroll run not found">
     <template #action>
-      <UiButton :to="ROUTES.OWNER_PEOPLE_PAYROLL">Back to payroll</UiButton>
+      <UiButton :to="ROUTES.OWNER.PEOPLE.PAYROLL.INDEX">Back to payroll</UiButton>
     </template>
   </UiEmptyState>
 </template>

@@ -2,7 +2,7 @@
 import { deliveries, trips } from "@/mocks/trips";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Customer", roles: ["owner"] } });
+definePage({ meta: { title: "Customer" } });
 
 const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
@@ -90,7 +90,7 @@ function submitEdit() {
 
 <template>
   <div v-if="customer" class="flex flex-col gap-4">
-    <UiPageHeader :title="customer.name" :subtitle="customer.address" :back="ROUTES.OWNER_CUSTOMERS">
+    <UiPageHeader :title="customer.name" :subtitle="customer.address" :back="ROUTES.OWNER.CUSTOMERS.INDEX">
       <template #actions>
         <UiButton variant="secondary" @click="openEditSheet">Edit</UiButton>
       </template>
@@ -178,7 +178,7 @@ function submitEdit() {
   </div>
   <UiEmptyState v-else title="Customer not found">
     <template #action>
-      <UiButton :to="ROUTES.OWNER_CUSTOMERS" variant="secondary">Back to customers</UiButton>
+      <UiButton :to="ROUTES.OWNER.CUSTOMERS.INDEX" variant="secondary">Back to customers</UiButton>
     </template>
   </UiEmptyState>
 </template>

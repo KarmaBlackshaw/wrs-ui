@@ -3,17 +3,15 @@ import { PhCalculator, PhCashRegister, PhPackage, PhTruck, PhUserCircle } from "
 
 import { ROUTES } from "@/types/routes";
 
-const { t } = useI18n();
-
-const items = computed(() => [
-  { label: t("nav.sell"), to: ROUTES.CASHIER_SELL, icon: PhCashRegister },
-  { label: t("nav.trips"), to: ROUTES.CASHIER_TRIPS, icon: PhTruck },
-  { label: t("nav.count"), to: ROUTES.CASHIER_COUNT, icon: PhCalculator },
-  { label: t("nav.stock"), to: ROUTES.CASHIER_STOCK, icon: PhPackage },
-  { label: t("nav.me"), to: ROUTES.ME, icon: PhUserCircle },
-]);
+const items = [
+  { label: "Sell", to: ROUTES.CASHIER.SELL, icon: PhCashRegister },
+  { label: "Trips", to: ROUTES.CASHIER.TRIPS.INDEX, icon: PhTruck },
+  { label: "Count", to: ROUTES.CASHIER.COUNT, icon: PhCalculator },
+  { label: "Stock", to: ROUTES.CASHIER.STOCK, icon: PhPackage },
+  { label: "Me", to: ROUTES.ME.INDEX, icon: PhUserCircle },
+];
 </script>
 
 <template>
-  <LayoutShell :items="items" :home="ROUTES.CASHIER_HOME" />
+  <LayoutShell :items="items" :home="ROUTES.CASHIER.INDEX" />
 </template>

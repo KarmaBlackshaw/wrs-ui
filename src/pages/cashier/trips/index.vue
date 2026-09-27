@@ -2,7 +2,7 @@
 import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Trips", roles: ["cashier"] } });
+definePage({ meta: { title: "Trips" } });
 
 const { employeeName } = useEmployeeLookup();
 
@@ -21,7 +21,7 @@ const rows = computed(() => trips.map((trip) => ({ ...trip, riderName: employeeN
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Trips">
       <template #actions>
-        <UiButton :to="ROUTES.CASHIER_TRIPS_NEW">New load-out</UiButton>
+        <UiButton :to="ROUTES.CASHIER.TRIPS.NEW">New load-out</UiButton>
       </template>
     </UiPageHeader>
 
@@ -34,9 +34,9 @@ const rows = computed(() => trips.map((trip) => ({ ...trip, riderName: employeeN
         <UiMoneyText v-if="row.cashRemitted != null" :centavos="row.cashRemitted" />
       </template>
       <template #cell-actions="{ row }">
-        <UiButton v-if="row.status === 'open'" variant="secondary" size="sm" :to="ROUTES.CASHIER_TRIP_RECEIVE(row.id)">Receive</UiButton>
-        <UiButton v-else-if="row.status === 'returned'" variant="secondary" size="sm" :to="ROUTES.CASHIER_TRIP_RECONCILE(row.id)">Reconcile</UiButton>
-        <UiButton v-else variant="ghost" size="sm" :to="ROUTES.CASHIER_TRIP_RECONCILE(row.id)">View</UiButton>
+        <UiButton v-if="row.status === 'open'" variant="secondary" size="sm" :to="ROUTES.CASHIER.TRIPS.RECEIVE(row.id)">Receive</UiButton>
+        <UiButton v-else-if="row.status === 'returned'" variant="secondary" size="sm" :to="ROUTES.CASHIER.TRIPS.RECONCILE(row.id)">Reconcile</UiButton>
+        <UiButton v-else variant="ghost" size="sm" :to="ROUTES.CASHIER.TRIPS.RECONCILE(row.id)">View</UiButton>
       </template>
       <template #empty>
         <UiEmptyState title="No trips yet" description="Start a new load-out to send a rider out." />

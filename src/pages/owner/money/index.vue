@@ -3,7 +3,7 @@ import { customers } from "@/mocks/customers";
 import type { TAgingBucket } from "@/types/entities/customer";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Credit aging", roles: ["owner"] } });
+definePage({ meta: { title: "Credit aging" } });
 
 const router = useRouter();
 
@@ -37,7 +37,13 @@ const grandTotal = computed(() => groups.value.reduce((sum, group) => sum + grou
         <UiMoneyText :centavos="group.total" tone="muted" />
       </div>
 
-      <UiDataTable :columns="columns" :rows="group.rows" :row-key="(row) => row.id" clickable @row-click="(row) => router.push(ROUTES.OWNER_CUSTOMER(row.id))">
+      <UiDataTable
+        :columns="columns"
+        :rows="group.rows"
+        :row-key="(row) => row.id"
+        clickable
+        @row-click="(row) => router.push(ROUTES.OWNER.CUSTOMERS.DETAIL(row.id))"
+      >
         <template #cell-creditBalance="{ row }"><UiMoneyText :centavos="row.creditBalance" /></template>
         <template #empty>
           <UiEmptyState title="No customers in this bucket" />

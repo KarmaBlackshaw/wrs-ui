@@ -8,7 +8,7 @@ import { ROUTES } from "@/types/routes";
 import type { TLocalExpense } from "@/types/entities/expense";
 import type { TReportColumn } from "@/types/report";
 
-definePage({ meta: { title: "Drawer", roles: ["cashier"] } });
+definePage({ meta: { title: "Drawer" } });
 
 const latestSession = drawerSessions.at(-1) ?? null;
 const sessionDay = latestSession ? new Date(latestSession.openedAt) : new Date();
@@ -109,8 +109,8 @@ function confirmClose() {
       <template #actions>
         <UiStatusPill :tone="isOpen ? 'ok' : 'neutral'">{{ isOpen ? "Open" : "Closed" }}</UiStatusPill>
         <template v-if="isOpen">
-          <UiButton variant="secondary" :to="ROUTES.CASHIER_COLLECT">Collect payment</UiButton>
-          <UiButton variant="secondary" :to="ROUTES.CASHIER_RETURN_CONTAINER">Return container</UiButton>
+          <UiButton variant="secondary" :to="ROUTES.CASHIER.COLLECT">Collect payment</UiButton>
+          <UiButton variant="secondary" :to="ROUTES.CASHIER.RETURN_CONTAINER">Return container</UiButton>
           <UiButton variant="secondary" @click="expenseSheetOpen = true">Record expense</UiButton>
           <UiButton @click="closeSheetOpen = true">Close with count</UiButton>
         </template>

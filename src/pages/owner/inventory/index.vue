@@ -3,7 +3,7 @@ import { products as productsMock, prices as pricesMock } from "@/mocks/products
 import type { TContainerTypeCode } from "@/types/entities/container";
 import type { TPrice, TProduct, TProductKind } from "@/types/entities/product";
 
-definePage({ meta: { title: "Products & prices", roles: ["owner"] } });
+definePage({ meta: { title: "Products & prices" } });
 
 const toastStore = useToastStore();
 

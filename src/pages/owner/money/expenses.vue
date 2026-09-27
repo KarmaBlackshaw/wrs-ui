@@ -6,7 +6,7 @@ import { employees } from "@/mocks/employees";
 import { expenseCategories, expenses as expensesMock } from "@/mocks/expenses";
 import type { TExpense, TExpenseSource } from "@/types/entities/expense";
 
-definePage({ meta: { title: "Expenses", roles: ["owner"] } });
+definePage({ meta: { title: "Expenses" } });
 
 const { employeeName } = useEmployeeLookup();
 

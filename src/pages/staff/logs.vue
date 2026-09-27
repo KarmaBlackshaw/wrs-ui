@@ -2,7 +2,7 @@
 import { meterReadings } from "@/mocks/meterReadings";
 import { waterReadings } from "@/mocks/waterQuality";
 
-definePage({ meta: { title: "Readings", roles: ["washer", "helper", "cashier"] } });
+definePage({ meta: { title: "Readings" } });
 
 const { employeeName } = useEmployeeLookup();
 

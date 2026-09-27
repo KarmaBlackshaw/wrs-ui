@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { consumables } from "@/mocks/consumables";
 
-definePage({ meta: { title: "Stock", roles: ["cashier"] } });
+definePage({ meta: { title: "Stock" } });
 
 const localConsumables = ref(consumables.map((consumable) => ({ ...consumable })));
 

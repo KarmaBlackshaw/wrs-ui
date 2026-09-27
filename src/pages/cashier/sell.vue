@@ -4,7 +4,7 @@ import type { TPaymentType } from "@/types/entities/payment";
 import { products } from "@/mocks/products";
 import { containerTypes } from "@/mocks/containerTypes";
 
-definePage({ meta: { title: "Walk-in sale", roles: ["cashier"] } });
+definePage({ meta: { title: "Walk-in sale" } });
 
 const activeProducts = products.filter((product) => product.active);
 

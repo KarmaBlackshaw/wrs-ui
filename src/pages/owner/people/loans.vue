@@ -2,7 +2,7 @@
 import { installments, loans as loansMock } from "@/mocks/loans";
 import type { TLoan, TLoanRow } from "@/types/entities/loan";
 
-definePage({ meta: { title: "Loans", roles: ["owner"] } });
+definePage({ meta: { title: "Loans" } });
 
 const { employeeName } = useEmployeeLookup();
 

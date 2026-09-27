@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Return summary", roles: ["rider"] } });
+definePage({ meta: { title: "Return summary" } });
 
 const route = useRoute();
 const router = useRouter();
@@ -12,13 +12,13 @@ const summary = computed(() => tripSummary(tripId.value));
 
 function submitReturn() {
   toastStore.show("Saved on this phone");
-  router.push(ROUTES.RIDER_HOME);
+  router.push(ROUTES.RIDER.INDEX);
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Return summary" :subtitle="summary.trip ? `Trip ${summary.trip.id}` : undefined" :back="ROUTES.RIDER_HOME">
+    <UiPageHeader title="Return summary" :subtitle="summary.trip ? `Trip ${summary.trip.id}` : undefined" :back="ROUTES.RIDER.INDEX">
       <template #actions>
         <UiButton v-if="summary.trip" @click="submitReturn">Submit return</UiButton>
       </template>

@@ -5,7 +5,7 @@ import type { TRole } from "@/types/roles";
 import { ROLE_LABEL } from "@/types/roles";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Employees", roles: ["owner"] } });
+definePage({ meta: { title: "Employees" } });
 
 const toastStore = useToastStore();
 const router = useRouter();
@@ -53,7 +53,7 @@ function submitAddEmployee() {
 }
 
 function openEmployee(employee: TEmployee) {
-  router.push(ROUTES.OWNER_PEOPLE_EMPLOYEE(employee.id));
+  router.push(ROUTES.OWNER.PEOPLE.EMPLOYEE(employee.id));
 }
 </script>
 

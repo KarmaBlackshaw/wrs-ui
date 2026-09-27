@@ -4,7 +4,7 @@ import type { TPayFrequency, TPayPlan, TRateBasis } from "@/types/entities/payro
 import { ROLE_LABEL } from "@/types/roles";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Employee", roles: ["owner"] } });
+definePage({ meta: { title: "Employee" } });
 
 const route = useRoute("/owner/people/employees/[id]");
 const toastStore = useToastStore();
@@ -141,7 +141,7 @@ function submitEdit() {
 
   <UiEmptyState v-else title="Employee not found" description="It may have been removed.">
     <template #action>
-      <UiButton :to="ROUTES.OWNER_PEOPLE">Back to employees</UiButton>
+      <UiButton :to="ROUTES.OWNER.PEOPLE.INDEX">Back to employees</UiButton>
     </template>
   </UiEmptyState>
 </template>

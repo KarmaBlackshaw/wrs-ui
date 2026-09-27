@@ -5,7 +5,7 @@ import { voids } from "@/mocks/voids";
 import type { TPaymentType } from "@/types/entities/payment";
 import type { TSaleRow } from "@/types/entities/sale";
 
-definePage({ meta: { title: "Sales", roles: ["owner"] } });
+definePage({ meta: { title: "Sales" } });
 
 const { customerName } = useCustomerLookup();
 const { productName } = useProductLookup();

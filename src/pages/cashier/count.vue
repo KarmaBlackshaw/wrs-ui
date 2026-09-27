@@ -2,7 +2,7 @@
 import { containerHoldings } from "@/mocks/containers";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Daily count", roles: ["cashier"] } });
+definePage({ meta: { title: "Daily count" } });
 
 const router = useRouter();
 
@@ -36,7 +36,7 @@ function variance(type: string, field: "full" | "empty") {
 
 function submit() {
   useToastStore().show("Saved on this phone");
-  router.push(ROUTES.CASHIER_HOME);
+  router.push(ROUTES.CASHIER.INDEX);
 }
 </script>
 

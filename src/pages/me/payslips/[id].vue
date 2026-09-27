@@ -2,7 +2,7 @@
 import { payLines, payRuns } from "@/mocks/payroll";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Payslip", roles: ["owner", "cashier", "rider", "washer", "helper"] } });
+definePage({ meta: { title: "Payslip" } });
 
 const route = useRoute();
 const authStore = useAuthStore();
@@ -23,7 +23,7 @@ const deductionRows = computed(
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Payslip" :subtitle="payRun ? formatPeriod(payRun.periodStart, payRun.periodEnd) : undefined" :back="ROUTES.ME" />
+    <UiPageHeader title="Payslip" :subtitle="payRun ? formatPeriod(payRun.periodStart, payRun.periodEnd) : undefined" :back="ROUTES.ME.INDEX" />
 
     <UiEmptyState v-if="!payLine" title="Payslip not found" description="This payslip isn't available on this phone." />
 

@@ -5,7 +5,7 @@ import type { TApproval } from "@/types/entities/approval";
 import type { TLoan } from "@/types/entities/loan";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Approvals", roles: ["owner"] } });
+definePage({ meta: { title: "Approvals" } });
 
 const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
@@ -37,7 +37,7 @@ const rejectedColumns = [
 ];
 
 function customerLink(refId: string) {
-  return findCustomer(refId) ? ROUTES.OWNER_CUSTOMER(refId) : undefined;
+  return findCustomer(refId) ? ROUTES.OWNER.CUSTOMERS.DETAIL(refId) : undefined;
 }
 
 function loanFor(refId: string) {

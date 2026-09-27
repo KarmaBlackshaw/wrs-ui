@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Customers", roles: ["owner"] } });
+definePage({ meta: { title: "Customers" } });
 
 const toastStore = useToastStore();
 
@@ -20,7 +20,7 @@ const filteredCustomers = useCustomerSearch(query);
 const router = useRouter();
 
 function openCustomer(customer: { id: string }) {
-  router.push(ROUTES.OWNER_CUSTOMER(customer.id));
+  router.push(ROUTES.OWNER.CUSTOMERS.DETAIL(customer.id));
 }
 
 const addSheetOpen = ref(false);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Report", roles: ["owner"] } });
+definePage({ meta: { title: "Report" } });
 
 const route = useRoute("/owner/reports/[report]");
 const toastStore = useToastStore();
@@ -30,7 +30,7 @@ function exportCsv() {
 
 <template>
   <div v-if="report && table" class="flex flex-col gap-4">
-    <UiPageHeader :title="report.title" :subtitle="report.description" :back="ROUTES.OWNER_HOME" />
+    <UiPageHeader :title="report.title" :subtitle="report.description" :back="ROUTES.OWNER.INDEX" />
 
     <div class="flex flex-wrap items-end gap-3">
       <UiField v-model="dateFrom" label="From" type="date" />
@@ -47,7 +47,7 @@ function exportCsv() {
 
   <UiEmptyState v-else title="Report not found" description="This report type isn't available.">
     <template #action>
-      <UiButton :to="ROUTES.OWNER_HOME">Back to dashboard</UiButton>
+      <UiButton :to="ROUTES.OWNER.INDEX">Back to dashboard</UiButton>
     </template>
   </UiEmptyState>
 </template>

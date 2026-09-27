@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { containerHoldings, containerMovements, containerCounts } from "@/mocks/containers";
 
-definePage({ meta: { title: "Containers", roles: ["owner"] } });
+definePage({ meta: { title: "Containers" } });
 
 const toastStore = useToastStore();
 

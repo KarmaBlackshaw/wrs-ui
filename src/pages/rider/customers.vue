@@ -2,12 +2,12 @@
 import type { TCustomer } from "@/types/entities/customer";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "Customers", roles: ["rider"] } });
+definePage({ meta: { title: "Customers" } });
 
 const openTrip = useOpenTrip();
 
 function deliverTo(customer: TCustomer) {
-  return openTrip.value ? ROUTES.RIDER_DELIVER(openTrip.value.id, customer.id) : ROUTES.RIDER_HOME;
+  return openTrip.value ? ROUTES.RIDER.DELIVER(openTrip.value.id, customer.id) : ROUTES.RIDER.INDEX;
 }
 </script>
 

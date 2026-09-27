@@ -5,7 +5,7 @@ import { meterReadings } from "@/mocks/meterReadings";
 import type { TConsumable } from "@/types/entities/inventory";
 import type { TMaintenanceLog } from "@/types/entities/maintenance";
 
-definePage({ meta: { title: "Maintenance", roles: ["owner"] } });
+definePage({ meta: { title: "Maintenance" } });
 
 const toastStore = useToastStore();
 

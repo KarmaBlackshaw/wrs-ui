@@ -5,7 +5,7 @@ import { payments } from "@/mocks/payments";
 import { walkInSales } from "@/mocks/walkInSales";
 import type { TDrawerSession } from "@/types/entities/cash";
 
-definePage({ meta: { title: "Cash sessions", roles: ["owner"] } });
+definePage({ meta: { title: "Cash sessions" } });
 
 const { employeeName } = useEmployeeLookup();
 

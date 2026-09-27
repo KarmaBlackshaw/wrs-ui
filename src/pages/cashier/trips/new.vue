@@ -3,7 +3,7 @@ import { employees } from "@/mocks/employees";
 import { products } from "@/mocks/products";
 import { ROUTES } from "@/types/routes";
 
-definePage({ meta: { title: "New load-out", roles: ["cashier"] } });
+definePage({ meta: { title: "New load-out" } });
 
 const router = useRouter();
 
@@ -29,13 +29,13 @@ function confirm() {
   }
 
   useToastStore().show("Saved on this phone");
-  router.push(ROUTES.CASHIER_TRIPS);
+  router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="New load-out" :back="ROUTES.CASHIER_TRIPS">
+    <UiPageHeader title="New load-out" :back="ROUTES.CASHIER.TRIPS.INDEX">
       <template #actions>
         <UiButton :disabled="!canConfirm" @click="confirm">Confirm load-out</UiButton>
       </template>

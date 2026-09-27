@@ -2,7 +2,7 @@
 import { consumables as consumablesMock, productUsages as productUsagesMock, stockEntries as stockEntriesMock } from "@/mocks/consumables";
 import type { TConsumable, TProductUsage, TStockEntry } from "@/types/entities/inventory";
 
-definePage({ meta: { title: "Consumables", roles: ["owner"] } });
+definePage({ meta: { title: "Consumables" } });
 
 const { productName } = useProductLookup();
 

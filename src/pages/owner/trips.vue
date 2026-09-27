@@ -3,7 +3,7 @@ import { trips } from "@/mocks/trips";
 import { ROUTES } from "@/types/routes";
 import type { TTripRow } from "@/types/entities/trip";
 
-definePage({ meta: { title: "Trips", roles: ["owner"] } });
+definePage({ meta: { title: "Trips" } });
 
 const { employeeName } = useEmployeeLookup();
 
@@ -33,7 +33,7 @@ const rows = computed(() =>
 );
 
 function openTrip(row: TTripRow) {
-  router.push(ROUTES.CASHIER_TRIP_RECONCILE(row.id));
+  router.push(ROUTES.CASHIER.TRIPS.RECONCILE(row.id));
 }
 </script>
 
