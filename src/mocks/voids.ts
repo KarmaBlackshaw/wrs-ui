@@ -1,4 +1,4 @@
-import type { TVoid } from "@/types/entities/approval";
+import type { TVoid } from "@/types";
 
 export const voids: TVoid[] = [
   {

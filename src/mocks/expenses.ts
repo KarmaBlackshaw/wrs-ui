@@ -1,4 +1,4 @@
-import type { TExpense } from "@/types/entities/expense";
+import type { TExpense } from "@/types";
 
 export const expenseCategories: string[] = ["Consumables", "Containers", "Utilities", "Fuel", "Repairs", "Payroll", "Loans", "Other"];
 

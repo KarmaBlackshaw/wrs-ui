@@ -2,8 +2,7 @@
 import { consumables } from "@/mocks/consumables";
 import { maintenanceLogs as maintenanceLogsMock } from "@/mocks/maintenance";
 import { meterReadings } from "@/mocks/meterReadings";
-import type { TConsumable } from "@/types/entities/inventory";
-import type { TMaintenanceLog } from "@/types/entities/maintenance";
+import type { TConsumable, TMaintenanceLog } from "@/types";
 
 definePage({ meta: { title: "Maintenance" } });
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { employees } from "@/mocks/employees";
 import { products } from "@/mocks/products";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "New load-out" } });
 

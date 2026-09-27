@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ROLE_LABEL } from "@/types/roles";
+import { ROLE_LABEL } from "@/types";
 
 const authStore = useAuthStore();
 const menuOpen = ref(false);

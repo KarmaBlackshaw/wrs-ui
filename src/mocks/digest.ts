@@ -1,4 +1,4 @@
-import type { TDigestDay } from "@/types/entities/digest";
+import type { TDigestDay } from "@/types";
 
 export const digestDays: TDigestDay[] = [
   {

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { products as productsMock, prices as pricesMock } from "@/mocks/products";
-import type { TContainerTypeCode } from "@/types/entities/container";
-import type { TPrice, TProduct, TProductKind } from "@/types/entities/product";
+import type { TContainerTypeCode, TPrice, TProduct, TProductKind } from "@/types";
 
 definePage({ meta: { title: "Products & prices" } });
 

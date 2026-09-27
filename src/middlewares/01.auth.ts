@@ -1,6 +1,5 @@
-import type { Middleware } from "@/types/middleware";
-import { ROLE_HOME, ROLE_LABEL } from "@/types/roles";
-import { ROUTES } from "@/types/routes";
+import { ROLE_HOME, ROLE_LABEL, ROUTES } from "@/types";
+import type { Middleware } from "@/types";
 
 const PUBLIC_PATHS = new Set<string>([ROUTES.LOGIN]);
 

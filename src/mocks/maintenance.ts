@@ -1,4 +1,4 @@
-import type { TMaintenanceLog } from "@/types/entities/maintenance";
+import type { TMaintenanceLog } from "@/types";
 
 export const maintenanceLogs: TMaintenanceLog[] = [
   { id: "maint-1", consumableId: "cons-3", at: "2026-07-01T09:00:00+08:00", meterLiters: 65000 },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { containerHoldings } from "@/mocks/containers";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Daily count" } });
 

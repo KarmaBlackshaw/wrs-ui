@@ -2,8 +2,8 @@
 import startCase from "lodash/startCase";
 
 import { settings as settingsMock } from "@/mocks/settings";
-import type { TSetting } from "@/types/entities/settings";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
+import type { TSetting } from "@/types";
 
 definePage({ meta: { title: "Settings" } });
 

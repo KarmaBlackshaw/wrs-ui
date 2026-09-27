@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { digestDays } from "@/mocks/digest";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Daily digest" } });
 

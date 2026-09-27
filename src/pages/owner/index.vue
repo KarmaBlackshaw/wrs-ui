@@ -2,9 +2,8 @@
 import { digestDays } from "@/mocks/digest";
 import { approvals } from "@/mocks/approvals";
 import { shortages } from "@/mocks/shortages";
-import { ROUTES } from "@/types/routes";
-import type { TReportTable } from "@/types/report";
-import type { TAlert, TAlertTone } from "@/types/ui";
+import { ROUTES } from "@/types";
+import type { TAlert, TAlertTone, TReportTable } from "@/types";
 
 definePage({ meta: { title: "Dashboard" } });
 

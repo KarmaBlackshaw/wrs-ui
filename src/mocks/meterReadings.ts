@@ -1,4 +1,4 @@
-import type { TMeterReading } from "@/types/entities/maintenance";
+import type { TMeterReading } from "@/types";
 
 export const meterReadings: TMeterReading[] = [
   { id: "meter-1", liters: 84210, at: "2026-09-25T06:00:00+08:00", by: "emp-5" },

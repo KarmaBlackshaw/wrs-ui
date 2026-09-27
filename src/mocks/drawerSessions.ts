@@ -1,4 +1,4 @@
-import type { TDrawerSession } from "@/types/entities/cash";
+import type { TDrawerSession } from "@/types";
 
 export const drawerSessions: TDrawerSession[] = [
   { id: "draw-1", cashierId: "emp-2", openedAt: "2026-09-25T06:00:00+08:00", openingCash: 200000, closedAt: "2026-09-25T18:00:00+08:00", countedCash: 985000 },

@@ -1,4 +1,4 @@
-import type { TPayment } from "@/types/entities/payment";
+import type { TPayment } from "@/types";
 
 export const payments: TPayment[] = [
   { id: "pay-1", customerId: "cust-2", amount: 30000, collectedBy: "emp-3", source: "trip", createdAt: "2026-09-25T07:45:00+08:00" },

@@ -1,5 +1,4 @@
-import type { TEmployee } from "@/types/entities/employee";
-import type { TPayPlan } from "@/types/entities/payroll";
+import type { TEmployee, TPayPlan } from "@/types";
 
 export const employees: TEmployee[] = [
   { id: "emp-1", name: "Demo Owner", phone: "09171234567", roles: ["owner", "cashier", "rider", "washer", "helper"], active: true },

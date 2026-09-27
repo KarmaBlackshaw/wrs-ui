@@ -3,7 +3,7 @@ import { drawerSessions } from "@/mocks/drawerSessions";
 import { expenses } from "@/mocks/expenses";
 import { payments } from "@/mocks/payments";
 import { walkInSales } from "@/mocks/walkInSales";
-import type { TDrawerSession } from "@/types/entities/cash";
+import type { TDrawerSession } from "@/types";
 
 definePage({ meta: { title: "Cash sessions" } });
 

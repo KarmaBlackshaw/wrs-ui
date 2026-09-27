@@ -1,4 +1,4 @@
-import type { TInstallment, TLoan } from "@/types/entities/loan";
+import type { TInstallment, TLoan } from "@/types";
 
 export const loans: TLoan[] = [
   {

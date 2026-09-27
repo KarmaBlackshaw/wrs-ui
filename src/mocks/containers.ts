@@ -1,4 +1,4 @@
-import type { TContainerCount, TContainerHolding, TContainerMovement } from "@/types/entities/container";
+import type { TContainerCount, TContainerHolding, TContainerMovement } from "@/types";
 
 export const containerHoldings: TContainerHolding[] = [
   { location: "station", locationLabel: "Station", type: "round", full: 120, empty: 40 },

@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter } from "vue";
 
 import { customers } from "@/mocks/customers";
-import type { TCustomer } from "@/types/entities/customer";
+import type { TCustomer } from "@/types";
 
 export function useCustomerSearch(query: MaybeRefOrGetter<string>, source: MaybeRefOrGetter<TCustomer[]> = customers) {
   return computed(() => {

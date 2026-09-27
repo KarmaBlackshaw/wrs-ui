@@ -1,4 +1,4 @@
-import type { TCustomer } from "@/types/entities/customer";
+import type { TCustomer } from "@/types";
 
 export function creditBlockReason(customer: TCustomer, amountCentavos: number) {
   if (!customer.creditEnabled) {

@@ -1,4 +1,4 @@
-import type { TApproval } from "@/types/entities/approval";
+import type { TApproval } from "@/types";
 
 export const approvals: TApproval[] = [
   {

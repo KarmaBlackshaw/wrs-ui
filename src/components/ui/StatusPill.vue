@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TTone } from "@/types/ui";
+import type { TTone } from "@/types";
 
 const { tone = "neutral" } = defineProps<{
   tone?: TTone;

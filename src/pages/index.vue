@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ROLE_HOME } from "@/types/roles";
-import { ROUTES } from "@/types/routes";
+import { ROLE_HOME, ROUTES } from "@/types";
 
 definePage({ meta: { title: "Home" } });
 

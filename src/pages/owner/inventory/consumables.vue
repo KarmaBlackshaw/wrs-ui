@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { consumables as consumablesMock, productUsages as productUsagesMock, stockEntries as stockEntriesMock } from "@/mocks/consumables";
-import type { TConsumable, TProductUsage, TStockEntry } from "@/types/entities/inventory";
+import type { TConsumable, TProductUsage, TStockEntry } from "@/types";
 
 definePage({ meta: { title: "Consumables" } });
 

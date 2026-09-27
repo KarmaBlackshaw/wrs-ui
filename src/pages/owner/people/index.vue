@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { employees as employeesMock } from "@/mocks/employees";
-import type { TEmployee } from "@/types/entities/employee";
-import type { TRole } from "@/types/roles";
-import { ROLE_LABEL } from "@/types/roles";
-import { ROUTES } from "@/types/routes";
+import { ROLE_LABEL, ROUTES } from "@/types";
+import type { TEmployee, TRole } from "@/types";
 
 definePage({ meta: { title: "Employees" } });
 

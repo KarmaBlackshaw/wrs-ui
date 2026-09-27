@@ -1,4 +1,4 @@
-import type { TToast, TToastTone } from "@/types/toast";
+import type { TToast, TToastTone } from "@/types";
 
 const toasts = ref<TToast[]>([]);
 let nextId = 1;

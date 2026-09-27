@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { TCustomer } from "@/types/entities/customer";
-import type { TPaymentType } from "@/types/entities/payment";
+import { ROUTES } from "@/types";
+import type { TCustomer, TPaymentType } from "@/types";
 import { containerTypes } from "@/mocks/containerTypes";
 import { customers } from "@/mocks/customers";
 import { products } from "@/mocks/products";
 import { deliveries, trips } from "@/mocks/trips";
-import { ROUTES } from "@/types/routes";
 
 definePage({ meta: { title: "Log delivery" } });
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { payRuns as payRunsMock } from "@/mocks/payroll";
-import type { TPayFrequency, TPayRun } from "@/types/entities/payroll";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
+import type { TPayFrequency, TPayRun } from "@/types";
 
 definePage({ meta: { title: "Payroll" } });
 

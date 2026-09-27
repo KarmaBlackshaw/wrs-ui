@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { labTests as labTestsMock, waterReadings } from "@/mocks/waterQuality";
-import type { TLabTest } from "@/types/entities/water";
+import type { TLabTest } from "@/types";
 
 definePage({ meta: { title: "Water quality" } });
 

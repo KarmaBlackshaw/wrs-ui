@@ -2,8 +2,7 @@
 import { walkInSales } from "@/mocks/walkInSales";
 import { deliveries } from "@/mocks/trips";
 import { voids } from "@/mocks/voids";
-import type { TPaymentType } from "@/types/entities/payment";
-import type { TSaleRow } from "@/types/entities/sale";
+import type { TPaymentType, TSaleRow } from "@/types";
 
 definePage({ meta: { title: "Sales" } });
 

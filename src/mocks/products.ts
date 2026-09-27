@@ -1,4 +1,4 @@
-import type { TPrice, TProduct } from "@/types/entities/product";
+import type { TPrice, TProduct } from "@/types";
 
 export const products: TProduct[] = [
   { id: "prod-1", name: "Round Container Refill", kind: "refill", containerType: "round", active: true },

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { trips } from "@/mocks/trips";
-import { ROUTES } from "@/types/routes";
-import type { TTripRow } from "@/types/entities/trip";
+import { ROUTES } from "@/types";
+import type { TTripRow } from "@/types";
 
 definePage({ meta: { title: "Trips" } });
 

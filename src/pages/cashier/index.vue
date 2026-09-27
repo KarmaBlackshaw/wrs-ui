@@ -4,9 +4,8 @@ import { walkInSales } from "@/mocks/walkInSales";
 import { payments } from "@/mocks/payments";
 import { trips } from "@/mocks/trips";
 import { expenses, expenseCategories } from "@/mocks/expenses";
-import { ROUTES } from "@/types/routes";
-import type { TLocalExpense } from "@/types/entities/expense";
-import type { TReportColumn } from "@/types/report";
+import { ROUTES } from "@/types";
+import type { TLocalExpense, TReportColumn } from "@/types";
 
 definePage({ meta: { title: "Drawer" } });
 

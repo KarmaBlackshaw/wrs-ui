@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";
 
-import type { Middleware } from "@/types/middleware";
+import type { Middleware } from "@/types";
 
 const DEFAULT_TITLE = "WRS";
 

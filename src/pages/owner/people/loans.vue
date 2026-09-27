@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { installments, loans as loansMock } from "@/mocks/loans";
-import type { TLoan, TLoanRow } from "@/types/entities/loan";
+import type { TLoan, TLoanRow } from "@/types";
 
 definePage({ meta: { title: "Loans" } });
 

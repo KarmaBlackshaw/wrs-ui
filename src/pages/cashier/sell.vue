@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { TCustomer } from "@/types/entities/customer";
-import type { TPaymentType } from "@/types/entities/payment";
+import type { TCustomer, TPaymentType } from "@/types";
 import { products } from "@/mocks/products";
 import { containerTypes } from "@/mocks/containerTypes";
 

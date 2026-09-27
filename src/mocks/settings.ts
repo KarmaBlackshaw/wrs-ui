@@ -1,4 +1,4 @@
-import type { TSetting } from "@/types/entities/settings";
+import type { TSetting } from "@/types";
 
 export const settings: TSetting[] = [
   { key: "rider.dailyQuota", value: 100, effectiveFrom: "2026-01-01" },

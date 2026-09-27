@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from "vue-router";
 
-import type { TCustomer } from "@/types/entities/customer";
+import type { TCustomer } from "@/types";
 
 const { getTo } = defineProps<{
   getTo: (customer: TCustomer) => RouteLocationRaw;

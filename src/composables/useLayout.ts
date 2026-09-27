@@ -1,7 +1,6 @@
 import type { Component } from "vue";
 
-import type { LayoutName } from "@/types/layout";
-import type { TRole } from "@/types/roles";
+import type { LayoutName, TRole } from "@/types";
 
 const layouts = import.meta.glob<Component>("@/layouts/*.vue", { eager: true, import: "default" });
 

@@ -1,4 +1,4 @@
-import type { TDepositEntry } from "@/types/entities/container";
+import type { TDepositEntry } from "@/types";
 
 export const depositEntries: TDepositEntry[] = [
   { id: "dep-1", customerId: "cust-1", containerType: "round", amount: 20000, kind: "collected", createdAt: "2026-08-01T09:00:00+08:00" },

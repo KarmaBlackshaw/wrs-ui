@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TCustomer } from "@/types/entities/customer";
+import type { TCustomer } from "@/types";
 import { customers as baseCustomers } from "@/mocks/customers";
 
 const open = defineModel<boolean>("open", { default: false });

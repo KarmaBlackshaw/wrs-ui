@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ROUTES } from "@/types/routes";
-import { ROLE_HOME, ROLE_LABEL } from "@/types/roles";
-import type { TRole } from "@/types/roles";
+import { ROLE_HOME, ROLE_LABEL, ROUTES } from "@/types";
+import type { TRole } from "@/types";
 
 const authStore = useAuthStore();
 const router = useRouter();

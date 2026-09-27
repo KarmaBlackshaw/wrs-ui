@@ -1,4 +1,4 @@
-import type { TShortage } from "@/types/entities/cash";
+import type { TShortage } from "@/types";
 
 export const shortages: TShortage[] = [
   { id: "short-1", employeeId: "emp-3", source: "trip", cash: 0, containers: 1, approvedForDeduction: false },

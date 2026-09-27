@@ -1,4 +1,4 @@
-import type { TDelivery, TTrip, TTripLine } from "@/types/entities/trip";
+import type { TDelivery, TTrip, TTripLine } from "@/types";
 
 export const trips: TTrip[] = [
   {

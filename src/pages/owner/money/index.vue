@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { customers } from "@/mocks/customers";
-import type { TAgingBucket } from "@/types/entities/customer";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
+import type { TAgingBucket } from "@/types";
 
 definePage({ meta: { title: "Credit aging" } });
 

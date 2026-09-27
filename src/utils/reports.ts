@@ -1,7 +1,5 @@
 import startCase from "lodash/startCase";
 
-import { useCustomerLookup } from "@/composables/useCustomerLookup";
-import { useEmployeeLookup } from "@/composables/useEmployeeLookup";
 import { consumables } from "@/mocks/consumables";
 import { containerCounts, containerHoldings } from "@/mocks/containers";
 import { customers } from "@/mocks/customers";
@@ -15,16 +13,7 @@ import { shortages } from "@/mocks/shortages";
 import { deliveries, trips } from "@/mocks/trips";
 import { waterReadings } from "@/mocks/waterQuality";
 import { walkInSales } from "@/mocks/walkInSales";
-import { AGING_LABEL } from "@/types/labels/aging";
-import { LOAN_STATUS_LABEL } from "@/types/labels/loan";
-import { PAYMENT_LABEL } from "@/types/labels/payment";
-import { TRIP_STATUS_LABEL } from "@/types/labels/trip";
-import { formatDate, formatDateTime, formatPeriod } from "@/utils/dates";
-import { computeMaintenanceState } from "@/utils/maintenance";
-import { formatMoney } from "@/utils/money";
-import { totalDeductions } from "@/utils/payroll";
-import { tripSummary } from "@/utils/trips";
-import type { TReportTable } from "@/types/report";
+import type { TReportTable } from "@/types";
 
 const { employeeName } = useEmployeeLookup();
 const { customerName } = useCustomerLookup();

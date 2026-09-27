@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { loans } from "@/mocks/loans";
 import { payLines, payRuns } from "@/mocks/payroll";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Me" } });
 

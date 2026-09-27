@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { approvals } from "@/mocks/approvals";
 import { loans } from "@/mocks/loans";
-import type { TApproval } from "@/types/entities/approval";
-import type { TLoan } from "@/types/entities/loan";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
+import type { TApproval, TLoan } from "@/types";
 
 definePage({ meta: { title: "Approvals" } });
 

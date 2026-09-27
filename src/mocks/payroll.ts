@@ -1,4 +1,4 @@
-import type { TPayLine, TPayRun } from "@/types/entities/payroll";
+import type { TPayLine, TPayRun } from "@/types";
 
 export const payRuns: TPayRun[] = [
   { id: "run-0", frequency: "semi-monthly", periodStart: "2026-08-16", periodEnd: "2026-08-31", status: "finalized" },

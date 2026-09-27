@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { payLines, payRuns } from "@/mocks/payroll";
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Payslip" } });
 

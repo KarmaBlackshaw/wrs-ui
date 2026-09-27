@@ -1,5 +1,4 @@
-import type { TEmployee } from "@/types/entities/employee";
-import type { TRole } from "@/types/roles";
+import type { TEmployee, TRole } from "@/types";
 import { employees } from "@/mocks/employees";
 
 export const useAuthStore = defineStore(

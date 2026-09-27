@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from "vue-router";
 
-import type { TReportTable } from "@/types/report";
+import type { TReportTable } from "@/types";
 
 const { table, limit = 5 } = defineProps<{
   title: string;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ROUTES } from "@/types/routes";
+import { ROUTES } from "@/types";
 
 const items = [
   { label: "Logs", to: ROUTES.STAFF.LOGS, icon: "clipboard-text" },

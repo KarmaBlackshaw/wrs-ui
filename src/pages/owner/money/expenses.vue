@@ -4,7 +4,7 @@ import startCase from "lodash/startCase";
 import { consumables } from "@/mocks/consumables";
 import { employees } from "@/mocks/employees";
 import { expenseCategories, expenses as expensesMock } from "@/mocks/expenses";
-import type { TExpense, TExpenseSource } from "@/types/entities/expense";
+import type { TExpense, TExpenseSource } from "@/types";
 
 definePage({ meta: { title: "Expenses" } });
 

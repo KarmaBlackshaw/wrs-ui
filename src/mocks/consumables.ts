@@ -1,4 +1,4 @@
-import type { TConsumable, TProductUsage, TStockEntry } from "@/types/entities/inventory";
+import type { TConsumable, TProductUsage, TStockEntry } from "@/types";
 
 export const consumables: TConsumable[] = [
   { id: "cons-1", name: "Bottle Cap (round)", unit: "pc", kind: "per-unit", reorderLevel: 200, onHand: 850 },

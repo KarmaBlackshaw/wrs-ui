@@ -1,4 +1,4 @@
-import type { TContainerType } from "@/types/entities/container";
+import type { TContainerType } from "@/types";
 
 export const containerTypes: TContainerType[] = [
   { code: "round", deliverable: true, depositAmount: 20000 },

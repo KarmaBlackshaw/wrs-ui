@@ -1,4 +1,4 @@
-import type { TLabTest, TWaterReading } from "@/types/entities/water";
+import type { TLabTest, TWaterReading } from "@/types";
 
 export const waterReadings: TWaterReading[] = [
   { id: "water-1", tds: 18, ph: 7.1, at: "2026-09-25T06:30:00+08:00", by: "emp-5" },

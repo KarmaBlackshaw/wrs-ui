@@ -1,4 +1,4 @@
-import type { TWalkInSale } from "@/types/entities/sale";
+import type { TWalkInSale } from "@/types";
 
 export const walkInSales: TWalkInSale[] = [
   {
