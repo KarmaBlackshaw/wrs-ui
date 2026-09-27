@@ -115,12 +115,12 @@ watch(activeIndex, (index) => panel.value?.querySelector(`#${CSS.escape(optionId
       <IconCaretUpDown class="size-4 shrink-0 text-zinc-500" />
     </button>
     <ul
-      v-show="open"
+      popover="manual"
       :id="listboxId"
       ref="panel"
       role="listbox"
       :aria-labelledby="labelId"
-      class="z-50 overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
+      class="inset-auto m-0 overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
       :style="floatingStyles"
     >
       <li

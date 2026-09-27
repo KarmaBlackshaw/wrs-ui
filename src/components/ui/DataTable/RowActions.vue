@@ -70,12 +70,12 @@ function select(action: TRowAction) {
         <IconDotsThree class="size-5" />
       </button>
       <div
-        v-show="open"
+        popover="manual"
         :id="id"
         ref="panel"
         role="menu"
         :aria-label="label"
-        class="z-50 flex min-w-44 flex-col overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
+        class="inset-auto m-0 flex min-w-44 flex-col overflow-y-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-lg"
         :style="floatingStyles"
         @keydown.down.prevent="move(1)"
         @keydown.up.prevent="move(-1)"

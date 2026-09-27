@@ -31,6 +31,16 @@ export function useFloatingPanel(
     ],
   });
 
+  watch(
+    [open, floating],
+    ([isOpen, element]) => {
+      if (element?.isConnected) {
+        element.togglePopover(isOpen);
+      }
+    },
+    { flush: "post" }
+  );
+
   onClickOutside(floating, () => (open.value = false), { ignore: [reference] });
 
   return { open, floatingStyles };
