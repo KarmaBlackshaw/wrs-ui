@@ -52,10 +52,8 @@ function submitAdd() {
       @row-click="openCustomer"
     >
       <template #actions>
-        <UiButton @click="addSheetOpen = true">Add customer</UiButton>
-      </template>
-      <template #filters>
         <UiSearchInput v-model="query" label="Search customers" />
+        <UiButton @click="addSheetOpen = true">Add customer</UiButton>
       </template>
       <template #cell-depositOnFile="{ row }">
         <UiMoneyText :centavos="row.depositOnFile" />
