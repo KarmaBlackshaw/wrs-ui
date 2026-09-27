@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import type { TRowAction } from "@/types";
 
-const { actions, label = "Actions" } = defineProps<{
+const {
+  actions,
+  collapsed,
+  label = "Actions",
+} = defineProps<{
   actions: TRowAction[];
+  collapsed?: boolean;
   label?: string;
 }>();
 
@@ -48,12 +53,12 @@ function select(action: TRowAction) {
 
 <template>
   <div class="flex justify-end gap-2">
-    <template v-if="actions.length <= 2">
+    <template v-if="!collapsed">
       <UiButton v-for="action in actions" :key="action.label" size="sm" :variant="action.variant ?? 'secondary'" :to="action.to" @click="action.onSelect?.()">
         {{ action.label }}
       </UiButton>
     </template>
-    <template v-else>
+    <template v-else-if="actions.length">
       <button
         ref="trigger"
         type="button"

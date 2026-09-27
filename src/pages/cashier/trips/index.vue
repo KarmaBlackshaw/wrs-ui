@@ -13,7 +13,6 @@ const columns: { key: string; label: string; align?: "left" | "right" }[] = [
   { key: "status", label: "Status" },
   { key: "loadedAt", label: "Loaded" },
   { key: "remitted", label: "Remitted", align: "right" },
-  { key: "actions", label: "", align: "right" },
 ];
 
 const rows = computed(() => trips.map((trip) => ({ ...trip, riderName: employeeName(trip.riderId) })));
@@ -33,7 +32,14 @@ function tripAction(id: string, status: TTripStatus): TRowAction {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Trips" :icon="IconTruck" :columns="columns" :rows="rows" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="(row) => [tripAction(row.id, row.status)]"
+      title="Trips"
+      :icon="IconTruck"
+      :columns="columns"
+      :rows="rows"
+      :row-key="(row) => row.id"
+    >
       <template #actions>
         <UiButton :to="ROUTES.CASHIER.TRIPS.NEW">New load-out</UiButton>
       </template>
@@ -43,9 +49,6 @@ function tripAction(id: string, status: TTripStatus): TRowAction {
       <template #cell-loadedAt="{ row }">{{ formatDateTime(row.loadedAt) }}</template>
       <template #cell-remitted="{ row }">
         <UiMoneyText v-if="row.cashRemitted != null" :centavos="row.cashRemitted" />
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="[tripAction(row.id, row.status)]" />
       </template>
       <template #empty>
         <UiEmptyState title="No trips yet" description="Start a new load-out to send a rider out." />

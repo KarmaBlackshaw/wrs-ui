@@ -12,7 +12,6 @@ const stockColumns: { key: string; label: string; align?: "left" | "right" }[] =
   { key: "name", label: "Consumable" },
   { key: "onHand", label: "On hand", align: "right" },
   { key: "status", label: "Status" },
-  { key: "actions", label: "", align: "right" },
 ];
 
 const restockSheetOpen = ref(false);
@@ -95,18 +94,22 @@ function confirmStockTake() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Stock" :icon="IconPackage" :columns="stockColumns" :rows="localConsumables" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="
+        (row) => [
+          { label: 'Restock', onSelect: () => openRestock(row.id) },
+          { label: 'Stock-take', variant: 'ghost', onSelect: () => openStockTake(row.id) },
+        ]
+      "
+      title="Stock"
+      :icon="IconPackage"
+      :columns="stockColumns"
+      :rows="localConsumables"
+      :row-key="(row) => row.id"
+    >
       <template #cell-onHand="{ row }">{{ row.onHand }} {{ row.unit }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill v-if="reorderText(row)" :tone="reorderTone(row) ?? 'neutral'">{{ reorderText(row) }}</UiStatusPill>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions
-          :actions="[
-            { label: 'Restock', onSelect: () => openRestock(row.id) },
-            { label: 'Stock-take', variant: 'ghost', onSelect: () => openStockTake(row.id) },
-          ]"
-        />
       </template>
     </UiDataTable>
 

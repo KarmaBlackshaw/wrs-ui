@@ -60,7 +60,6 @@ const groups: { name: string; keys: string[] }[] = [
 const settingsColumns = [
   { key: "setting", label: "Setting" },
   { key: "value", label: "Value" },
-  { key: "actions", label: "" },
 ];
 
 function settingsRows(group: { keys: string[] }) {
@@ -135,6 +134,7 @@ function saveChanges() {
     <p class="text-sm text-zinc-500">Changing settings requires an online connection.</p>
 
     <UiDataTable
+      :row-actions="(row) => [{ label: 'Edit', onSelect: () => openEdit(row.setting) }]"
       v-for="group in groups"
       :key="group.name"
       :title="group.name"
@@ -146,9 +146,6 @@ function saveChanges() {
       <template #cell-value="{ row }">
         <span v-if="displayValue(row.setting) !== null" class="text-zinc-700">{{ displayValue(row.setting) }}</span>
         <UiStatusPill v-else tone="warn">Not set</UiStatusPill>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="[{ label: 'Edit', onSelect: () => openEdit(row.setting) }]" />
       </template>
     </UiDataTable>
 

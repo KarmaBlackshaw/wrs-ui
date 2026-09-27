@@ -19,7 +19,6 @@ const columns = [
   { key: "kind", label: "Kind" },
   { key: "onHand", label: "On hand", align: "right" as const },
   { key: "status", label: "Status" },
-  { key: "actions", label: "", align: "right" as const },
 ];
 
 function usagesFor(consumableId: string) {
@@ -81,20 +80,25 @@ function submitStockTake() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Inventory" :icon="IconPackage" :tabs="OWNER_TABS.INVENTORY" :columns="columns" :rows="consumables" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="
+        (row) => [
+          { label: 'Usage', onSelect: () => openUsageSheet(row) },
+          { label: 'Stock-take', onSelect: () => openStockTake(row) },
+        ]
+      "
+      title="Inventory"
+      :icon="IconPackage"
+      :tabs="OWNER_TABS.INVENTORY"
+      :columns="columns"
+      :rows="consumables"
+      :row-key="(row) => row.id"
+    >
       <template #cell-onHand="{ row }">{{ row.onHand }} {{ row.unit }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill :tone="row.onHand <= row.reorderLevel ? 'warn' : 'ok'">
           {{ row.onHand <= row.reorderLevel ? "Reorder" : "OK" }}
         </UiStatusPill>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions
-          :actions="[
-            { label: 'Usage', onSelect: () => openUsageSheet(row) },
-            { label: 'Stock-take', onSelect: () => openStockTake(row) },
-          ]"
-        />
       </template>
       <template #empty>
         <UiEmptyState title="No consumables yet" />

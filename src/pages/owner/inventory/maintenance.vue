@@ -18,7 +18,6 @@ const columns = [
   { key: "status", label: "Status" },
   { key: "lastReplaced", label: "Last replaced" },
   { key: "notes", label: "Notes" },
-  { key: "actions", label: "", align: "right" as const },
 ];
 
 const rows = computed(() =>
@@ -66,7 +65,15 @@ function submitReplacement() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Inventory" :icon="IconPackage" :tabs="OWNER_TABS.INVENTORY" :columns="columns" :rows="rows" :row-key="(row) => row.item.id">
+    <UiDataTable
+      :row-actions="(row) => [{ label: 'Log replacement', onSelect: () => openLogSheet(row.item) }]"
+      title="Inventory"
+      :icon="IconPackage"
+      :tabs="OWNER_TABS.INVENTORY"
+      :columns="columns"
+      :rows="rows"
+      :row-key="(row) => row.item.id"
+    >
       <template #cell-name="{ row }">{{ row.item.name }}</template>
       <template #cell-status="{ row }">
         <UiStatusPill :tone="statusTone[row.state.status]">{{ statusLabel[row.state.status] }}</UiStatusPill>
@@ -76,9 +83,6 @@ function submitReplacement() {
         {{ row.state.litersSince !== null ? `${row.state.litersSince.toLocaleString()} L since replacement` : "No meter baseline yet" }}
         <span v-if="row.item.intervalLiters"> · interval {{ row.item.intervalLiters.toLocaleString() }} L</span>
         <span v-if="row.item.intervalDays"> · every {{ row.item.intervalDays }} days</span>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="[{ label: 'Log replacement', onSelect: () => openLogSheet(row.item) }]" />
       </template>
       <template #empty>
         <UiEmptyState title="No maintenance items yet" />

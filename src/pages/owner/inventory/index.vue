@@ -16,7 +16,6 @@ const columns = [
   { key: "kind", label: "Kind" },
   { key: "containerType", label: "Container" },
   { key: "price", label: "Price", align: "right" as const },
-  { key: "actions", label: "", align: "right" as const },
 ];
 
 const pricesByProduct = computed(() => {
@@ -119,7 +118,20 @@ function submitPriceChange() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Inventory" :icon="IconPackage" :tabs="OWNER_TABS.INVENTORY" :columns="columns" :rows="products" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="
+        (row) => [
+          { label: 'History', onSelect: () => openHistorySheet(row) },
+          { label: 'Change price', onSelect: () => openPriceSheet(row) },
+        ]
+      "
+      title="Inventory"
+      :icon="IconPackage"
+      :tabs="OWNER_TABS.INVENTORY"
+      :columns="columns"
+      :rows="products"
+      :row-key="(row) => row.id"
+    >
       <template #actions>
         <UiButton @click="addOpen = true">Add product</UiButton>
       </template>
@@ -134,14 +146,6 @@ function submitPriceChange() {
         <span v-else class="text-zinc-400">-</span>
       </template>
       <template #cell-price="{ row }"><UiMoneyText :centavos="currentAmount(row.id)" /></template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions
-          :actions="[
-            { label: 'History', onSelect: () => openHistorySheet(row) },
-            { label: 'Change price', onSelect: () => openPriceSheet(row) },
-          ]"
-        />
-      </template>
       <template #empty>
         <UiEmptyState title="No products yet" description="Add your first product to start tracking prices." />
       </template>

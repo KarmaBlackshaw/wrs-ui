@@ -18,7 +18,6 @@ const columns = [
   { key: "amount", label: "Amount", align: "right" as const },
   { key: "paymentType", label: "Payment" },
   { key: "status", label: "Status" },
-  { key: "actions", label: "", align: "right" as const },
 ];
 
 const dateFilter = ref("");
@@ -87,7 +86,14 @@ function openVoid(row: TSaleRow) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Sales" :icon="IconReceipt" :columns="columns" :rows="filteredRows" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="(row) => (voidStatus(row.id) === 'approved' || voidStatus(row.id) === 'pending' ? [] : [{ label: 'Void', onSelect: () => openVoid(row) }])"
+      title="Sales"
+      :icon="IconReceipt"
+      :columns="columns"
+      :rows="filteredRows"
+      :row-key="(row) => row.id"
+    >
       <template #filters>
         <UiFilterChip label="Date" :value="dateFilter && formatDate(dateFilter)" @clear="dateFilter = ''">
           <UiField v-model="dateFilter" label="Date" type="date" />
@@ -115,11 +121,6 @@ function openVoid(row: TSaleRow) {
       <template #cell-status="{ row }">
         <UiStatusPill v-if="voidStatus(row.id) === 'approved'" tone="danger">Voided</UiStatusPill>
         <UiStatusPill v-else-if="voidStatus(row.id) === 'pending'" tone="warn">Void pending</UiStatusPill>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions
-          :actions="voidStatus(row.id) === 'approved' || voidStatus(row.id) === 'pending' ? [] : [{ label: 'Void', onSelect: () => openVoid(row) }]"
-        />
       </template>
       <template #empty>
         <UiEmptyState title="No sales match these filters" />

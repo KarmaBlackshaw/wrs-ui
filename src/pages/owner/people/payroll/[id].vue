@@ -26,7 +26,6 @@ const columns = [
   { key: "adjustments", label: "Adjustments", align: "right" as const },
   { key: "deductions", label: "Deductions", align: "right" as const },
   { key: "net", label: "Net", align: "right" as const },
-  { key: "actions", label: "" },
 ];
 
 const deductionOrder = { advance: 0, loan: 1, shortage: 2 } as const;
@@ -103,7 +102,12 @@ async function finalizeRun() {
       This run is finalized and read-only. Corrections go in the next run as adjustments.
     </p>
 
-    <UiDataTable :columns="columns" :rows="lines" :row-key="(row) => row.employeeId">
+    <UiDataTable
+      :row-actions="(row) => (run?.status === 'draft' ? [{ label: 'Adjust', onSelect: () => openAdjust(row) }] : [])"
+      :columns="columns"
+      :rows="lines"
+      :row-key="(row) => row.employeeId"
+    >
       <template #cell-employee="{ row }">{{ employeeName(row.employeeId) }}</template>
       <template #cell-days="{ row }">
         Days worked: {{ row.daysWorked }}<template v-if="row.delivered"> · Delivered: {{ row.delivered }}</template>
@@ -129,9 +133,6 @@ async function finalizeRun() {
       </template>
       <template #cell-net="{ row }">
         <UiMoneyText :centavos="row.net" size="lg" />
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="run.status === 'draft' ? [{ label: 'Adjust', onSelect: () => openAdjust(row) }] : []" />
       </template>
       <template #empty>
         <UiEmptyState title="No pay lines yet" description="Pay lines are computed once the run has activity to include." />

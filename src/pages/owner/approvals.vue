@@ -25,7 +25,6 @@ const columns = [
   { key: "createdAt", label: "Date" },
   { key: "details", label: "Details" },
   { key: "status", label: "Status" },
-  { key: "actions", label: "", align: "right" as const },
 ];
 
 function customerLink(refId: string) {
@@ -98,7 +97,7 @@ function confirmLoanApproval() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="Approvals" :icon="IconStamp" :columns="columns" :rows="approvals" :row-key="(row) => row.id">
+    <UiDataTable :row-actions="approvalActions" title="Approvals" :icon="IconStamp" :columns="columns" :rows="approvals" :row-key="(row) => row.id">
       <template #cell-requestedBy="{ row }">{{ employeeName(row.requestedBy) }}</template>
       <template #cell-createdAt="{ row }">{{ formatDateTime(row.createdAt) }}</template>
       <template #cell-details="{ row }">
@@ -112,9 +111,6 @@ function confirmLoanApproval() {
           {{ handled[row.id] === "approved" ? "Approved" : "Rejected" }}
         </UiStatusPill>
         <UiStatusPill v-else tone="warn">Pending</UiStatusPill>
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="approvalActions(row)" />
       </template>
       <template #empty>
         <UiEmptyState title="No pending approvals" />

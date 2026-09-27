@@ -38,7 +38,6 @@ const deliveryColumns: { key: string; label: string; align?: "left" | "right" }[
   { key: "customer", label: "Customer" },
   { key: "delivered", label: "Delivered", align: "right" },
   { key: "amount", label: "Amount", align: "right" },
-  { key: "actions", label: "", align: "right" },
 ];
 
 const deliveryRows = summary.deliveries.map((delivery) => ({ ...delivery, customer: customerName(delivery.customerId) }));
@@ -98,12 +97,15 @@ function reconcile() {
       </div>
     </UiCard>
 
-    <UiDataTable title="Deliveries" :columns="deliveryColumns" :rows="deliveryRows" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="(row) => [{ label: 'Request void', variant: 'ghost', onSelect: () => openVoid(row) }]"
+      title="Deliveries"
+      :columns="deliveryColumns"
+      :rows="deliveryRows"
+      :row-key="(row) => row.id"
+    >
       <template #cell-amount="{ row }">
         <UiMoneyText :centavos="row.amount" />
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="[{ label: 'Request void', variant: 'ghost', onSelect: () => openVoid(row) }]" />
       </template>
       <template #empty>
         <p class="p-4 text-base text-zinc-500">No deliveries logged.</p>

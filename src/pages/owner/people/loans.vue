@@ -18,7 +18,6 @@ const columns = [
   { key: "status", label: "Status" },
   { key: "principal", label: "Principal", align: "right" as const },
   { key: "balance", label: "Balance", align: "right" as const },
-  { key: "actions", label: "" },
 ];
 
 const rows = computed(() =>
@@ -92,7 +91,15 @@ function submitRelease() {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiDataTable title="People" :icon="IconIdentificationBadge" :tabs="OWNER_TABS.PEOPLE" :columns="columns" :rows="rows" :row-key="(row) => row.id">
+    <UiDataTable
+      :row-actions="loanActions"
+      title="People"
+      :icon="IconIdentificationBadge"
+      :tabs="OWNER_TABS.PEOPLE"
+      :columns="columns"
+      :rows="rows"
+      :row-key="(row) => row.id"
+    >
       <template #cell-type="{ row }">
         <UiStatusPill tone="neutral">{{ row.type }}</UiStatusPill>
       </template>
@@ -104,9 +111,6 @@ function submitRelease() {
       </template>
       <template #cell-balance="{ row }">
         <UiMoneyText :centavos="row.balance" />
-      </template>
-      <template #cell-actions="{ row }">
-        <UiDataTableRowActions :actions="loanActions(row)" />
       </template>
       <template #empty>
         <UiEmptyState title="No loans yet" />
