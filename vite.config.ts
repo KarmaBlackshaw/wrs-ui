@@ -12,7 +12,7 @@ import { barrels } from "./plugins/barrels";
 
 export default defineConfig({
   plugins: [
-    barrels(["src/types", "src/services", "src/utils", "src/components"]),
+    barrels(["src/types", "src/utils", "src/components", "src/lib"]),
     tailwindcss(),
     VueRouter({
       routesFolder: "src/pages",
@@ -22,7 +22,7 @@ export default defineConfig({
     Vue(),
     VueDevTools(),
     AutoImport({
-      dirs: ["./src/composables", "./src/utils", "./src/types/labels", "./src/stores", "./src/services"],
+      dirs: ["./src/composables", "./src/utils", "./src/types/labels", "./src/stores"],
       imports: ["pinia", "vue", "vue-router", "@vueuse/core"],
       vueTemplate: true,
       dts: true,

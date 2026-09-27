@@ -1,6 +1,6 @@
 export {};
 
-// The `http` response interceptor unwraps `response.data`, so calls resolve to the payload itself.
+// The `@/lib/http` response interceptor unwraps `response.data`, so calls resolve to the payload itself.
 declare module "axios" {
   export interface AxiosInstance {
     get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T>;

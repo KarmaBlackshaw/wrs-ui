@@ -1,4 +1,4 @@
-import UiConfirmDialog from "@/components/ui/ConfirmDialog.vue";
+import { UiConfirmDialog } from "@/components";
 import type { TConfirmOptions } from "@/types";
 
 export function useConfirm() {

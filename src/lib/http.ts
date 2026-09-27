@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { ROUTES } from "@/types";
-import router from "@/router";
+import { router } from "@/lib/router";
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,

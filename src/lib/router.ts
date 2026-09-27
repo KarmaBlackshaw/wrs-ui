@@ -15,7 +15,7 @@ if (import.meta.hot) {
 }
 
 // Runs in filename order (00.x, 01.x…); the first middleware to return a redirect or `false` wins.
-const middlewares = import.meta.glob<Middleware>("./middlewares/*.ts", { eager: true, import: "default" });
+const middlewares = import.meta.glob<Middleware>("@/middlewares/*.ts", { eager: true, import: "default" });
 
 router.beforeEach(async (to, from) => {
   for (const middleware of Object.values(middlewares)) {
@@ -30,5 +30,3 @@ router.beforeEach(async (to, from) => {
 router.afterEach((to) => {
   document.title = to.meta.title ? `${DEFAULT_TITLE} | ${to.meta.title}` : DEFAULT_TITLE;
 });
-
-export default router;

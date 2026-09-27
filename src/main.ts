@@ -1,7 +1,6 @@
 import "@/assets/style.css";
 
-import pinia from "@/pinia";
-import router from "@/router";
+import { pinia, router } from "@/lib";
 
 import App from "./App.vue";
 
