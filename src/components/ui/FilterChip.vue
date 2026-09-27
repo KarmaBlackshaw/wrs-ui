@@ -51,12 +51,12 @@ function close() {
     </button>
   </div>
   <div
-    v-show="open"
+    popover="manual"
     :id="id"
     ref="panel"
     role="dialog"
     :aria-labelledby="titleId"
-    class="z-50 flex w-72 flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-3 shadow-lg"
+    class="inset-auto m-0 w-72 flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-3 shadow-lg open:flex"
     :style="floatingStyles"
     @keydown.esc.stop="close"
   >
