@@ -57,7 +57,7 @@ function submitReading() {
   }
 
   sheetOpen.value = false;
-  toastStore.show("Saved on this phone");
+  toastStore.show("Saved");
 }
 </script>
 
@@ -65,7 +65,6 @@ function submitReading() {
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Readings" subtitle="TDS, pH and production meter">
       <template #actions>
-        <UiSyncBadge />
         <UiButton @click="openSheet">Log reading</UiButton>
       </template>
     </UiPageHeader>

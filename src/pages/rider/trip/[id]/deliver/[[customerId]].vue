@@ -118,7 +118,7 @@ function applyBalanceSuggestion() {
 function confirmCollectPayment() {
   collectPaymentOpen.value = false;
   paymentAmountInput.value = "";
-  toastStore.show("Saved on this phone");
+  toastStore.show("Saved");
 }
 
 const confirmOpen = ref(false);
@@ -133,7 +133,7 @@ function openConfirmDialog() {
 
 function confirmDelivery() {
   confirmOpen.value = false;
-  toastStore.show("Saved on this phone");
+  toastStore.show("Saved");
   router.push(ROUTES.RIDER.INDEX);
 }
 
@@ -146,7 +146,7 @@ function pickCustomer(candidate: TCustomer) {
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Log delivery" :subtitle="customer?.name" :back="ROUTES.RIDER.INDEX" />
 
-    <UiEmptyState v-if="!trip" title="Trip not found" description="This trip may not exist on this phone yet." />
+    <UiEmptyState v-if="!trip" title="Trip not found" description="This trip may not exist." />
 
     <RiderCustomerSearchList v-else-if="!customer" :get-to="pickCustomer" />
 

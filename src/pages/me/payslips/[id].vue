@@ -25,7 +25,7 @@ const deductionRows = computed(
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Payslip" :subtitle="payRun ? formatPeriod(payRun.periodStart, payRun.periodEnd) : undefined" :back="ROUTES.ME.INDEX" />
 
-    <UiEmptyState v-if="!payLine" title="Payslip not found" description="This payslip isn't available on this phone." />
+    <UiEmptyState v-if="!payLine" title="Payslip not found" description="This payslip isn't available." />
 
     <template v-else>
       <UiCard>

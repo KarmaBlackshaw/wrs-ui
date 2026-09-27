@@ -120,7 +120,7 @@ function submitEdit() {
 }
 
 function saveChanges() {
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

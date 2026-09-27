@@ -8,7 +8,6 @@ const { productName } = useProductLookup();
 
 const route = useRoute<"/cashier/trips/[id]/reconcile">();
 const router = useRouter();
-const syncStore = useSyncStore();
 const authStore = useAuthStore();
 
 const summary = tripSummary(route.params.id);
@@ -16,8 +15,6 @@ const summary = tripSummary(route.params.id);
 const tripsHomeRoute = computed(() => (authStore.activeRole === "owner" ? ROUTES.OWNER.TRIPS : ROUTES.CASHIER.TRIPS.INDEX));
 
 const hasVariance = computed(() => summary.fullVariance !== 0 || summary.emptyVariance !== 0 || summary.cashVariance !== 0);
-
-const blockedBySync = computed(() => syncStore.status === "pending" && syncStore.pendingCount > 0);
 
 const suggestedShortageCash = computed(() => Math.max(0, -summary.cashVariance));
 const shortageSheetOpen = ref(false);
@@ -51,16 +48,12 @@ function openVoid(delivery: (typeof summary.deliveries)[number]) {
 }
 
 function recordShortage() {
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   shortageSheetOpen.value = false;
 }
 
 function reconcile() {
-  if (blockedBySync.value) {
-    return;
-  }
-
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   router.push(tripsHomeRoute.value);
 }
 </script>
@@ -76,7 +69,7 @@ function reconcile() {
     <UiPageHeader title="Reconcile trip" :subtitle="`Loaded ${formatDateTime(summary.trip.loadedAt)}`" :back="tripsHomeRoute">
       <template #actions>
         <UiStatusPill :tone="TRIP_STATUS_TONE[summary.trip.status]">{{ TRIP_STATUS_LABEL[summary.trip.status] }}</UiStatusPill>
-        <UiButton v-if="summary.trip.status !== 'reconciled'" :disabled="blockedBySync" @click="reconcile">Reconcile</UiButton>
+        <UiButton v-if="summary.trip.status !== 'reconciled'" @click="reconcile">Reconcile</UiButton>
       </template>
     </UiPageHeader>
 
@@ -120,10 +113,6 @@ function reconcile() {
     </div>
 
     <UiButton v-if="hasVariance" variant="secondary" @click="shortageSheetOpen = true">Record shortage</UiButton>
-
-    <p v-if="blockedBySync" class="text-sm font-medium text-amber-700">
-      Waiting for {{ syncStore.pendingCount }} entries to sync before this trip can be reconciled (BR-08).
-    </p>
 
     <UiBottomSheet v-model:open="shortageSheetOpen" title="Record shortage">
       <div class="flex flex-col gap-4">

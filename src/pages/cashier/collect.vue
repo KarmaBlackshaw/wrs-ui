@@ -19,7 +19,7 @@ function confirm() {
     return;
   }
 
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   pad.value = "";
   customerSheetOpen.value = true;
   customer.value = null;

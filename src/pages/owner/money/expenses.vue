@@ -94,7 +94,7 @@ function submitAddExpense() {
   newQty.value = 0;
   newReceipt.value = null;
   addOpen.value = false;
-  toastStore.show(newConsumableId.value ? "Saved locally, consumable restocked" : "Saved locally");
+  toastStore.show(newConsumableId.value ? "Saved, consumable restocked" : "Saved");
 }
 </script>
 

@@ -7,7 +7,6 @@ import VueDevTools from "vite-plugin-vue-devtools";
 import tailwindcss from "@tailwindcss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
@@ -35,14 +34,6 @@ export default defineConfig({
       deep: true,
       directoryAsNamespace: true,
       collapseSamePrefixes: true,
-    }),
-    VitePWA({
-      registerType: "autoUpdate",
-      manifest: {
-        name: "WRS",
-        short_name: "WRS",
-        theme_color: "#0f766e",
-      },
     }),
   ],
   resolve: {

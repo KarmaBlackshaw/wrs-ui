@@ -15,7 +15,7 @@ function submit() {
     return;
   }
 
-  toastStore.show("Void requested, saved on this phone");
+  toastStore.show("Void requested");
   reason.value = "";
   open.value = false;
 }

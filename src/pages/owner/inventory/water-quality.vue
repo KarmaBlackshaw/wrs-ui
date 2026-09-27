@@ -56,7 +56,7 @@ function submitAddTest() {
   newNextDue.value = "";
   newFile.value = null;
   addOpen.value = false;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

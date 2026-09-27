@@ -57,14 +57,14 @@ function openCreditSheet() {
 }
 
 function submitCredit() {
-  toastStore.show("Credit settings saved locally");
+  toastStore.show("Credit settings saved");
   creditSheetOpen.value = false;
 }
 
 const waiveDialogOpen = ref(false);
 
 function submitWaive() {
-  toastStore.show("Deposit waiver saved locally");
+  toastStore.show("Deposit waiver saved");
   waiveDialogOpen.value = false;
 }
 
@@ -83,7 +83,7 @@ function openEditSheet() {
 }
 
 function submitEdit() {
-  toastStore.show("Customer saved locally");
+  toastStore.show("Customer saved");
   editSheetOpen.value = false;
 }
 </script>

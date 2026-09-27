@@ -59,7 +59,7 @@ function submitReplacement() {
   });
 
   logSheetItem.value = null;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

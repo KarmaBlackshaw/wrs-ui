@@ -14,7 +14,6 @@ const toneLabel: Record<TAlertTone, string> = {
   info: "Pending",
 };
 
-const syncStore = useSyncStore();
 const today = computed(() => digestDays.at(-1));
 
 const alerts = computed(() => {
@@ -42,10 +41,6 @@ const alerts = computed(() => {
 
   if (openShortages.length > 0) {
     list.push({ id: "shortages", title: `${openShortages.length} rider shortage(s) pending review`, to: ROUTES.OWNER.REPORT("shortages"), tone: "warn" });
-  }
-
-  if (syncStore.rejected.length > 0) {
-    list.push({ id: "rejected", title: `${syncStore.rejected.length} rejected sync record(s)`, to: ROUTES.OWNER.APPROVALS, tone: "danger" });
   }
 
   if (approvals.length > 0) {

@@ -39,7 +39,7 @@ function confirm() {
     return;
   }
 
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   returned.value = {};
   customerSheetOpen.value = true;
   customer.value = null;

@@ -76,7 +76,7 @@ function confirmRestock() {
 
   selected.value.onHand += restockAmount.value;
   restockSheetOpen.value = false;
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
 }
 
 function confirmStockTake() {
@@ -86,7 +86,7 @@ function confirmStockTake() {
 
   selected.value.onHand = stockTakeAmount.value;
   stockTakeSheetOpen.value = false;
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
 }
 </script>
 

@@ -43,7 +43,7 @@ function submitUsage() {
   productUsages.value.push(...usageDrafts.value.map((draft) => ({ consumableId, productId: draft.productId, qtyPerUnit: draft.qtyPerUnit })));
 
   usageSheetConsumable.value = null;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 const stockTakeConsumable = ref<TConsumable | null>(null);
@@ -73,7 +73,7 @@ function submitStockTake() {
   });
 
   stockTakeConsumable.value = null;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

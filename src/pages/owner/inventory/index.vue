@@ -85,7 +85,7 @@ function submitAddProduct() {
   newName.value = "";
   newPrice.value = "";
   addOpen.value = false;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 const priceSheetProduct = ref<TProduct | null>(null);
@@ -112,7 +112,7 @@ function submitPriceChange() {
   });
 
   priceSheetProduct.value = null;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

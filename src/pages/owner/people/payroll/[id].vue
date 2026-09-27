@@ -68,7 +68,7 @@ function submitAdjust() {
   adjustLine.value.adjustments += delta;
   adjustLine.value.net += delta;
   adjustLine.value = null;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 const finalizeOpen = ref(false);

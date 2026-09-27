@@ -60,7 +60,7 @@ function submitRequest() {
   }
 
   sheetOpen.value = false;
-  toastStore.show("Saved on this phone");
+  toastStore.show("Saved");
 }
 </script>
 

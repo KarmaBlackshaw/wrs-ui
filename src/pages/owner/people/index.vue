@@ -49,7 +49,7 @@ function submitAddEmployee() {
   newPhone.value = "";
   newRoles.value = [];
   addOpen.value = false;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 function openEmployee(employee: TEmployee) {

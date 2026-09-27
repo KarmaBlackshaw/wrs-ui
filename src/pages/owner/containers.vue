@@ -44,7 +44,7 @@ const movementQty = ref(1);
 const movementReason = ref("");
 
 function submitMovement() {
-  toastStore.show("Container movement saved locally");
+  toastStore.show("Container movement saved");
   movementSheetOpen.value = false;
   movementQty.value = 1;
   movementReason.value = "";

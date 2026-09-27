@@ -77,7 +77,7 @@ function submitEdit() {
   });
 
   editOpen.value = false;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 </script>
 

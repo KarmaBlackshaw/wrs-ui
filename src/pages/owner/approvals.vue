@@ -10,7 +10,6 @@ definePage({ meta: { title: "Approvals" } });
 const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
 
-const syncStore = useSyncStore();
 const toastStore = useToastStore();
 
 const handled = ref<Record<string, "approved" | "rejected">>({});
@@ -29,11 +28,6 @@ const columns = [
   { key: "createdAt", label: "Date" },
   { key: "details", label: "Details" },
   { key: "actions", label: "" },
-];
-
-const rejectedColumns = [
-  { key: "entity", label: "Entity" },
-  { key: "reason", label: "Reason" },
 ];
 
 function customerLink(refId: string) {
@@ -72,7 +66,7 @@ function confirmDecision() {
   }
 
   handled.value[confirmApproval.value.id] = confirmAction.value === "approve" ? "approved" : "rejected";
-  toastStore.show(confirmAction.value === "approve" ? "Approved, saved locally" : "Rejected, saved locally");
+  toastStore.show(confirmAction.value === "approve" ? "Approved" : "Rejected");
   confirmDialogOpen.value = false;
 }
 
@@ -82,7 +76,7 @@ function confirmLoanApproval() {
   }
 
   handled.value[loanApproval.value.id] = "approved";
-  toastStore.show("Loan approved, saved locally");
+  toastStore.show("Loan approved");
   loanSheetOpen.value = false;
 }
 </script>
@@ -90,8 +84,6 @@ function confirmLoanApproval() {
 <template>
   <div class="flex flex-col gap-4">
     <UiPageHeader title="Approvals" subtitle="Pending voids, loans, credit and waivers" />
-
-    <p v-if="syncStore.status === 'offline'" class="text-base text-amber-700">Approvals need to be online, reconnect to approve or reject.</p>
 
     <UiDataTable :columns="columns" :rows="approvals" :row-key="(row) => row.id">
       <template #cell-requestedBy="{ row }">{{ employeeName(row.requestedBy) }}</template>
@@ -115,8 +107,8 @@ function confirmLoanApproval() {
             {{ handled[row.id] === "approved" ? "Approved" : "Rejected" }}
           </UiStatusPill>
           <template v-else>
-            <UiButton size="sm" :disabled="syncStore.status === 'offline'" @click="openConfirm(row, 'approve')">Approve</UiButton>
-            <UiButton size="sm" variant="danger" :disabled="syncStore.status === 'offline'" @click="openConfirm(row, 'reject')">Reject</UiButton>
+            <UiButton size="sm" @click="openConfirm(row, 'approve')">Approve</UiButton>
+            <UiButton size="sm" variant="danger" @click="openConfirm(row, 'reject')">Reject</UiButton>
           </template>
         </div>
       </template>
@@ -124,14 +116,6 @@ function confirmLoanApproval() {
         <UiEmptyState title="No pending approvals" />
       </template>
     </UiDataTable>
-
-    <UiSection title="Rejected sync records">
-      <UiDataTable :columns="rejectedColumns" :rows="syncStore.rejected" :row-key="(row) => row.id">
-        <template #empty>
-          <UiEmptyState title="No rejected records" />
-        </template>
-      </UiDataTable>
-    </UiSection>
 
     <UiDialog v-model:open="confirmDialogOpen" :title="confirmAction === 'approve' ? 'Approve request' : 'Reject request'">
       <p>Are you sure you want to {{ confirmAction }} this request?</p>

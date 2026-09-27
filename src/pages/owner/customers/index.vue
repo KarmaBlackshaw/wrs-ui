@@ -32,7 +32,7 @@ function submitAdd() {
     return;
   }
 
-  toastStore.show("Customer saved locally");
+  toastStore.show("Customer saved");
   nameDraft.value = "";
   addressDraft.value = "";
   addSheetOpen.value = false;

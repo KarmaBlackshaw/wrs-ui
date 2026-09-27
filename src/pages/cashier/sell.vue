@@ -70,7 +70,7 @@ function reset() {
 }
 
 function confirmSale() {
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   reset();
 }
 </script>

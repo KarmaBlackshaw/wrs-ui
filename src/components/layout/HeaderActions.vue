@@ -7,7 +7,6 @@ const menuOpen = ref(false);
 
 <template>
   <div class="ml-auto flex min-w-0 items-center gap-3">
-    <UiSyncBadge />
     <button
       v-if="authStore.user"
       type="button"

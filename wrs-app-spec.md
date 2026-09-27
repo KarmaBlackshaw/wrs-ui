@@ -4,12 +4,12 @@ Last updated: 27 Sep 2026
 
 ## 1. Overview and scope
 
-One offline-capable web app runs the water refilling station: deliveries, walk-in sales, containers, stock, cash, expenses, payroll and loans. This doc covers the functional spec and the frontend design; the backend gets its own spec, built from section 12.
+One web app runs the water refilling station: deliveries, walk-in sales, containers, stock, cash, expenses, payroll and loans. This doc covers the functional spec and the frontend design; the backend gets its own spec, built from section 11.
 
 **Goals**
 
 - Every container, peso and consumable is traceable to a person and a day.
-- Riders log a delivery in a few taps, even without signal.
+- Riders log a delivery in a few taps.
 - The owner can run the store from one daily summary.
 
 **In scope:** employees, customers, pricing, containers, deposits, credit, delivery trips, walk-in sales, cashier cash, consumables, maintenance, water quality, expenses, payroll, advances and loans, reports, owner digest.
@@ -180,7 +180,6 @@ The frontend enforces these for fast feedback; the backend enforces them again a
 | BR-05 | Credit sales require the customer to be credit-enabled by the owner.                                                     | Delivery, walk-in  |
 | BR-06 | Borrowing a station container requires a customer and a deposit, unless waived.                                          | Delivery, walk-in  |
 | BR-07 | Deliveries are only allowed on the rider's own open trip.                                                                | Delivery           |
-| BR-08 | A trip is reconciled only after all its offline entries have synced.                                                     | Reconciliation     |
 | BR-09 | Reconciliation: loaded = delivered + returned full; empties collected = empties returned; cash expected = cash remitted. | Reconciliation     |
 | BR-10 | Incentive counts only round containers on reconciled trips: (delivered that day − quota) × rate, floored at 0.           | Payroll            |
 | BR-11 | Deductions stop at the cap; the remainder rolls to the next run.                                                         | Payroll            |
@@ -196,7 +195,7 @@ The frontend enforces these for fast feedback; the backend enforces them again a
 
 ## 6. Frontend stack and architecture
 
-Recommended stack: Vue 3 + TypeScript, local-first. Swap any row before building the skeleton.
+Recommended stack: Vue 3 + TypeScript. Swap any row before building the skeleton.
 
 | Concern              | Choice                                                          |
 | -------------------- | --------------------------------------------------------------- |
@@ -205,8 +204,6 @@ Recommended stack: Vue 3 + TypeScript, local-first. Swap any row before building
 | Styling              | Tailwind CSS only; all components built in-house, no UI library |
 | State                | Pinia                                                           |
 | Routing              | Vue Router with role guards                                     |
-| Offline storage      | idb (IndexedDB)                                                 |
-| PWA                  | vite-plugin-pwa (Workbox)                                       |
 | Forms and validation | VeeValidate + Zod                                               |
 | Dates                | date-fns, fixed to Asia/Manila                                  |
 | Money                | Integer centavos everywhere; format only at display             |
@@ -217,15 +214,12 @@ Recommended stack: Vue 3 + TypeScript, local-first. Swap any row before building
 
 ```mermaid
 flowchart TD
-  SW[Service worker<br/>caches app shell] --> V
   V[Views and components<br/>role layouts, screens, forms] --> S[Pinia stores<br/>UI state, totals, rule checks]
-  S --> R[Repositories<br/>read and write local first]
-  R --> D[(IndexedDB via idb<br/>local copy + outbox)]
-  R --> Y[Sync engine<br/>push, pull, retry]
-  Y <-->|push / pull| B[Backend API<br/>separate spec, source of truth]
+  S --> R[Repositories<br/>typed reads and writes]
+  R -->|HTTP| B[Backend API<br/>separate spec, source of truth]
 ```
 
-Screens never call the network directly. Every read and write goes to the local database; the sync engine moves changes to and from the backend in the background.
+Screens never call the network directly; they go through their feature's repository. Until the backend is ready, repositories return mock data.
 
 ## 7. Project structure
 
@@ -239,15 +233,13 @@ src/
     router/            # routes, role guards
     layouts/           # OwnerLayout, CashierLayout, RiderLayout, StaffLayout, AuthLayout
   core/
-    db/                # idb schema, versions, outbox table
-    sync/              # sync engine, status store, conflict handling
-    api/               # HTTP client (used only by sync)
+    api/               # HTTP client (used only by repositories)
     auth/              # session, current user, roles
     rules/             # business rules BR-01..BR-20 as pure functions
     money/             # centavos helpers, formatting
     dates/             # Asia/Manila helpers
     i18n/              # en, fil
-    ui/                # base components, Tailwind only (Button, Field, Sheet, Dialog, Stepper, NumberPad, EmptyState, SyncBadge)
+    ui/                # base components, Tailwind only (Button, Field, Sheet, Dialog, Stepper, NumberPad, EmptyState)
   features/
     settings/
     employees/
@@ -268,7 +260,7 @@ src/
     voids/
     reports/
     dashboard/         # owner home + daily digest
-  types/               # entity types (mirror of section 12)
+  types/               # entity types (mirror of section 11)
 ```
 
 Each feature folder follows the same shape:
@@ -278,7 +270,7 @@ features/trips/
   views/        # routed pages
   components/   # feature-only parts
   store.ts      # Pinia store
-  repo.ts       # local-first reads/writes + outbox
+  repo.ts       # reads/writes via API (mocks for now)
   schema.ts     # Zod form schemas
   routes.ts     # feature routes, merged into router
 ```
@@ -327,13 +319,13 @@ After login, the user lands on their role's home. A user with several roles pick
 
 ## 9. Screen inventory
 
-40 screens, login included, across four role areas. Each lists what it shows and its main actions; build them as empty shells first (section 14).
+40 screens, login included, across four role areas. Each lists what it shows and its main actions; build them as empty shells first (section 13).
 
 ### Rider
 
 | Screen          | Shows                                                                | Actions                                                |
 | --------------- | -------------------------------------------------------------------- | ------------------------------------------------------ |
-| Today's trip    | Loaded, delivered, left; sync status; customer list                  | Start delivery, end trip                               |
+| Today's trip    | Loaded, delivered, left; customer list                               | Start delivery, end trip                               |
 | Log delivery    | Customer name and address; delivered and empties (prefilled); amount | Pay cash / e-wallet / credit, collect deposit, confirm |
 | Collect payment | Customer credit balance                                              | Record partial or full payment                         |
 | Return summary  | Expected full, empties, cash                                         | Submit return                                          |
@@ -392,19 +384,19 @@ Washer and helper use Readings and Me only.
 
 ## 10. Key flows
 
-Each flow lists the steps, the rules checked (section 5), and what is written locally.
+Each flow lists the steps, the rules checked (section 5), and what is written.
 
 ### 10.1 Delivery trip
 
 1. Cashier creates load-out: rider, round refills and quantities (BR-01). Writes trip + container movement station → rider.
-2. Rider syncs, opens Today's trip.
+2. Rider opens Today's trip.
 3. Per stop: tap customer → delivered and empties prefilled from last delivery → adjust → payment type.
    - Credit: blocked if over limit or not enabled (BR-04, BR-05); rider switches to cash.
    - Borrowed container without deposit on file: prompt deposit unless waived (BR-06).
-4. Confirm. Writes delivery + movements (rider → customer, customer → rider) + outbox entry. Works offline.
+4. Confirm. Writes delivery + movements (rider → customer, customer → rider) .
 5. Rider taps End trip → Return summary shows expected full, empties and cash.
 6. Cashier receives return: enters counted full, empties, cash.
-7. Reconcile once fully synced (BR-08). Variances (BR-09) create a shortage record for owner review (BR-13).
+7. Reconcile. Variances (BR-09) create a shortage record for owner review (BR-13).
 
 ### 10.2 Walk-in sale
 
@@ -445,49 +437,7 @@ Each flow lists the steps, the rules checked (section 5), and what is written lo
 1. Rider (on delivery) or cashier opens customer → sees balance and aging.
 2. Enter amount (partial allowed) → confirm. Payment counts in that person's cash.
 
-## 11. Offline and sync
-
-All roles work offline; riders depend on it. Records are append-only (BR-02), so sync is mostly pushing new entries, with few true conflicts.
-
-**Local data**
-
-- IndexedDB holds the records each role needs: rider gets own trips, customers, products, prices, credit balances; cashier and owner get everything for the store.
-- Every record gets a client-generated UUID and `createdAt` at write time, so offline entries are valid before sync.
-- `outbox` table: one row per write (entity, payload, attempts, last error).
-
-**Sync engine**
-
-- Push: send outbox in creation order; remove each row on server acknowledgement. Retry with backoff on failure.
-- Pull: fetch changes since the last cursor per table; upsert locally.
-- Triggers: app start, network regained, every few minutes while online, and a manual Sync now button.
-- Before a trip starts, the rider app forces a sync so credit balances and prices are fresh.
-
-**Conflicts**
-
-- Server wins on reference data (prices, settings, credit limits).
-- A pushed record the server rejects (e.g. credit over limit because of a sale elsewhere) is kept, marked **Rejected** with the reason, and shown in the owner's Approvals and at reconciliation.
-- Records are never silently dropped.
-
-**What the user sees**
-
-| State      | Indicator                                  |
-| ---------- | ------------------------------------------ |
-| All synced | Green dot, last sync time                  |
-| Pending    | Amber badge with count of unsynced entries |
-| Offline    | Grey badge "Offline — saved on this phone" |
-| Rejected   | Red badge; tap for details                 |
-
-**Guards**
-
-- Trip reconciliation disabled while that trip has unsynced entries (BR-08).
-- Payroll runs, approvals and settings require online; screens say so instead of failing.
-- Logout blocked while the outbox is not empty, to prevent data loss.
-
-**PWA**
-
-- Installable, app shell cached, updates prompt to reload once the outbox is empty.
-
-## 12. Frontend data contract
+## 11. Frontend data contract
 
 The entities and actions the frontend expects. This is the input for the backend spec, not the database design. All ids are UUIDs; money is integer centavos; times are ISO timestamps.
 
@@ -526,25 +476,24 @@ The entities and actions the frontend expects. This is the input for the backend
 | Installment       | loanId, seq, due, principalPart, interestPart, paid                                                                       |
 | Void              | id, refType, refId, reason, requestedBy, status, approvedBy?                                                              |
 
-**Actions** (each maps to one backend endpoint; offline-capable ones go through the outbox)
+**Actions** (each maps to one backend endpoint)
 
-| Action                                                           | Offline                   |
-| ---------------------------------------------------------------- | ------------------------- |
-| createTrip, recordDelivery, recordPayment, endTrip               | Yes                       |
-| receiveReturn, reconcileTrip                                     | Receive yes; reconcile no |
-| recordWalkInSale, returnContainer                                | Yes                       |
-| openDrawer, closeDrawer, recordDrawerExpense                     | Yes                       |
-| submitContainerCount, recordStockEntry, logReading, logMeter     | Yes                       |
-| requestVoid, requestLoan                                         | Yes                       |
-| approve / reject (voids, loans, credit, waivers)                 | No                        |
-| createPayRun, adjustPayLine, finalizePayRun                      | No                        |
-| releaseLoan                                                      | No                        |
-| updateSettings, updatePrice, updatePayPlan, updateCustomerCredit | No                        |
-| pullChanges(since)                                               | —                         |
+| Action                                                           |
+| ---------------------------------------------------------------- |
+| createTrip, recordDelivery, recordPayment, endTrip               |
+| receiveReturn, reconcileTrip                                     |
+| recordWalkInSale, returnContainer                                |
+| openDrawer, closeDrawer, recordDrawerExpense                     |
+| submitContainerCount, recordStockEntry, logReading, logMeter     |
+| requestVoid, requestLoan                                         |
+| approve / reject (voids, loans, credit, waivers)                 |
+| createPayRun, adjustPayLine, finalizePayRun                      |
+| releaseLoan                                                      |
+| updateSettings, updatePrice, updatePayPlan, updateCustomerCredit |
 
 Computed by the backend (frontend shows, never stores as truth): holdings, balances, aging, expected counts, reconciliation variances, pay lines, loan schedules.
 
-## 13. UI and design guidelines
+## 12. UI and design guidelines
 
 Design for a rider on a cheap Android phone, in sun, with one hand. Everything else scales up from there.
 
@@ -569,13 +518,13 @@ Design for a rider on a cheap Android phone, in sun, with one hand. Everything e
 **Visual**
 
 - High contrast for outdoor use; body text 16 px minimum, totals 24 px+.
-- Status colours only with meaning: green synced / OK, amber pending / due soon, red rejected / variance / overdue. Always paired with text or an icon.
+- Status colours only with meaning: green OK, amber pending / due soon, red rejected / variance / overdue. Always paired with text or an icon.
 - Light and dark theme via Tailwind tokens.
 - Money as ₱1,234.00; dates as 27 Sep 2026; times in Asia/Manila.
 
 **Feedback**
 
-- Every save confirms with a toast that says saved locally or synced.
+- Every save confirms with a toast.
 - Blocked actions explain why in one line (e.g. "Credit limit reached — take cash").
 - Empty states say what to do next.
 
@@ -587,15 +536,14 @@ Design for a rider on a cheap Android phone, in sun, with one hand. Everything e
 
 - Labels on every input, visible focus, screen-reader names on icon buttons.
 
-## 14. Skeleton build checklist
+## 13. Skeleton build checklist
 
-The skeleton is done when every route renders its shell for the right role, running on mock local data, with no backend.
+The skeleton is done when every route renders its shell for the right role, running on mock data, with no backend.
 
 **Foundation**
 
 - [ ] Vite + Vue 3 + TypeScript + Tailwind + Pinia + Vue Router scaffold
 - [ ] Folder structure per section 7
-- [ ] vite-plugin-pwa installed; app installs and loads offline
 - [ ] vue-i18n with `en` and `fil` files, keys only
 - [ ] Money and date helpers (centavos, Asia/Manila)
 
@@ -608,19 +556,17 @@ The skeleton is done when every route renders its shell for the right role, runn
 
 **Core UI kit**
 
-- [ ] Button, Field, Select, Stepper, NumberPad, BottomSheet, Dialog, Toast, EmptyState, DataTable, SyncBadge, MoneyText
+- [ ] Button, Field, Select, Stepper, NumberPad, BottomSheet, Dialog, Toast, EmptyState, DataTable, MoneyText
 
 **Data layer stubs**
 
-- [ ] idb schema for section 12 entities + outbox table
 - [ ] Seed script with mock employees, customers, products, prices, containers
 - [ ] One repository per feature with typed read/write stubs
-- [ ] Sync engine stub: status store and SyncBadge wired, push/pull as no-ops
 - [ ] Business rules BR-01 to BR-20 as pure function signatures with unit test placeholders
 
 **First screens to flesh out** (proves the pattern end to end)
 
-- [ ] Rider: Today's trip → Log delivery → Return summary, fully offline on mock data
+- [ ] Rider: Today's trip → Log delivery → Return summary on mock data
 - [ ] Cashier: Walk-in sale with borrowed container and deposit prompt
 - [ ] Owner: Settings screen for global defaults
 

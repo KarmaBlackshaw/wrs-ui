@@ -50,7 +50,7 @@ function submitNewRun() {
   });
 
   addOpen.value = false;
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 function openRun(run: TPayRun) {

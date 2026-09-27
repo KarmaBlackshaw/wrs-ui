@@ -28,7 +28,7 @@ function confirm() {
     return;
   }
 
-  useToastStore().show("Saved on this phone");
+  useToastStore().show("Saved");
   router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>

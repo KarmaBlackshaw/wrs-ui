@@ -47,7 +47,7 @@ function openSchedule(loan: TLoan) {
 
 function approve(loan: TLoan) {
   loan.status = "approved";
-  toastStore.show("Saved locally");
+  toastStore.show("Saved");
 }
 
 const releaseLoan = ref<TLoan | null>(null);

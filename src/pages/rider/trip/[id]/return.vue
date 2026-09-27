@@ -11,7 +11,7 @@ const tripId = computed(() => String(route.params.id));
 const summary = computed(() => tripSummary(tripId.value));
 
 function submitReturn() {
-  toastStore.show("Saved on this phone");
+  toastStore.show("Saved");
   router.push(ROUTES.RIDER.INDEX);
 }
 </script>
@@ -24,7 +24,7 @@ function submitReturn() {
       </template>
     </UiPageHeader>
 
-    <UiEmptyState v-if="!summary.trip" title="Trip not found" description="This trip may not exist on this phone yet." />
+    <UiEmptyState v-if="!summary.trip" title="Trip not found" description="This trip may not exist." />
 
     <template v-else>
       <div class="grid grid-cols-2 gap-3">
