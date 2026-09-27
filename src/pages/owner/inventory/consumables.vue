@@ -88,10 +88,12 @@ function submitStockTake() {
         </UiStatusPill>
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end gap-2">
-          <UiButton size="sm" variant="secondary" @click="openUsageSheet(row)">Usage</UiButton>
-          <UiButton size="sm" variant="secondary" @click="openStockTake(row)">Stock-take</UiButton>
-        </div>
+        <UiDataTableRowActions
+          :actions="[
+            { label: 'Usage', onSelect: () => openUsageSheet(row) },
+            { label: 'Stock-take', onSelect: () => openStockTake(row) },
+          ]"
+        />
       </template>
       <template #empty>
         <UiEmptyState title="No consumables yet" />

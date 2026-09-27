@@ -117,9 +117,9 @@ function openVoid(row: TSaleRow) {
         <UiStatusPill v-else-if="voidStatus(row.id) === 'pending'" tone="warn">Void pending</UiStatusPill>
       </template>
       <template #cell-actions="{ row }">
-        <UiButton v-if="voidStatus(row.id) !== 'approved' && voidStatus(row.id) !== 'pending'" variant="secondary" size="sm" @click="openVoid(row)"
-          >Void</UiButton
-        >
+        <UiDataTableRowActions
+          :actions="voidStatus(row.id) === 'approved' || voidStatus(row.id) === 'pending' ? [] : [{ label: 'Void', onSelect: () => openVoid(row) }]"
+        />
       </template>
       <template #empty>
         <UiEmptyState title="No sales match these filters" />

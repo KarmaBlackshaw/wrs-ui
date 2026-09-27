@@ -77,9 +77,7 @@ function submitReplacement() {
         <span v-if="row.item.intervalDays"> · every {{ row.item.intervalDays }} days</span>
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end">
-          <UiButton size="sm" variant="secondary" @click="openLogSheet(row.item)">Log replacement</UiButton>
-        </div>
+        <UiDataTableRowActions :actions="[{ label: 'Log replacement', onSelect: () => openLogSheet(row.item) }]" />
       </template>
       <template #empty>
         <UiEmptyState title="No maintenance items yet" />

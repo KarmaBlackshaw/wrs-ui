@@ -103,7 +103,7 @@ function reconcile() {
         <UiMoneyText :centavos="row.amount" />
       </template>
       <template #cell-actions="{ row }">
-        <UiButton variant="ghost" size="sm" @click="openVoid(row)">Request void</UiButton>
+        <UiDataTableRowActions :actions="[{ label: 'Request void', variant: 'ghost', onSelect: () => openVoid(row) }]" />
       </template>
       <template #empty>
         <p class="p-4 text-base text-zinc-500">No deliveries logged.</p>

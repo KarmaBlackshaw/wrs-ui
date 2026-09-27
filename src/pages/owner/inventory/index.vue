@@ -134,10 +134,12 @@ function submitPriceChange() {
       </template>
       <template #cell-price="{ row }"><UiMoneyText :centavos="currentAmount(row.id)" /></template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end gap-2">
-          <UiButton size="sm" variant="secondary" @click="openHistorySheet(row)">History</UiButton>
-          <UiButton size="sm" variant="secondary" @click="openPriceSheet(row)">Change price</UiButton>
-        </div>
+        <UiDataTableRowActions
+          :actions="[
+            { label: 'History', onSelect: () => openHistorySheet(row) },
+            { label: 'Change price', onSelect: () => openPriceSheet(row) },
+          ]"
+        />
       </template>
       <template #empty>
         <UiEmptyState title="No products yet" description="Add your first product to start tracking prices." />

@@ -148,9 +148,7 @@ function saveChanges() {
         <UiStatusPill v-else tone="warn">Not set</UiStatusPill>
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end">
-          <UiButton size="sm" variant="secondary" @click="openEdit(row.setting)">Edit</UiButton>
-        </div>
+        <UiDataTableRowActions :actions="[{ label: 'Edit', onSelect: () => openEdit(row.setting) }]" />
       </template>
     </UiDataTable>
 

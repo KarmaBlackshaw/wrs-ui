@@ -101,10 +101,12 @@ function confirmStockTake() {
         <UiStatusPill v-if="reorderText(row)" :tone="reorderTone(row) ?? 'neutral'">{{ reorderText(row) }}</UiStatusPill>
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end gap-2">
-          <UiButton variant="secondary" size="sm" @click="openRestock(row.id)">Restock</UiButton>
-          <UiButton variant="ghost" size="sm" @click="openStockTake(row.id)">Stock-take</UiButton>
-        </div>
+        <UiDataTableRowActions
+          :actions="[
+            { label: 'Restock', onSelect: () => openRestock(row.id) },
+            { label: 'Stock-take', variant: 'ghost', onSelect: () => openStockTake(row.id) },
+          ]"
+        />
       </template>
     </UiDataTable>
 

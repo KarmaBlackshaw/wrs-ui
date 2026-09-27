@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconWallet from "@/components/icon/Wallet.vue";
 import { installments, loans as loansMock } from "@/mocks/loans";
-import type { TLoan, TLoanRow } from "@/types";
+import type { TLoan, TLoanRow, TRowAction } from "@/types";
 
 definePage({ meta: { title: "Loans" } });
 
@@ -59,6 +59,24 @@ function openRelease(loan: TLoan) {
   releaseFile.value = undefined;
 }
 
+function loanActions(loan: TLoan) {
+  const actions: TRowAction[] = [];
+
+  if (schedule(loan.id).length > 0) {
+    actions.push({ label: "Schedule", variant: "ghost", onSelect: () => openSchedule(loan) });
+  }
+
+  if (loan.status === "requested") {
+    actions.push({ label: "Approve", onSelect: () => approve(loan) });
+  }
+
+  if (loan.status === "approved") {
+    actions.push({ label: "Release", variant: "primary", onSelect: () => openRelease(loan) });
+  }
+
+  return actions;
+}
+
 function submitRelease() {
   if (!releaseLoan.value || !releaseFile.value) {
     return;
@@ -87,11 +105,7 @@ function submitRelease() {
         <UiMoneyText :centavos="row.balance" />
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end gap-2">
-          <UiButton v-if="schedule(row.id).length > 0" size="sm" variant="ghost" @click="openSchedule(row)">Schedule</UiButton>
-          <UiButton v-if="row.status === 'requested'" size="sm" variant="secondary" @click="approve(row)">Approve</UiButton>
-          <UiButton v-if="row.status === 'approved'" size="sm" @click="openRelease(row)">Release</UiButton>
-        </div>
+        <UiDataTableRowActions :actions="loanActions(row)" />
       </template>
       <template #empty>
         <UiEmptyState title="No loans yet" />

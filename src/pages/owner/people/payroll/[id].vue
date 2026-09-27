@@ -125,9 +125,7 @@ function confirmFinalize() {
         <UiMoneyText :centavos="row.net" size="lg" />
       </template>
       <template #cell-actions="{ row }">
-        <div class="flex justify-end">
-          <UiButton v-if="run.status === 'draft'" size="sm" variant="secondary" @click="openAdjust(row)">Adjust</UiButton>
-        </div>
+        <UiDataTableRowActions :actions="run.status === 'draft' ? [{ label: 'Adjust', onSelect: () => openAdjust(row) }] : []" />
       </template>
       <template #empty>
         <UiEmptyState title="No pay lines yet" description="Pay lines are computed once the run has activity to include." />

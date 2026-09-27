@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import IconCheck from "@/components/icon/Check.vue";
 import IconStamp from "@/components/icon/Stamp.vue";
+import IconUserCircle from "@/components/icon/UserCircle.vue";
+import IconX from "@/components/icon/X.vue";
 import { approvals } from "@/mocks/approvals";
 import { loans } from "@/mocks/loans";
 import { ROUTES } from "@/types";
-import type { TApproval, TLoan } from "@/types";
+import type { TApproval, TLoan, TRowAction } from "@/types";
 
 definePage({ meta: { title: "Approvals" } });
 
@@ -33,6 +36,24 @@ const columns = [
 
 function customerLink(refId: string) {
   return findCustomer(refId) ? ROUTES.OWNER.CUSTOMERS.DETAIL(refId) : undefined;
+}
+
+function approvalActions(approval: TApproval) {
+  const actions: TRowAction[] = [];
+  const customer = approval.kind === "credit" || approval.kind === "waiver" ? customerLink(approval.refId) : undefined;
+
+  if (customer) {
+    actions.push({ label: "View customer", icon: IconUserCircle, to: customer });
+  }
+
+  if (!handled.value[approval.id]) {
+    actions.push(
+      { label: "Approve", icon: IconCheck, variant: "primary", onSelect: () => openConfirm(approval, "approve") },
+      { label: "Reject", icon: IconX, variant: "danger", onSelect: () => openConfirm(approval, "reject") }
+    );
+  }
+
+  return actions;
 }
 
 function loanFor(refId: string) {
@@ -92,13 +113,6 @@ function confirmLoanApproval() {
           <span>Interest: <UiMoneyText :centavos="loanPreview(loanFor(row.refId)!).totalInterest" size="sm" /></span>
           <span>Installment / pay run: <UiMoneyText :centavos="loanPreview(loanFor(row.refId)!).installment" size="sm" /></span>
         </div>
-        <RouterLink
-          v-else-if="(row.kind === 'credit' || row.kind === 'waiver') && customerLink(row.refId)"
-          :to="customerLink(row.refId)!"
-          class="text-sm font-medium text-brand-700 hover:underline"
-        >
-          View customer
-        </RouterLink>
       </template>
       <template #cell-status="{ row }">
         <UiStatusPill v-if="handled[row.id]" :tone="handled[row.id] === 'approved' ? 'ok' : 'danger'">
@@ -107,10 +121,7 @@ function confirmLoanApproval() {
         <UiStatusPill v-else tone="warn">Pending</UiStatusPill>
       </template>
       <template #cell-actions="{ row }">
-        <div v-if="!handled[row.id]" class="flex justify-end gap-2">
-          <UiButton size="sm" @click="openConfirm(row, 'approve')">Approve</UiButton>
-          <UiButton size="sm" variant="danger" @click="openConfirm(row, 'reject')">Reject</UiButton>
-        </div>
+        <UiDataTableRowActions :actions="approvalActions(row)" />
       </template>
       <template #empty>
         <UiEmptyState title="No pending approvals" />

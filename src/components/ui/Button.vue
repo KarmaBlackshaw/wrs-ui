@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from "vue-router";
+import type { TButtonVariant } from "@/types";
 
 const {
   variant = "primary",
@@ -10,7 +11,7 @@ const {
   disabled = false,
   type = "button",
 } = defineProps<{
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  variant?: TButtonVariant;
   size?: "sm" | "md" | "lg";
   block?: boolean;
   to?: RouteLocationRaw;
