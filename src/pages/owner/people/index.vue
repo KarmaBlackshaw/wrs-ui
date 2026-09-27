@@ -7,7 +7,7 @@ import { ROUTES } from "@/types/routes";
 
 definePage({ meta: { title: "Employees" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 const router = useRouter();
 
 const employees = ref<TEmployee[]>([...employeesMock]);
@@ -49,7 +49,7 @@ function submitAddEmployee() {
   newPhone.value = "";
   newRoles.value = [];
   addOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 function openEmployee(employee: TEmployee) {

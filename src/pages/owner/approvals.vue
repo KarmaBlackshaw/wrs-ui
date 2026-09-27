@@ -10,7 +10,7 @@ definePage({ meta: { title: "Approvals" } });
 const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const handled = ref<Record<string, "approved" | "rejected">>({});
 
@@ -66,7 +66,7 @@ function confirmDecision() {
   }
 
   handled.value[confirmApproval.value.id] = confirmAction.value === "approve" ? "approved" : "rejected";
-  toastStore.show(confirmAction.value === "approve" ? "Approved" : "Rejected");
+  toast.show(confirmAction.value === "approve" ? "Approved" : "Rejected");
   confirmDialogOpen.value = false;
 }
 
@@ -76,7 +76,7 @@ function confirmLoanApproval() {
   }
 
   handled.value[loanApproval.value.id] = "approved";
-  toastStore.show("Loan approved");
+  toast.show("Loan approved");
   loanSheetOpen.value = false;
 }
 </script>

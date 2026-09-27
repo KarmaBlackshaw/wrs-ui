@@ -5,7 +5,7 @@ import { ROUTES } from "@/types/routes";
 
 definePage({ meta: { title: "Payroll" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 const router = useRouter();
 
 const payRuns = ref<TPayRun[]>([...payRunsMock]);
@@ -50,7 +50,7 @@ function submitNewRun() {
   });
 
   addOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 function openRun(run: TPayRun) {

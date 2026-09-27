@@ -8,7 +8,7 @@ const { employeeName } = useEmployeeLookup();
 const { findCustomer } = useCustomerLookup();
 
 const route = useRoute("/owner/customers/[id]");
-const toastStore = useToastStore();
+const toast = useToast();
 
 const customer = computed(() => findCustomer(route.params.id));
 
@@ -57,14 +57,14 @@ function openCreditSheet() {
 }
 
 function submitCredit() {
-  toastStore.show("Credit settings saved");
+  toast.show("Credit settings saved");
   creditSheetOpen.value = false;
 }
 
 const waiveDialogOpen = ref(false);
 
 function submitWaive() {
-  toastStore.show("Deposit waiver saved");
+  toast.show("Deposit waiver saved");
   waiveDialogOpen.value = false;
 }
 
@@ -83,7 +83,7 @@ function openEditSheet() {
 }
 
 function submitEdit() {
-  toastStore.show("Customer saved");
+  toast.show("Customer saved");
   editSheetOpen.value = false;
 }
 </script>

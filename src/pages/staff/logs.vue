@@ -6,7 +6,7 @@ definePage({ meta: { title: "Readings" } });
 
 const { employeeName } = useEmployeeLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const logColumns: { key: string; label: string; align?: "left" | "right" }[] = [
   { key: "label", label: "Type" },
@@ -57,7 +57,7 @@ function submitReading() {
   }
 
   sheetOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

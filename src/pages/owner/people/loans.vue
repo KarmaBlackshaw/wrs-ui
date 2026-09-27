@@ -6,7 +6,7 @@ definePage({ meta: { title: "Loans" } });
 
 const { employeeName } = useEmployeeLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const loans = ref<TLoan[]>([...loansMock]);
 
@@ -47,7 +47,7 @@ function openSchedule(loan: TLoan) {
 
 function approve(loan: TLoan) {
   loan.status = "approved";
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 const releaseLoan = ref<TLoan | null>(null);
@@ -66,7 +66,7 @@ function submitRelease() {
   releaseLoan.value.status = "released";
   releaseLoan.value.authorizationUrl = URL.createObjectURL(releaseFile.value);
   releaseLoan.value = null;
-  toastStore.show("Released, posted as expense");
+  toast.show("Released, posted as expense");
 }
 </script>
 

@@ -9,7 +9,7 @@ definePage({ meta: { title: "Payroll run" } });
 const { employeeName } = useEmployeeLookup();
 
 const route = useRoute("/owner/people/payroll/[id]");
-const toastStore = useToastStore();
+const toast = useToast();
 
 const payRuns = ref<TPayRun[]>([...payRunsMock]);
 const run = computed(() => payRuns.value.find((candidate) => candidate.id === route.params.id));
@@ -68,7 +68,7 @@ function submitAdjust() {
   adjustLine.value.adjustments += delta;
   adjustLine.value.net += delta;
   adjustLine.value = null;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 const finalizeOpen = ref(false);
@@ -79,7 +79,7 @@ function confirmFinalize() {
   }
 
   finalizeOpen.value = false;
-  toastStore.show("Payroll run finalized");
+  toast.show("Payroll run finalized");
 }
 </script>
 

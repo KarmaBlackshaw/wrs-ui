@@ -3,7 +3,7 @@ import { containerHoldings, containerMovements, containerCounts } from "@/mocks/
 
 definePage({ meta: { title: "Containers" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const holdingColumns = [
   { key: "locationLabel", label: "Location" },
@@ -44,7 +44,7 @@ const movementQty = ref(1);
 const movementReason = ref("");
 
 function submitMovement() {
-  toastStore.show("Container movement saved");
+  toast.show("Container movement saved");
   movementSheetOpen.value = false;
   movementQty.value = 1;
   movementReason.value = "";

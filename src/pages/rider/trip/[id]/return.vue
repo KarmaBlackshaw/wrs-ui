@@ -5,13 +5,13 @@ definePage({ meta: { title: "Return summary" } });
 
 const route = useRoute();
 const router = useRouter();
-const toastStore = useToastStore();
+const toast = useToast();
 
 const tripId = computed(() => String(route.params.id));
 const summary = computed(() => tripSummary(tripId.value));
 
 function submitReturn() {
-  toastStore.show("Saved");
+  toast.show("Saved");
   router.push(ROUTES.RIDER.INDEX);
 }
 </script>

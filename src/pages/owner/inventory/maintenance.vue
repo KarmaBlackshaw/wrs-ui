@@ -7,7 +7,7 @@ import type { TMaintenanceLog } from "@/types/entities/maintenance";
 
 definePage({ meta: { title: "Maintenance" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const maintenanceLogs = ref<TMaintenanceLog[]>([...maintenanceLogsMock]);
 const latestMeterLiters = computed(() => Math.max(...meterReadings.map((reading) => reading.liters)));
@@ -59,7 +59,7 @@ function submitReplacement() {
   });
 
   logSheetItem.value = null;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

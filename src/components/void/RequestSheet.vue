@@ -5,7 +5,7 @@ defineProps<{
   summary: string;
 }>();
 
-const toastStore = useToastStore();
+const toast = useToast();
 const reason = ref("");
 
 const canSubmit = computed(() => reason.value.trim().length > 0);
@@ -15,7 +15,7 @@ function submit() {
     return;
   }
 
-  toastStore.show("Void requested");
+  toast.show("Void requested");
   reason.value = "";
   open.value = false;
 }

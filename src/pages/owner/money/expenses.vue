@@ -10,7 +10,7 @@ definePage({ meta: { title: "Expenses" } });
 
 const { employeeName } = useEmployeeLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const expenses = ref<TExpense[]>([...expensesMock]);
 
@@ -94,7 +94,7 @@ function submitAddExpense() {
   newQty.value = 0;
   newReceipt.value = null;
   addOpen.value = false;
-  toastStore.show(newConsumableId.value ? "Saved, consumable restocked" : "Saved");
+  toast.show(newConsumableId.value ? "Saved, consumable restocked" : "Saved");
 }
 </script>
 

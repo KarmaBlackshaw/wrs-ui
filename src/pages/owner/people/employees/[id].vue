@@ -7,7 +7,7 @@ import { ROUTES } from "@/types/routes";
 definePage({ meta: { title: "Employee" } });
 
 const route = useRoute("/owner/people/employees/[id]");
-const toastStore = useToastStore();
+const toast = useToast();
 
 const employee = computed(() => employees.find((candidate) => candidate.id === route.params.id));
 
@@ -77,7 +77,7 @@ function submitEdit() {
   });
 
   editOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

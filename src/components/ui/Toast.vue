@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const toastStore = useToastStore();
+const { toasts, dismiss } = useToast();
 
 const toneIcons = {
   success: { icon: "check-circle-fill", class: "text-emerald-600" },
@@ -22,7 +22,7 @@ const toneIcons = {
       leave-active-class="transition duration-150 motion-reduce:transition-none"
     >
       <div
-        v-for="toast in toastStore.toasts"
+        v-for="toast in toasts"
         :key="toast.id"
         class="pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-xl border border-zinc-200 bg-white py-3 pr-2 pl-4 text-sm font-medium text-zinc-900 shadow-lg"
       >
@@ -32,7 +32,7 @@ const toneIcons = {
           type="button"
           aria-label="Dismiss"
           class="grid size-8 shrink-0 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600"
-          @click="toastStore.dismiss(toast.id)"
+          @click="dismiss(toast.id)"
         >
           <UiIcon name="x" class="size-4" />
         </button>

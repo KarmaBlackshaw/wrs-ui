@@ -6,7 +6,7 @@ definePage({ meta: { title: "Water quality" } });
 
 const { employeeName } = useEmployeeLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const labTests = ref<TLabTest[]>([...labTestsMock]);
 
@@ -56,7 +56,7 @@ function submitAddTest() {
   newNextDue.value = "";
   newFile.value = null;
   addOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

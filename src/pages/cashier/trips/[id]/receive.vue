@@ -36,7 +36,7 @@ function setEmpty(productId: string, qty: number) {
 }
 
 function submit() {
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   router.push(ROUTES.CASHIER.TRIPS.INDEX);
 }
 </script>

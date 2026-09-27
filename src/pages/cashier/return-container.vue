@@ -39,7 +39,7 @@ function confirm() {
     return;
   }
 
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   returned.value = {};
   customerSheetOpen.value = true;
   customer.value = null;

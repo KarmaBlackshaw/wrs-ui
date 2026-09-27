@@ -11,7 +11,7 @@ definePage({ meta: { title: "Log delivery" } });
 
 const route = useRoute();
 const router = useRouter();
-const toastStore = useToastStore();
+const toast = useToast();
 
 const tripId = computed(() => String(route.params.id));
 
@@ -118,7 +118,7 @@ function applyBalanceSuggestion() {
 function confirmCollectPayment() {
   collectPaymentOpen.value = false;
   paymentAmountInput.value = "";
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 const confirmOpen = ref(false);
@@ -133,7 +133,7 @@ function openConfirmDialog() {
 
 function confirmDelivery() {
   confirmOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
   router.push(ROUTES.RIDER.INDEX);
 }
 

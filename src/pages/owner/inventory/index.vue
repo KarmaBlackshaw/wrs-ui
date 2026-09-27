@@ -5,7 +5,7 @@ import type { TPrice, TProduct, TProductKind } from "@/types/entities/product";
 
 definePage({ meta: { title: "Products & prices" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const products = ref<TProduct[]>([...productsMock]);
 const prices = ref<TPrice[]>([...pricesMock]);
@@ -85,7 +85,7 @@ function submitAddProduct() {
   newName.value = "";
   newPrice.value = "";
   addOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 const priceSheetProduct = ref<TProduct | null>(null);
@@ -112,7 +112,7 @@ function submitPriceChange() {
   });
 
   priceSheetProduct.value = null;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

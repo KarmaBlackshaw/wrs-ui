@@ -48,12 +48,12 @@ function openVoid(delivery: (typeof summary.deliveries)[number]) {
 }
 
 function recordShortage() {
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   shortageSheetOpen.value = false;
 }
 
 function reconcile() {
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   router.push(tripsHomeRoute.value);
 }
 </script>

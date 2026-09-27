@@ -19,7 +19,7 @@ const auth: Middleware = (to) => {
   const requiredRoles = to.meta.roles;
 
   if (requiredRoles && authStore.activeRole && !requiredRoles.includes(authStore.activeRole)) {
-    useToastStore().show(`Not available for ${ROLE_LABEL[authStore.activeRole]}`, "warning");
+    useToast().show(`Not available for ${ROLE_LABEL[authStore.activeRole]}`, "warning");
 
     return ROLE_HOME[authStore.activeRole];
   }

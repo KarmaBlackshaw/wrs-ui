@@ -4,7 +4,7 @@ import { ROUTES } from "@/types/routes";
 definePage({ meta: { title: "Report" } });
 
 const route = useRoute("/owner/reports/[report]");
-const toastStore = useToastStore();
+const toast = useToast();
 
 const report = computed(() => REPORTS.find((candidate) => candidate.slug === route.params.report) ?? null);
 
@@ -24,7 +24,7 @@ const filteredRows = computed(() => {
 });
 
 function exportCsv() {
-  toastStore.show("Export ready (demo)");
+  toast.show("Export ready (demo)");
 }
 </script>
 

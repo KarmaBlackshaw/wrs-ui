@@ -35,7 +35,7 @@ function variance(type: string, field: "full" | "empty") {
 }
 
 function submit() {
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   router.push(ROUTES.CASHIER.INDEX);
 }
 </script>

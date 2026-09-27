@@ -19,7 +19,7 @@ function confirm() {
     return;
   }
 
-  useToastStore().show("Saved");
+  useToast().show("Saved");
   pad.value = "";
   customerSheetOpen.value = true;
   customer.value = null;

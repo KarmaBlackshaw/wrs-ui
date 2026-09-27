@@ -6,7 +6,7 @@ definePage({ meta: { title: "Consumables" } });
 
 const { productName } = useProductLookup();
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const consumables = ref<TConsumable[]>([...consumablesMock]);
 const productUsages = ref<TProductUsage[]>([...productUsagesMock]);
@@ -43,7 +43,7 @@ function submitUsage() {
   productUsages.value.push(...usageDrafts.value.map((draft) => ({ consumableId, productId: draft.productId, qtyPerUnit: draft.qtyPerUnit })));
 
   usageSheetConsumable.value = null;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 
 const stockTakeConsumable = ref<TConsumable | null>(null);
@@ -73,7 +73,7 @@ function submitStockTake() {
   });
 
   stockTakeConsumable.value = null;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

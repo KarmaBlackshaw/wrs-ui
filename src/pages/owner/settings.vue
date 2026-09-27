@@ -7,7 +7,7 @@ import { ROUTES } from "@/types/routes";
 
 definePage({ meta: { title: "Settings" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const settingsHistory = ref<TSetting[]>([...settingsMock]);
 
@@ -120,7 +120,7 @@ function submitEdit() {
 }
 
 function saveChanges() {
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 

@@ -3,7 +3,7 @@ import { ROUTES } from "@/types/routes";
 
 definePage({ meta: { title: "Customers" } });
 
-const toastStore = useToastStore();
+const toast = useToast();
 
 const columns = [
   { key: "name", label: "Name" },
@@ -32,7 +32,7 @@ function submitAdd() {
     return;
   }
 
-  toastStore.show("Customer saved");
+  toast.show("Customer saved");
   nameDraft.value = "";
   addressDraft.value = "";
   addSheetOpen.value = false;

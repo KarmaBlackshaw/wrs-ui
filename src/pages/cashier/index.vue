@@ -80,7 +80,7 @@ function confirmOpen() {
   isOpen.value = true;
   openPad.value = "";
   openSheetOpen.value = false;
-  useToastStore().show("Saved");
+  useToast().show("Saved");
 }
 
 function confirmExpense() {
@@ -92,14 +92,14 @@ function confirmExpense() {
   expensePad.value = "";
   expenseNote.value = "";
   expenseSheetOpen.value = false;
-  useToastStore().show("Saved");
+  useToast().show("Saved");
 }
 
 function confirmClose() {
   isOpen.value = false;
   closeSheetOpen.value = false;
   countPad.value = "";
-  useToastStore().show("Saved");
+  useToast().show("Saved");
 }
 </script>
 

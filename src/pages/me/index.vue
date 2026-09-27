@@ -6,7 +6,7 @@ import { ROUTES } from "@/types/routes";
 definePage({ meta: { title: "Me" } });
 
 const authStore = useAuthStore();
-const toastStore = useToastStore();
+const toast = useToast();
 const router = useRouter();
 
 function payRunFor(runId: string) {
@@ -60,7 +60,7 @@ function submitRequest() {
   }
 
   sheetOpen.value = false;
-  toastStore.show("Saved");
+  toast.show("Saved");
 }
 </script>
 
