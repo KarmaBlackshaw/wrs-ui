@@ -29,7 +29,7 @@ const items = [
   { label: "Sales", to: ROUTES.OWNER.SALES, icon: IconReceipt, activeIcon: IconReceiptFill },
   { label: "Trips", to: ROUTES.OWNER.TRIPS, icon: IconTruck, activeIcon: IconTruckFill },
   { label: "Customers", to: ROUTES.OWNER.CUSTOMERS.INDEX, icon: IconUsers, activeIcon: IconUsersFill },
-  { label: "Containers", to: ROUTES.OWNER.CONTAINERS, icon: IconCube, activeIcon: IconCubeFill },
+  { label: "Containers", to: ROUTES.OWNER.CONTAINERS.INDEX, icon: IconCube, activeIcon: IconCubeFill },
   { label: "Inventory", to: ROUTES.OWNER.INVENTORY.INDEX, icon: IconPackage, activeIcon: IconPackageFill },
   { label: "Money", to: ROUTES.OWNER.MONEY.INDEX, icon: IconWallet, activeIcon: IconWalletFill },
   { label: "People", to: ROUTES.OWNER.PEOPLE.INDEX, icon: IconIdentificationBadge, activeIcon: IconIdentificationBadgeFill },

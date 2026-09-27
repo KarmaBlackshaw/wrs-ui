@@ -42,7 +42,11 @@ export const ROUTES = {
       INDEX: "/owner/customers",
       DETAIL: (customerId: string) => `/owner/customers/${customerId}`,
     },
-    CONTAINERS: "/owner/containers",
+    CONTAINERS: {
+      INDEX: "/owner/containers",
+      MOVEMENTS: "/owner/containers/movements",
+      COUNTS: "/owner/containers/counts",
+    },
     INVENTORY: {
       INDEX: "/owner/inventory",
       CONSUMABLES: "/owner/inventory/consumables",
