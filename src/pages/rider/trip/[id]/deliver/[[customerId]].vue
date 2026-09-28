@@ -154,6 +154,7 @@ function pickCustomer(candidate: TCustomer) {
         <div class="flex flex-col gap-1">
           <p class="text-lg font-semibold text-zinc-900">{{ customer.name }}</p>
           <p class="text-base text-zinc-500">{{ customer.address }}</p>
+          <a :href="`tel:${customer.phone}`" class="text-base font-medium text-brand-600">{{ customer.phone }}</a>
         </div>
         <div v-if="customer.creditBalance > 0" class="mt-3 flex items-center justify-between gap-3">
           <p class="text-sm text-zinc-500">

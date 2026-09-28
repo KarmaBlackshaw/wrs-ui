@@ -4,6 +4,7 @@ export type TCustomer = {
   id: string;
   name: string;
   address: string;
+  phone: string;
   creditEnabled: boolean;
   creditLimit?: number;
   depositWaived: boolean;

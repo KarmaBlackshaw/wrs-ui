@@ -13,8 +13,8 @@ const filtered = useCustomerSearch(query);
 
 <template>
   <div class="flex flex-col gap-3">
-    <UiSearchInput v-model="query" label="Search customers by name or address" />
-    <UiEmptyState v-if="filtered.length === 0" title="No customers found" description="Try a different name or address." />
+    <UiSearchInput v-model="query" label="Search customers by name, phone, or address" />
+    <UiEmptyState v-if="filtered.length === 0" title="No customers found" description="Try a different name, phone, or address." />
     <div v-else class="divide-y divide-zinc-100 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-xs">
       <UiListItem v-for="customer in filtered" :key="customer.id" :title="customer.name" :subtitle="customer.address" :to="getTo(customer)" />
     </div>

@@ -21,7 +21,7 @@ import {
   IconWallet,
   IconWalletFill,
 } from "@/components";
-import { ROUTES } from "@/types";
+import { OWNER_TABS, ROUTES } from "@/types";
 
 const items = [
   { label: "Dashboard", to: ROUTES.OWNER.INDEX, icon: IconSquaresFour, activeIcon: IconSquaresFourFill },
@@ -33,7 +33,7 @@ const items = [
   { label: "Inventory", to: ROUTES.OWNER.INVENTORY.INDEX, icon: IconPackage, activeIcon: IconPackageFill },
   { label: "Money", to: ROUTES.OWNER.MONEY.INDEX, icon: IconWallet, activeIcon: IconWalletFill },
   { label: "People", to: ROUTES.OWNER.PEOPLE.INDEX, icon: IconIdentificationBadge, activeIcon: IconIdentificationBadgeFill },
-  { label: "Settings", to: ROUTES.OWNER.SETTINGS, icon: IconGear, activeIcon: IconGearFill },
+  { label: "Settings", to: ROUTES.OWNER.SETTINGS.INDEX, icon: IconGear, activeIcon: IconGearFill, children: OWNER_TABS.SETTINGS },
 ];
 </script>
 

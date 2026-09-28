@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { TTab } from "@/types";
+
 const { items, home } = defineProps<{
-  items: { label: string; to: string; icon: Component; activeIcon: Component }[];
+  items: { label: string; to: string; icon: Component; activeIcon: Component; children?: TTab[] }[];
   home: string;
 }>();
 
@@ -39,16 +41,28 @@ function isActive(to: string) {
       </RouterLink>
 
       <nav class="flex flex-1 flex-col gap-0.5 overflow-y-auto p-3" aria-label="Main">
-        <RouterLink
-          v-for="item in items"
-          :key="item.to"
-          :to="item.to"
-          :aria-current="isActive(item.to) ? 'page' : undefined"
-          class="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-800"
-        >
-          <component :is="isActive(item.to) ? item.activeIcon : item.icon" class="size-5 shrink-0" />
-          {{ item.label }}
-        </RouterLink>
+        <template v-for="item in items" :key="item.to">
+          <RouterLink
+            :to="item.to"
+            :aria-current="isActive(item.to) && !item.children ? 'page' : undefined"
+            class="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-800"
+            :class="item.children && isActive(item.to) ? 'text-zinc-900' : 'text-zinc-600'"
+          >
+            <component :is="isActive(item.to) ? item.activeIcon : item.icon" class="size-5 shrink-0" />
+            {{ item.label }}
+          </RouterLink>
+          <div v-if="item.children && isActive(item.to)" class="ml-5.5 flex flex-col gap-0.5 border-l border-zinc-200 pl-3">
+            <RouterLink
+              v-for="child in item.children"
+              :key="child.to"
+              :to="child.to"
+              :aria-current="route.path === child.to ? 'page' : undefined"
+              class="flex h-8 items-center rounded-lg px-3 text-sm text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-brand-600 aria-[current=page]:bg-brand-50 aria-[current=page]:font-medium aria-[current=page]:text-brand-800"
+            >
+              {{ child.label }}
+            </RouterLink>
+          </div>
+        </template>
       </nav>
     </aside>
 

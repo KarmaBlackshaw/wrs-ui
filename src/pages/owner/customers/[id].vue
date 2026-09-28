@@ -80,7 +80,9 @@ async function toggleWaive() {
 
 const editSheetOpen = ref(false);
 const nameDraft = ref("");
+const phoneDraft = ref("");
 const addressDraft = ref("");
+const canSaveCustomer = computed(() => nameDraft.value.trim().length > 0 && phoneDraft.value.trim().length > 0);
 
 function openEditSheet() {
   if (!customer.value) {
@@ -88,6 +90,7 @@ function openEditSheet() {
   }
 
   nameDraft.value = customer.value.name;
+  phoneDraft.value = customer.value.phone;
   addressDraft.value = customer.value.address;
   editSheetOpen.value = true;
 }
@@ -100,7 +103,7 @@ function submitEdit() {
 
 <template>
   <div v-if="customer" class="flex flex-col gap-4">
-    <UiPageHeader :title="customer.name" :subtitle="customer.address" :back="ROUTES.OWNER.CUSTOMERS.INDEX">
+    <UiPageHeader :title="customer.name" :subtitle="`${customer.phone} · ${customer.address}`" :back="ROUTES.OWNER.CUSTOMERS.INDEX">
       <template #actions>
         <UiButton variant="secondary" @click="openEditSheet">Edit</UiButton>
       </template>
@@ -159,12 +162,13 @@ function submitEdit() {
     <UiBottomSheet v-model:open="editSheetOpen" title="Edit customer">
       <div class="flex flex-col gap-4">
         <UiField v-model="nameDraft" label="Name" />
+        <UiField v-model="phoneDraft" label="Phone" type="tel" />
         <UiField v-model="addressDraft" label="Address" />
       </div>
 
       <template #footer>
         <div class="flex justify-end gap-2">
-          <UiButton :disabled="!nameDraft.trim()" @click="submitEdit">Save</UiButton>
+          <UiButton :disabled="!canSaveCustomer" @click="submitEdit">Save</UiButton>
         </div>
       </template>
     </UiBottomSheet>

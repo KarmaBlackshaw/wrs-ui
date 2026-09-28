@@ -68,7 +68,13 @@ export const ROUTES = {
       LOANS: "/owner/people/loans",
     },
     REPORT: (report: string) => `/owner/reports/${report}`,
-    SETTINGS: "/owner/settings",
+    SETTINGS: {
+      INDEX: "/owner/settings",
+      LOANS: "/owner/settings/loans",
+      CONTAINERS_CREDIT: "/owner/settings/containers-credit",
+      WATER_QUALITY: "/owner/settings/water-quality",
+      DIGEST: "/owner/settings/digest",
+    },
   },
 } as const;
 
@@ -93,5 +99,12 @@ export const OWNER_TABS = {
     { label: "Employees", to: ROUTES.OWNER.PEOPLE.INDEX },
     { label: "Payroll", to: ROUTES.OWNER.PEOPLE.PAYROLL.INDEX },
     { label: "Loans", to: ROUTES.OWNER.PEOPLE.LOANS },
+  ],
+  SETTINGS: [
+    { label: "Riders & pay", to: ROUTES.OWNER.SETTINGS.INDEX },
+    { label: "Loans", to: ROUTES.OWNER.SETTINGS.LOANS },
+    { label: "Containers & credit", to: ROUTES.OWNER.SETTINGS.CONTAINERS_CREDIT },
+    { label: "Water quality", to: ROUTES.OWNER.SETTINGS.WATER_QUALITY },
+    { label: "Digest", to: ROUTES.OWNER.SETTINGS.DIGEST },
   ],
 };

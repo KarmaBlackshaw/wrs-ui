@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import startCase from "lodash/startCase";
 
+import { IconGear } from "@/components";
 import { settings as settingsMock } from "@/mocks/settings";
-import { ROUTES } from "@/types";
+import { OWNER_TABS, ROUTES } from "@/types";
 import type { TRowAction, TSetting } from "@/types";
 
 definePage({ meta: { title: "Settings" } });
 
+const route = useRoute("/owner/settings/[[group]]");
 const toast = useToast();
 
 const settingsHistory = ref<TSetting[]>([...settingsMock]);
@@ -49,22 +51,27 @@ const unitSuffix: Record<string, string> = {
   "water.tdsAcceptableRangePpm": "ppm",
 };
 
-const groups: { name: string; keys: string[] }[] = [
-  { name: "Riders & pay", keys: ["rider.dailyQuota", "rider.incentivePerContainer", "pay.frequency", "pay.baseRate", "pay.deductionCapPct"] },
-  { name: "Loans", keys: ["loan.interestRatePct", "loan.interestMethod", "loan.maxAmount", "loan.maxTermMonths"] },
-  { name: "Containers & credit", keys: ["container.depositAmount.round", "container.depositAmount.slim", "customer.creditLimit", "void.approvalThreshold"] },
-  { name: "Water quality", keys: ["water.tdsAcceptableRangePpm", "labTest.reminderDays"] },
-  { name: "Digest", keys: ["digest.sendTime"] },
-];
+const groupKeys: Record<string, string[]> = {
+  [ROUTES.OWNER.SETTINGS.INDEX]: ["rider.dailyQuota", "rider.incentivePerContainer", "pay.frequency", "pay.baseRate", "pay.deductionCapPct"],
+  [ROUTES.OWNER.SETTINGS.LOANS]: ["loan.interestRatePct", "loan.interestMethod", "loan.maxAmount", "loan.maxTermMonths"],
+  [ROUTES.OWNER.SETTINGS.CONTAINERS_CREDIT]: [
+    "container.depositAmount.round",
+    "container.depositAmount.slim",
+    "customer.creditLimit",
+    "void.approvalThreshold",
+  ],
+  [ROUTES.OWNER.SETTINGS.WATER_QUALITY]: ["water.tdsAcceptableRangePpm", "labTest.reminderDays"],
+  [ROUTES.OWNER.SETTINGS.DIGEST]: ["digest.sendTime"],
+};
+
+const title = computed(() => OWNER_TABS.SETTINGS.find((tab) => tab.to === route.path)?.label ?? "Settings");
 
 const settingsColumns = [
   { key: "setting", label: "Setting" },
   { key: "value", label: "Value" },
 ];
 
-function settingsRows(group: { keys: string[] }) {
-  return group.keys.map((key) => ({ key, setting: currentSetting(key) }));
-}
+const settingsRows = computed(() => (groupKeys[route.path] ?? []).map((key) => ({ key, setting: currentSetting(key) })));
 
 function currentSetting(key: string) {
   const found = latestEffective(settingsHistory.value.filter((setting) => setting.key === key));
@@ -129,23 +136,12 @@ function settingActions({ setting }: { setting: TSetting }): TRowAction[] {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Settings">
+    <p class="text-sm text-zinc-500">Changing settings requires an online connection.</p>
+
+    <UiDataTable :row-actions="settingActions" :title="title" :icon="IconGear" :columns="settingsColumns" :rows="settingsRows" :row-key="(row) => row.key">
       <template #actions>
         <UiButton @click="saveChanges">Save changes</UiButton>
       </template>
-    </UiPageHeader>
-
-    <p class="text-sm text-zinc-500">Changing settings requires an online connection.</p>
-
-    <UiDataTable
-      :row-actions="settingActions"
-      v-for="group in groups"
-      :key="group.name"
-      :title="group.name"
-      :columns="settingsColumns"
-      :rows="settingsRows(group)"
-      :row-key="(row) => row.key"
-    >
       <template #cell-setting="{ row }">{{ settingLabel[row.key] }}</template>
       <template #cell-value="{ row }">
         <span v-if="displayValue(row.setting) !== null" class="text-zinc-700">{{ displayValue(row.setting) }}</span>

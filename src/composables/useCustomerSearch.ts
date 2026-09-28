@@ -12,6 +12,8 @@ export function useCustomerSearch(query: MaybeRefOrGetter<string>, source: Maybe
       return list;
     }
 
-    return list.filter((customer) => customer.name.toLowerCase().includes(term) || customer.address.toLowerCase().includes(term));
+    return list.filter(
+      (customer) => customer.name.toLowerCase().includes(term) || customer.address.toLowerCase().includes(term) || customer.phone.includes(term)
+    );
   });
 }

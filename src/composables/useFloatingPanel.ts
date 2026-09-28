@@ -2,7 +2,7 @@ import { autoUpdate, flip, offset, shift, size, useFloating } from "@floating-ui
 import type { Placement } from "@floating-ui/vue";
 import type { Ref } from "vue";
 
-let closeOpenPanel: (() => void) | undefined;
+const openPanels: { close: () => void; floating: Readonly<Ref<HTMLElement | null>> }[] = [];
 
 export function useFloatingPanel(
   reference: Readonly<Ref<HTMLElement | null>>,
@@ -44,24 +44,35 @@ export function useFloatingPanel(
   );
 
   const close = () => (open.value = false);
+  const entry = { close, floating };
+
+  const release = () => {
+    const index = openPanels.indexOf(entry);
+
+    if (index !== -1) {
+      openPanels.splice(index, 1);
+    }
+  };
 
   watch(open, (isOpen) => {
-    if (isOpen) {
-      if (closeOpenPanel !== close) {
-        closeOpenPanel?.();
+    if (!isOpen) {
+      release();
+
+      return;
+    }
+
+    for (const panel of [...openPanels].reverse()) {
+      if (panel.floating.value?.contains(reference.value)) {
+        break;
       }
 
-      closeOpenPanel = close;
-    } else if (closeOpenPanel === close) {
-      closeOpenPanel = undefined;
+      panel.close();
     }
+
+    openPanels.push(entry);
   });
 
-  onScopeDispose(() => {
-    if (closeOpenPanel === close) {
-      closeOpenPanel = undefined;
-    }
-  });
+  onScopeDispose(release);
 
   onClickOutside(floating, close, { ignore: [reference] });
 

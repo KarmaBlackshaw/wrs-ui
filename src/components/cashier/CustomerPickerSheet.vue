@@ -17,18 +17,20 @@ const query = ref("");
 const adding = ref(false);
 const extraCustomers = ref<TCustomer[]>([]);
 const newName = ref("");
+const newPhone = ref("");
 const newAddress = ref("");
 
 const allCustomers = computed(() => [...baseCustomers, ...extraCustomers.value]);
 
 const results = useCustomerSearch(query, allCustomers);
 
-const canAdd = computed(() => newName.value.trim().length > 0 && newAddress.value.trim().length > 0);
+const canAdd = computed(() => newName.value.trim().length > 0 && newPhone.value.trim().length > 0 && newAddress.value.trim().length > 0);
 
 function reset() {
   query.value = "";
   adding.value = false;
   newName.value = "";
+  newPhone.value = "";
   newAddress.value = "";
 }
 
@@ -46,6 +48,7 @@ function addCustomer() {
   const customer: TCustomer = {
     id: `cust-local-${Date.now()}`,
     name: newName.value.trim(),
+    phone: newPhone.value.trim(),
     address: newAddress.value.trim(),
     creditEnabled: false,
     depositWaived: false,
@@ -69,7 +72,7 @@ function addCustomer() {
           v-for="customer in results"
           :key="customer.id"
           type="button"
-          class="flex min-h-12 flex-col items-start px-1 py-3 text-left focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
+          class="flex min-h-12 shrink-0 flex-col items-start px-1 py-3 text-left focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
           @click="pick(customer)"
         >
           <span class="text-base font-medium text-zinc-900">{{ customer.name }}</span>
@@ -81,6 +84,7 @@ function addCustomer() {
     </div>
     <div v-else class="flex flex-col gap-3">
       <UiField v-model="newName" label="Name" />
+      <UiField v-model="newPhone" label="Phone" type="tel" />
       <UiField v-model="newAddress" label="Address" />
       <div class="flex justify-end gap-2">
         <UiButton variant="ghost" @click="adding = false">Back to search</UiButton>
