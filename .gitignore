@@ -21,3 +21,5 @@ auto-imports.d.ts
 components.d.ts
 typed-router.d.ts
 .playwright-mcp
+# Claude local memory pointer (machine-specific Obsidian paths)
+CLAUDE.local.md

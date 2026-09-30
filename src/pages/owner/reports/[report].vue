@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { IconClipboardText } from "@/components";
 import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Report" } });
@@ -51,9 +52,7 @@ function exportCsv() {
 
 <template>
   <div v-if="report && table" class="flex flex-col gap-4">
-    <UiPageHeader :title="report.title" :subtitle="report.description" :back="ROUTES.OWNER.INDEX" />
-
-    <UiDataTable :columns="table.columns" :rows="filteredRows" :row-key="(row) => row._rowId">
+    <UiDataTable :title="report.title" :icon="IconClipboardText" :columns="table.columns" :rows="filteredRows" :row-key="(row) => row._rowId">
       <template #actions>
         <UiButton variant="secondary" @click="exportCsv">Export CSV</UiButton>
       </template>
@@ -73,7 +72,7 @@ function exportCsv() {
 
   <UiEmptyState v-else title="Report not found" description="This report type isn't available.">
     <template #action>
-      <UiButton :to="ROUTES.OWNER.INDEX">Back to dashboard</UiButton>
+      <UiButton :to="ROUTES.OWNER.REPORTS">Back to reports</UiButton>
     </template>
   </UiEmptyState>
 </template>

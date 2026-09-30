@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { IconClipboardText } from "@/components";
 import { digestDays } from "@/mocks/digest";
-import { ROUTES } from "@/types";
 
 definePage({ meta: { title: "Daily digest" } });
 
@@ -27,10 +27,17 @@ function selectDay(day: { date: string }) {
 
 <template>
   <div class="flex flex-col gap-4">
-    <UiPageHeader title="Daily digest" subtitle="End-of-day summary, past days" :back="ROUTES.OWNER.INDEX" />
-
     <div class="grid gap-4 lg:grid-cols-[auto_1fr] lg:items-start">
-      <UiDataTable clickable :columns="columns" :rows="pastDays" :row-key="(row) => row.date" :active-key="selectedDate" @row-click="selectDay">
+      <UiDataTable
+        clickable
+        title="Daily digest"
+        :icon="IconClipboardText"
+        :columns="columns"
+        :rows="pastDays"
+        :row-key="(row) => row.date"
+        :active-key="selectedDate"
+        @row-click="selectDay"
+      >
         <template #cell-date="{ row }">{{ formatDate(row.date) }}</template>
         <template #cell-salesCash="{ row }">
           <UiMoneyText :centavos="row.salesCash" size="sm" />

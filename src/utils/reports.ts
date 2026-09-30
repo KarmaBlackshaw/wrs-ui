@@ -1,4 +1,6 @@
+import maxBy from "lodash/maxBy";
 import startCase from "lodash/startCase";
+import sumBy from "lodash/sumBy";
 
 import { consumables } from "@/mocks/consumables";
 import { containerCounts, containerHoldings } from "@/mocks/containers";
@@ -13,47 +15,154 @@ import { shortages } from "@/mocks/shortages";
 import { deliveries, trips } from "@/mocks/trips";
 import { waterReadings } from "@/mocks/waterQuality";
 import { walkInSales } from "@/mocks/walkInSales";
-import type { TReportTable } from "@/types";
+import type { TLoan, TReportSummary, TReportTable } from "@/types";
 
 const { employeeName } = useEmployeeLookup();
 const { customerName } = useCustomerLookup();
 
-export const REPORTS = [
+export const REPORTS: { slug: string; title: string; description: string; summary: () => TReportSummary }[] = [
   {
     slug: "rider-reconciliation",
     title: "Rider reconciliation",
     description: "Loaded, delivered, returned and cash per trip",
-    preview: ["rider", "delivered", "cashVariance"],
+    summary: () => {
+      const variance = sumBy(trips, (trip) => tripSummary(trip.id).cashVariance);
+
+      return { value: formatMoney(variance), hint: "Cash variance", tone: variance !== 0 ? "warn" : "default" };
+    },
   },
   {
     slug: "shortages",
     title: "Rider & cashier shortages",
     description: "Employee, source, cash, containers and whether approved for deduction",
-    preview: ["employee", "source", "cash", "approved"],
+    summary: () => {
+      const pending = shortages.filter((shortage) => !shortage.approvedForDeduction).length;
+
+      return { value: String(pending), hint: "Pending review", tone: pending > 0 ? "warn" : "default" };
+    },
   },
   {
     slug: "cashier-variance",
     title: "Cashier variance",
     description: "Drawer sessions and cash variance per cashier",
-    preview: ["cashier", "opened", "variance"],
+    summary: () => {
+      const variance = sumBy(drawerSessions, (session) => (session.countedCash !== undefined ? session.countedCash - session.openingCash : 0));
+
+      return { value: formatMoney(variance), hint: "Closed sessions", tone: variance !== 0 ? "warn" : "default" };
+    },
   },
-  { slug: "sales", title: "Sales", description: "Deliveries and walk-in sales", preview: ["customer", "type", "amount"] },
-  { slug: "credit-aging", title: "Credit aging", description: "Customer balances by aging bucket" },
-  { slug: "containers-held", title: "Containers held", description: "Holdings by station, rider and customer" },
-  { slug: "container-count-variance", title: "Container count variance", description: "Daily counts against expected", preview: ["date", "type", "variance"] },
-  { slug: "stock-reorder", title: "Stock and reorder", description: "Consumables on hand against reorder levels" },
+  {
+    slug: "sales",
+    title: "Sales",
+    description: "Deliveries and walk-in sales",
+    summary: () => ({ value: formatMoney(salesTotal()), hint: `${deliveries.length + walkInSales.length} transactions` }),
+  },
+  {
+    slug: "credit-aging",
+    title: "Credit aging",
+    description: "Customer balances by aging bucket",
+    summary: () => {
+      const owing = customers.filter((customer) => customer.creditBalance > 0);
+
+      return { value: formatMoney(sumBy(owing, "creditBalance")), hint: `${owing.length} customers` };
+    },
+  },
+  {
+    slug: "containers-held",
+    title: "Containers held",
+    description: "Holdings by station, rider and customer",
+    summary: () => ({ value: String(sumBy(containerHoldings, (holding) => holding.full + holding.empty)), hint: "Full and empty" }),
+  },
+  {
+    slug: "container-count-variance",
+    title: "Container count variance",
+    description: "Daily counts against expected",
+    summary: () => {
+      const off = containerCounts.filter((count) => count.full + count.empty !== count.expected).length;
+
+      return { value: String(off), hint: "Counts off expected", tone: off > 0 ? "warn" : "default" };
+    },
+  },
+  {
+    slug: "stock-reorder",
+    title: "Stock and reorder",
+    description: "Consumables on hand against reorder levels",
+    summary: () => {
+      const low = consumables.filter((consumable) => consumable.onHand <= consumable.reorderLevel).length;
+
+      return { value: String(low), hint: "To reorder", tone: low > 0 ? "warn" : "default" };
+    },
+  },
   {
     slug: "maintenance-due",
     title: "Maintenance due",
     description: "Filters, membrane and UV lamp due or overdue",
-    preview: ["item", "lastReplaced", "status"],
+    summary: () => {
+      const due = maintenanceStates().filter(({ state }) => state.status !== "ok").length;
+
+      return { value: String(due), hint: "Due or overdue", tone: due > 0 ? "warn" : "default" };
+    },
   },
-  { slug: "water-quality", title: "Water quality", description: "TDS and pH readings", preview: ["date", "tds", "ph"] },
-  { slug: "expenses", title: "Expenses", description: "All recorded expenses", preview: ["date", "category", "amount"] },
-  { slug: "payroll-summary", title: "Payroll summary", description: "Pay lines by run and employee", preview: ["employee", "deductions", "net"] },
-  { slug: "loan-balances", title: "Loan balances", description: "Outstanding loans and advances", preview: ["employee", "type", "balance"] },
-  { slug: "monthly-profit", title: "Monthly profit", description: "Sales minus expenses" },
+  {
+    slug: "water-quality",
+    title: "Water quality",
+    description: "TDS and pH readings",
+    summary: () => {
+      const latest = maxBy(waterReadings, "at");
+
+      return { value: latest ? `${latest.tds} ppm` : "-", hint: "Latest TDS" };
+    },
+  },
+  {
+    slug: "expenses",
+    title: "Expenses",
+    description: "All recorded expenses",
+    summary: () => ({ value: formatMoney(sumBy(expenses, "amount")), hint: `${expenses.length} entries` }),
+  },
+  {
+    slug: "payroll-summary",
+    title: "Payroll summary",
+    description: "Pay lines by run and employee",
+    summary: () => ({ value: formatMoney(sumBy(payLines, "net")), hint: "Total net pay" }),
+  },
+  {
+    slug: "loan-balances",
+    title: "Loan balances",
+    description: "Outstanding loans and advances",
+    summary: () => ({ value: formatMoney(sumBy(loans, loanBalance)), hint: "Outstanding" }),
+  },
+  {
+    slug: "monthly-profit",
+    title: "Monthly profit",
+    description: "Sales minus expenses",
+    summary: () => {
+      const profit = salesTotal() - sumBy(expenses, "amount");
+
+      return { value: formatMoney(profit), hint: "September 2026", tone: profit < 0 ? "warn" : "default" };
+    },
+  },
 ];
+
+function salesTotal() {
+  return sumBy(deliveries, "amount") + sumBy(walkInSales, "amount");
+}
+
+function loanBalance(loan: TLoan) {
+  const paid = sumBy(
+    installments.filter((installment) => installment.loanId === loan.id && installment.paid),
+    "principalPart"
+  );
+
+  return loan.status === "released" || loan.status === "paid" ? Math.max(0, loan.principal - paid) : loan.principal;
+}
+
+function maintenanceStates() {
+  const latestMeterLiters = Math.max(...meterReadings.map((reading) => reading.liters));
+
+  return consumables
+    .filter((consumable) => consumable.kind === "maintenance")
+    .map((consumable) => ({ consumable, state: computeMaintenanceState(consumable, maintenanceLogs, latestMeterLiters) }));
+}
 
 export function buildReportTable(slug: string): TReportTable {
   switch (slug) {
@@ -218,9 +327,7 @@ export function buildReportTable(slug: string): TReportTable {
         })),
       };
 
-    case "maintenance-due": {
-      const latestMeterLiters = Math.max(...meterReadings.map((reading) => reading.liters));
-
+    case "maintenance-due":
       return {
         columns: [
           { key: "item", label: "Item" },
@@ -228,20 +335,13 @@ export function buildReportTable(slug: string): TReportTable {
           { key: "litersSince", label: "Liters since", align: "right" },
           { key: "status", label: "Status" },
         ],
-        rows: consumables
-          .filter((consumable) => consumable.kind === "maintenance")
-          .map((consumable) => {
-            const state = computeMaintenanceState(consumable, maintenanceLogs, latestMeterLiters);
-
-            return {
-              item: consumable.name,
-              lastReplaced: state.lastReplacedAt ? formatDate(state.lastReplacedAt) : "Never",
-              litersSince: state.litersSince ?? "-",
-              status: startCase(state.status),
-            };
-          }),
+        rows: maintenanceStates().map(({ consumable, state }) => ({
+          item: consumable.name,
+          lastReplaced: state.lastReplacedAt ? formatDate(state.lastReplacedAt) : "Never",
+          litersSince: state.litersSince ?? "-",
+          status: startCase(state.status),
+        })),
       };
-    }
 
     case "water-quality":
       return {
@@ -313,25 +413,18 @@ export function buildReportTable(slug: string): TReportTable {
           { key: "status", label: "Status" },
           { key: "balance", label: "Balance", align: "right" },
         ],
-        rows: loans.map((loan) => {
-          const paid = installments
-            .filter((installment) => installment.loanId === loan.id && installment.paid)
-            .reduce((sum, installment) => sum + installment.principalPart, 0);
-          const balance = loan.status === "released" || loan.status === "paid" ? Math.max(0, loan.principal - paid) : loan.principal;
-
-          return {
-            employee: employeeName(loan.employeeId),
-            type: startCase(loan.type),
-            principal: formatMoney(loan.principal),
-            status: LOAN_STATUS_LABEL[loan.status],
-            balance: formatMoney(balance),
-          };
-        }),
+        rows: loans.map((loan) => ({
+          employee: employeeName(loan.employeeId),
+          type: startCase(loan.type),
+          principal: formatMoney(loan.principal),
+          status: LOAN_STATUS_LABEL[loan.status],
+          balance: formatMoney(loanBalance(loan)),
+        })),
       };
 
     case "monthly-profit": {
-      const salesTotal = deliveries.reduce((sum, delivery) => sum + delivery.amount, 0) + walkInSales.reduce((sum, sale) => sum + sale.amount, 0);
-      const expensesTotal = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+      const sales = salesTotal();
+      const expensesTotal = sumBy(expenses, "amount");
 
       return {
         columns: [
@@ -340,9 +433,7 @@ export function buildReportTable(slug: string): TReportTable {
           { key: "expenses", label: "Expenses", align: "right" },
           { key: "profit", label: "Profit", align: "right" },
         ],
-        rows: [
-          { month: "September 2026", sales: formatMoney(salesTotal), expenses: formatMoney(expensesTotal), profit: formatMoney(salesTotal - expensesTotal) },
-        ],
+        rows: [{ month: "September 2026", sales: formatMoney(sales), expenses: formatMoney(expensesTotal), profit: formatMoney(sales - expensesTotal) }],
       };
     }
 

@@ -34,7 +34,6 @@ export const ROUTES = {
 
   OWNER: {
     INDEX: "/owner",
-    DIGEST: "/owner/digest",
     APPROVALS: "/owner/approvals",
     SALES: "/owner/sales",
     TRIPS: "/owner/trips",
@@ -67,7 +66,9 @@ export const ROUTES = {
       },
       LOANS: "/owner/people/loans",
     },
+    REPORTS: "/owner/reports",
     REPORT: (report: string) => `/owner/reports/${report}`,
+    DIGEST: "/owner/reports/digest",
     SETTINGS: {
       INDEX: "/owner/settings",
       LOANS: "/owner/settings/loans",

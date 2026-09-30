@@ -3,7 +3,7 @@ import { digestDays } from "@/mocks/digest";
 import { approvals } from "@/mocks/approvals";
 import { shortages } from "@/mocks/shortages";
 import { ROUTES } from "@/types";
-import type { TAlert, TAlertTone, TReportTable } from "@/types";
+import type { TAlert, TAlertTone } from "@/types";
 
 definePage({ meta: { title: "Dashboard" } });
 
@@ -49,27 +49,7 @@ const alerts = computed(() => {
   return list;
 });
 
-const digestTable = computed<TReportTable>(() => ({
-  columns: [
-    { key: "date", label: "Date" },
-    { key: "sales", label: "Sales", align: "right" },
-    { key: "expenses", label: "Expenses", align: "right" },
-  ],
-  rows: [...digestDays].reverse().map((day) => ({
-    date: formatDate(day.date),
-    sales: formatMoney(day.salesCash + day.salesCredit),
-    expenses: formatMoney(day.expenses),
-  })),
-}));
-
-const reportCards = computed(() =>
-  REPORTS.map((report) => {
-    const table = buildReportTable(report.slug);
-    const columns = report.preview ? table.columns.filter((column) => report.preview.includes(column.key)) : table.columns;
-
-    return { ...report, table: { columns, rows: table.rows } };
-  })
-);
+const reportSummaries = REPORTS.map((report) => ({ ...report, ...report.summary() }));
 </script>
 
 <template>
@@ -95,25 +75,38 @@ const reportCards = computed(() =>
     </div>
     <UiEmptyState v-else title="No sales recorded yet today" />
 
-    <UiCard title="Alerts">
-      <template v-if="alerts.length > 0" #actions>
-        <UiStatusPill>{{ alerts.length }}</UiStatusPill>
-      </template>
-      <div v-if="alerts.length > 0" class="-mx-4 -mb-4 flex flex-col divide-y divide-zinc-100 border-t border-zinc-100">
-        <UiListItem v-for="alert in alerts" :key="alert.id" :title="alert.title" :to="alert.to">
-          <template #trailing>
-            <UiStatusPill :tone="alert.tone">{{ toneLabel[alert.tone] }}</UiStatusPill>
-          </template>
-        </UiListItem>
-      </div>
-      <UiEmptyState v-else title="All caught up" description="No alerts right now." />
-    </UiCard>
-
-    <UiSection title="Reports">
-      <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-        <ReportCard title="Daily digest" :to="ROUTES.OWNER.DIGEST" :table="digestTable" />
-        <ReportCard v-for="report in reportCards" :key="report.slug" :title="report.title" :to="ROUTES.OWNER.REPORT(report.slug)" :table="report.table" />
-      </div>
-    </UiSection>
+    <div class="grid gap-4 lg:grid-cols-3">
+      <UiSection title="Reports" class="lg:col-span-2">
+        <template #actions>
+          <UiButton :to="ROUTES.OWNER.DIGEST" variant="ghost" size="sm">
+            Daily digest
+            <IconArrowRight class="size-4" />
+          </UiButton>
+        </template>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <RouterLink
+            v-for="report in reportSummaries"
+            :key="report.slug"
+            :to="ROUTES.OWNER.REPORT(report.slug)"
+            class="rounded-xl transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+          >
+            <UiStatCard :label="report.title" :hint="report.hint" :tone="report.tone" class="h-full">{{ report.value }}</UiStatCard>
+          </RouterLink>
+        </div>
+      </UiSection>
+      <UiCard title="Alerts" class="self-start">
+        <template v-if="alerts.length > 0" #actions>
+          <UiStatusPill>{{ alerts.length }}</UiStatusPill>
+        </template>
+        <div v-if="alerts.length > 0" class="-mx-4 -mb-4 flex flex-col divide-y divide-zinc-100 border-t border-zinc-100">
+          <UiListItem v-for="alert in alerts" :key="alert.id" :title="alert.title" :to="alert.to">
+            <template #trailing>
+              <UiStatusPill :tone="alert.tone">{{ toneLabel[alert.tone] }}</UiStatusPill>
+            </template>
+          </UiListItem>
+        </div>
+        <UiEmptyState v-else title="All caught up" description="No alerts right now." />
+      </UiCard>
+    </div>
   </div>
 </template>

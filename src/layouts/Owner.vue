@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {
+  IconClipboardText,
+  IconClipboardTextFill,
   IconCube,
   IconCubeFill,
   IconGear,
@@ -23,6 +25,11 @@ import {
 } from "@/components";
 import { OWNER_TABS, ROUTES } from "@/types";
 
+const reportTabs = [
+  { label: "Daily digest", to: ROUTES.OWNER.DIGEST },
+  ...REPORTS.map((report) => ({ label: report.title, to: ROUTES.OWNER.REPORT(report.slug) })),
+];
+
 const items = [
   { label: "Dashboard", to: ROUTES.OWNER.INDEX, icon: IconSquaresFour, activeIcon: IconSquaresFourFill },
   { label: "Approvals", to: ROUTES.OWNER.APPROVALS, icon: IconStamp, activeIcon: IconStampFill },
@@ -33,6 +40,7 @@ const items = [
   { label: "Inventory", to: ROUTES.OWNER.INVENTORY.INDEX, icon: IconPackage, activeIcon: IconPackageFill },
   { label: "Money", to: ROUTES.OWNER.MONEY.INDEX, icon: IconWallet, activeIcon: IconWalletFill },
   { label: "People", to: ROUTES.OWNER.PEOPLE.INDEX, icon: IconIdentificationBadge, activeIcon: IconIdentificationBadgeFill },
+  { label: "Reports", to: ROUTES.OWNER.REPORTS, icon: IconClipboardText, activeIcon: IconClipboardTextFill, children: reportTabs },
   { label: "Settings", to: ROUTES.OWNER.SETTINGS.INDEX, icon: IconGear, activeIcon: IconGearFill, children: OWNER_TABS.SETTINGS },
 ];
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ROUTES } from "@/types";
 
-definePage({ redirect: ROUTES.OWNER.INDEX });
+definePage({ redirect: ROUTES.OWNER.DIGEST });
 </script>
 
 <template>
